@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FotoCytruszek84</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #eee;
+            line-height: 1.6;
+        }
+        header {
+            background: #1a1a1a;
+            padding: 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .lang-switch {
+            margin: 10px 0;
+        }
+        .lang-switch button {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .lang-switch button.active {
+            background: #0066cc;
+        }
+        h1 {
+            margin: 10px 0;
+        }
+        .about {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .gallery {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #1a1a1a;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>FotoCytruszek84</h1>
+        <div class="lang-switch">
+            <button onclick="switchLang('pl')" class="active">Polski</button>
+            <button onclick="switchLang('en')">English</button>
+            <button onclick="switchLang('de')">Deutsch</button>
+        </div>
+    </header>
+
+    <section class="about" id="about">
+        <h2 id="about-title">O mnie</h2>
+        <p id="about-text">
+            Cześć! Jestem FotoCytruszek84 – amator fotografii. 
+            Robię zdjęcia czysto hobbystycznie, dla przyjemności. 
+            Uwielbiam łapać chwile z natury, codziennego życia i podróży. 
+            Zapraszam do oglądania moich zdjęć!
+        </p>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <!-- Tutaj dodasz swoje zdjęcia -->
+        <img src="https://via.placeholder.com/600x400?text=Twoje+zdjecie+1" alt="Zdjęcie 1">
+        <img src="https://via.placeholder.com/600x400?text=Twoje+zdjecie+2" alt="Zdjęcie 2">
+        <img src="https://via.placeholder.com/600x400?text=Twoje+zdjecie+3" alt="Zdjęcie 3">
+        <!-- Dodawaj kolejne linie z <img> -->
+    </section>
+
+    <footer>
+        <p>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
+    </footer>
+
+    <script>
+        const texts = {
+            pl: {
+                aboutTitle: "O mnie",
+                aboutText: "Cześć! Jestem FotoCytruszek84 – amator fotografii. Robię zdjęcia czysto hobbystycznie, dla przyjemności. Uwielbiam łapać chwile z natury, codziennego życia i podróży. Zapraszam do oglądania moich zdjęć!"
+            },
+            en: {
+                aboutTitle: "About me",
+                aboutText: "Hi! I'm FotoCytruszek84 – an amateur photographer. I take photos purely as a hobby, for pleasure. I love capturing moments from nature, everyday life and travels. Welcome to my gallery!"
+            },
+            de: {
+                aboutTitle: "Über mich",
+                aboutText: "Hallo! Ich bin FotoCytruszek84 – ein Amateurfotograf. Ich mache Fotos rein hobbymäßig, zum Vergnügen. Ich liebe es, Momente aus der Natur, dem Alltag und Reisen einzufangen. Willkommen in meiner Galerie!"
+            }
+        };
+
+        function switchLang(lang) {
+            document.getElementById('about-title').textContent = texts[lang].aboutTitle;
+            document.getElementById('about-text').textContent = texts[lang].aboutText;
+            
+            document.querySelectorAll('.lang-switch button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(lang)) btn.classList.add('active');
+            });
+        }
+    </script>
+</body>
+</html>
