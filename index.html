@@ -308,6 +308,42 @@ Zapraszam do oglądania moich zdjęć!</p>
         try {
             firebase.initializeApp(firebaseConfig);
             db = firebase.firestore();
+            // Licznik odwiedzin Firebase
+    if (db) {
+      const statsRef = db.collection("stats").doc("page_views");
+      statsRef.get().then((doc) => {
+        if (doc.exists) {
+          statsRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+          const countEl = document.getElementById("visit-count");
+          if (countEl) countEl.textContent = doc.data().count + 1;
+        } else {
+          statsRef.set({ count: 1 });
+          const countEl = document.getElementById("visit-count");
+          if (countEl) countEl.textContent = 1;
+        }
+      }).catch(() => {
+        const countEl = document.getElementById("visit-count");
+        if (countEl) countEl.textContent = "1";
+      });
+    }
+            // Licznik odwiedzin Firebase
+    if (db) {
+      const statsRef = db.collection("stats").doc("page_views");
+      statsRef.get().then((doc) => {
+        if (doc.exists) {
+          statsRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+          const countEl = document.getElementById("visit-count");
+          if (countEl) countEl.textContent = doc.data().count + 1;
+        } else {
+          statsRef.set({ count: 1 });
+          const countEl = document.getElementById("visit-count");
+          if (countEl) countEl.textContent = 1;
+        }
+      }).catch(() => {
+        const countEl = document.getElementById("visit-count");
+        if (countEl) countEl.textContent = "1";
+      });
+    }
         } catch (e) {
             console.log("Firebase niepodłączone - uzupełnij firebaseConfig.");
         }
