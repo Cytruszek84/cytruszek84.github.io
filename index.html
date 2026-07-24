@@ -32,6 +32,7 @@
             margin: 0 5px;
             cursor: pointer;
             border-radius: 4px;
+            transition: background 0.2s;
         }
         .lang-switch button.active {
             background: #0066cc;
@@ -44,6 +45,7 @@
             margin: 40px auto;
             padding: 0 20px;
             text-align: center;
+            white-space: pre-line; /* Zachowuje entery w opisie */
         }
         .gallery {
             max-width: 1500px;
@@ -55,12 +57,13 @@
         }
         .gallery img {
             width: 100%;
-            height: auto;
+            height: 250px; /* Dodano stałą wysokość dla wyrównania */
+            object-fit: cover; /* Dba o to, by zdjęcia się nie rozciągały */
             border-radius: 8px;
             transition: transform 0.3s;
         }
         .gallery img:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
         footer {
             text-align: center;
@@ -75,23 +78,22 @@
     <header>
         <h1>Cytruszek84</h1>
         <div class="lang-switch">
-            <button onclick="switchLang('pl')" class="active">Polski</button>
-            <button onclick="switchLang('en')" class="active">English</button>
-            <button onclick="switchLang('de')" class="active">Deutsch</button>
+            <button onclick="switchLang('pl', this)" class="active">Polski</button>
+            <button onclick="switchLang('en', this)">English</button>
+            <button onclick="switchLang('de', this)">Deutsch</button>
         </div>
     </header>
 
     <section class="about" id="about">
         <h2 id="about-title">O mnie</h2>
-        <p id="about-text">
-            "Cześć! Jestem Piotr (Cytruszek84) - amator fotografii. 
-            Urodziłem się w czerwcu 1984 roku w Kielcach
-            Robię zdjęcia czysto hobbystycznie, dla przyjemności. 
-            Uwielbiam łapać chwile z natury, codziennego życia i podróży. 
-            Każde miejsce ma swoją historię. Wystarczyło tylko sfotografować - resztę dopowie wyobraźnia.
-            Zapraszam do oglądania moich zdjęć!"
-        </p>
-        
+        <p id="about-text">Cześć! Jestem Piotr (Cytruszek84) - amator fotografii. 
+Urodziłem się w czerwcu 1984 roku w Kielcach.
+Robię zdjęcia czysto hobbystycznie, dla przyjemności. 
+Uwielbiam łapać chwile z natury, codziennego życia i podróży. 
+Każde miejsce ma swoją historię. Wystarczyło tylko sfotografować - resztę dopowie wyobraźnia.
+Zapraszam do oglądania moich zdjęć!</p>
+    </section>
+
     <section class="gallery" id="gallery">
         <img src="1.jpg?v=6" alt="Fotografia 1">
         <img src="2.jpg?v=6" alt="Fotografia 2">
@@ -105,44 +107,45 @@
     <footer>
         <p>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
     </footer>
-     <script>
+
+    <script>
         const texts = {
             pl: {
                 aboutTitle: "O mnie",
-                aboutText: "Cześć! Jestem Piotr (Cytruszek84) - amator fotografii. Urodziłem się w czerwcu 1984 roku w Kielcach
-            Robię zdjęcia czysto hobbystycznie, dla przyjemności. 
-            Uwielbiam łapać chwile z natury, codziennego życia i podróży. 
-            Każde miejsce ma swoją historię. Wystarczyło tylko sfotografować - resztę dopowie wyobraźnia.
-            Zapraszam do oglądania moich zdjęć!" 
+                aboutText: `Cześć! Jestem Piotr (Cytruszek84) - amator fotografii. 
+Urodziłem się w czerwcu 1984 roku w Kielcach.
+Robię zdjęcia czysto hobbystycznie, dla przyjemności. 
+Uwielbiam łapać chwile z natury, codziennego życia i podróży. 
+Każde miejsce ma swoją historię. Wystarczyło tylko sfotografować - resztę dopowie wyobraźnia.
+Zapraszam do oglądania moich zdjęć!` 
             },
             en: {
                 aboutTitle: "About me",
-                aboutText: "Hi! I’m Piotr (Cytruszek84)—an amateur photographer.
+                aboutText: `Hi! I’m Piotr (Cytruszek84)—an amateur photographer.
 I was born in June 1984 in Kielce.
 I take photos purely as a hobby, for the sheer pleasure of it.
 I love capturing moments from nature, everyday life, and my travels.
 Every place has a story; all it takes is a photograph—your imagination fills in the rest.
-I invite you to take a look at my photos!" 
+I invite you to take a look at my photos!` 
             },
             de: {
                 aboutTitle: "Über mich",
-                aboutText: "Hallo! Ich bin Piotr (Cytruszek84) – ein Amateurfotograf.
+                aboutText: `Hallo! Ich bin Piotr (Cytruszek84) – ein Amateurfotograf.
 Ich wurde im Juni 1984 in Kielce geboren.
 Ich fotografiere rein hobbymäßig, einfach aus purer Freude daran.
 Ich liebe es, Momente aus der Natur, dem Alltag und meinen Reisen festzuhalten.
 Jeder Ort hat seine Geschichte; man braucht nur ein Foto – den Rest erledigt die Fantasie.
-Schaut euch gerne meine Fotos an!" 
+Schaut euch gerne meine Fotos an!` 
             }
         };
 
-        function switchLang(lang) {
+        function switchLang(lang, btnElement) {
             document.getElementById('about-title').textContent = texts[lang].aboutTitle;
             document.getElementById('about-text').textContent = texts[lang].aboutText;
             
-            document.querySelectorAll('.lang-switch button').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.toLowerCase().includes(lang)) btn.classList.add('active');
-            });
+            // Podświetlenie klikniętego przycisku
+            document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
         }
     </script>
 </body>
