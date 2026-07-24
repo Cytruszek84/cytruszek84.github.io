@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cytruszek84</title>
+    <title>Cytruszek84 - Portfolio</title>
     <style>
         body {
             margin: 0;
@@ -45,7 +45,7 @@
             margin: 40px auto;
             padding: 0 20px;
             text-align: center;
-            white-space: pre-line; /* Zachowuje entery w opisie */
+            white-space: pre-line;
         }
         .gallery {
             max-width: 1500px;
@@ -57,9 +57,10 @@
         }
         .gallery img {
             width: 100%;
-            height: 250px; /* Dodano stałą wysokość dla wyrównania */
-            object-fit: cover; /* Dba o to, by zdjęcia się nie rozciągały */
+            height: 250px;
+            object-fit: cover;
             border-radius: 8px;
+            cursor: pointer;
             transition: transform 0.3s;
         }
         .gallery img:hover {
@@ -71,6 +72,27 @@
             background: #1a1a1a;
             margin-top: 50px;
         }
+
+        /* STYL POWIĘKSZONEGO ZDJĘCIA (LIGHTBOX) */
+        .lightbox {
+            display: none; /* Domyślnie ukryty */
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -78,9 +100,9 @@
     <header>
         <h1>Cytruszek84</h1>
         <div class="lang-switch">
-            <button onclick="switchLang('pl', this)" class="active">Polski</button>
-            <button onclick="switchLang('en', this)">English</button>
-            <button onclick="switchLang('de', this)">Deutsch</button>
+            <button data-lang="pl" class="active">Polski</button>
+            <button data-lang="en">English</button>
+            <button data-lang="de">Deutsch</button>
         </div>
     </header>
 
@@ -94,21 +116,20 @@ Każde miejsce ma swoją historię. Wystarczyło tylko sfotografować - resztę 
 Zapraszam do oglądania moich zdjęć!</p>
     </section>
 
-    <section class="gallery" id="gallery">
-        <img src="1.jpg?v=6" alt="Fotografia 1">
-        <img src="2.jpg?v=6" alt="Fotografia 2">
-        <img src="3.jpg?v=6" alt="Fotografia 3">
-        <img src="4.jpg?v=6" alt="Fotografia 4">
-        <img src="5.jpg?v=6" alt="Fotografia 5">
-        <img src="6.jpg?v=6" alt="Fotografia 6">
-        <img src="7.jpg?v=6" alt="Fotografia 7">
-    </section>
+    <!-- Galeria wypełniana automatycznie przez skrypt JS -->
+    <section class="gallery" id="gallery"></section>
 
     <footer>
         <p>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
     </footer>
 
+    <!-- Okienko do powiększania zdjęć na pełen ekran -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Powiększone zdjęcie">
+    </div>
+
     <script>
+        // 1. TEKSTY WIELOJĘZYCZNE
         const texts = {
             pl: {
                 aboutTitle: "O mnie",
@@ -139,13 +160,50 @@ Schaut euch gerne meine Fotos an!`
             }
         };
 
-        function switchLang(lang, btnElement) {
-            document.getElementById('about-title').textContent = texts[lang].aboutTitle;
-            document.getElementById('about-text').textContent = texts[lang].aboutText;
+        // 2. PRZEŁĄCZANIE JĘZYKÓW
+        document.querySelectorAll('.lang-switch button').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                document.getElementById('about-title').textContent = texts[lang].aboutTitle;
+                document.getElementById('about-text').textContent = texts[lang].aboutText;
+
+                document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // 3. AUTOMATYCZNE GENEROWANIE GALERII (97 ZDJĘĆ)
+        const galleryContainer = document.getElementById('gallery');
+        const iloscZdjec = 97;
+
+        for (let i = 1; i <= iloscZdjec; i++) {
+            const img = document.createElement('img');
+            img.src = `1 (${i}).jpg`; // Jeśli Twoje zdjęcia mają duże rozszerzenie .JPG, zmień tutaj na .JPG
+            img.alt = `Fotografia ${i}`;
             
-            // Podświetlenie klikniętego przycisku
-            document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
-            btnElement.classList.add('active');
+            // Kliknięcie w zdjęcie odpala powiększenie
+            img.addEventListener('click', function() {
+                openLightbox(this.src);
+            });
+
+            // Ukrywa brakujące pliki w razie braku któregoś numeru
+            img.onerror = function() {
+                this.style.display = 'none';
+            };
+
+            galleryContainer.appendChild(img);
+        }
+
+        // 4. OBSŁUGA POWIĘKSZANIA ZDJĘĆ (LIGHTBOX)
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imageSrc;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
         }
     </script>
 </body>
