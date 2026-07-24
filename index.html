@@ -12,7 +12,6 @@
             background-color: #111;
             color: #eee;
             line-height: 1.6;
-            /* Zabezpieczenie przed zaznaczaniem zawartości strony */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -67,8 +66,6 @@
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.3s;
-
-            /* Zabezpieczenie obrazków przed przeciąganiem i zapisem */
             -webkit-user-drag: none;
             -khtml-user-drag: none;
             -moz-user-drag: none;
@@ -80,9 +77,19 @@
         }
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 30px 20px;
             background: #1a1a1a;
             margin-top: 50px;
+            border-top: 1px solid #2a2a2a;
+        }
+        .copyright-notice {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-top: 10px;
+            line-height: 1.4;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* STYL POWIĘKSZONEGO ZDJĘCIA (LIGHTBOX) */
@@ -104,8 +111,6 @@
             max-height: 90%;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-
-            /* Zabezpieczenie powiększonego zdjęcia */
             -webkit-user-drag: none;
             -khtml-user-drag: none;
             -moz-user-drag: none;
@@ -113,7 +118,7 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false;"> <!-- Blokada prawego kliku na całej stronie -->
+<body oncontextmenu="return false;">
 
     <header>
         <h1>Cytruszek84</h1>
@@ -134,20 +139,23 @@ Każde miejsce ma swoją historię. Wystarczyło tylko sfotografować - resztę 
 Zapraszam do oglądania moich zdjęć!</p>
     </section>
 
-    <!-- Galeria wypełniana automatycznie przez skrypt JS -->
+    <!-- Galeria zdjęć -->
     <section class="gallery" id="gallery"></section>
 
     <footer>
         <p>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
+        <p class="copyright-notice" id="copyright-text">
+            Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością. Pobieranie, kopiowanie, rozpowszechnianie lub jakiekolwiek użycie zdjęć bez wiedzy i pisemnej zgody autora jest zabronione.
+        </p>
     </footer>
 
-    <!-- Okienko do powiększania zdjęć na pełen ekran -->
+    <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <img id="lightbox-img" src="" alt="Powiększone zdjęcie">
     </div>
 
     <script>
-        // 1. TEKSTY WIELOJĘZYCZNE
+        // 1. TEKSTY WIELOJĘZYCZNE Z ADNOTACJĄ PRAWNĄ
         const texts = {
             pl: {
                 aboutTitle: "O mnie",
@@ -156,7 +164,8 @@ Urodziłem się w czerwcu 1984 roku w Kielcach.
 Robię zdjęcia czysto hobbystycznie, dla przyjemności. 
 Uwielbiam łapać chwile z natury, codziennego życia i podróży. 
 Każde miejsce ma swoją historię. Wystarczyło tylko sfotografować - resztę dopowie wyobraźnia.
-Zapraszam do oglądania moich zdjęć!` 
+Zapraszam do oglądania moich zdjęć!`,
+                copyrightText: "Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością. Pobieranie, kopiowanie, rozpowszechnianie lub jakiekolwiek użycie zdjęć bez wiedzy i pisemnej zgody autora jest zabronione."
             },
             en: {
                 aboutTitle: "About me",
@@ -165,7 +174,8 @@ I was born in June 1984 in Kielce.
 I take photos purely as a hobby, for the sheer pleasure of it.
 I love capturing moments from nature, everyday life, and my travels.
 Every place has a story; all it takes is a photograph—your imagination fills in the rest.
-I invite you to take a look at my photos!` 
+I invite you to take a look at my photos!`,
+                copyrightText: "All photos displayed on this website are my exclusive property. Downloading, copying, distributing, or using any images without the author's knowledge and written consent is strictly prohibited."
             },
             de: {
                 aboutTitle: "Über mich",
@@ -174,7 +184,8 @@ Ich wurde im Juni 1984 in Kielce geboren.
 Ich fotografiere rein hobbymäßig, einfach aus purer Freude daran.
 Ich liebe es, Momente aus der Natur, dem Alltag und meinen Reisen festzuhalten.
 Jeder Ort hat seine Geschichte; man braucht nur ein Foto – den Rest erledigt die Fantasie.
-Schaut euch gerne meine Fotos an!` 
+Schaut euch gerne meine Fotos an!`,
+                copyrightText: "Alle auf dieser Website veröffentlichten Fotos sind mein ausschließliches Eigentum. Das Herunterladen, Kopieren, Verbreiten oder jegliche Nutzung der Bilder ohne Wissen und schriftliche Zustimmung des Autors ist untersagt."
             }
         };
 
@@ -184,13 +195,14 @@ Schaut euch gerne meine Fotos an!`
                 const lang = this.getAttribute('data-lang');
                 document.getElementById('about-title').textContent = texts[lang].aboutTitle;
                 document.getElementById('about-text').textContent = texts[lang].aboutText;
+                document.getElementById('copyright-text').textContent = texts[lang].copyrightText;
 
                 document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
             });
         });
 
-        // 3. AUTOMATYCZNE GENEROWANIE GALERII (97 ZDJĘĆ)
+        // 3. GENEROWANIE GALERII (97 ZDJĘĆ)
         const galleryContainer = document.getElementById('gallery');
         const iloscZdjec = 97;
 
@@ -199,15 +211,12 @@ Schaut euch gerne meine Fotos an!`
             img.src = `1 (${i}).jpg`;
             img.alt = `Fotografia ${i}`;
             
-            // Wyłączenie przeciągania myszką
             img.ondragstart = function() { return false; };
 
-            // Kliknięcie w zdjęcie odpala powiększenie
             img.addEventListener('click', function() {
                 openLightbox(this.src);
             });
 
-            // Ukrywa brakujące pliki w razie braku któregoś numeru
             img.onerror = function() {
                 this.style.display = 'none';
             };
@@ -215,7 +224,7 @@ Schaut euch gerne meine Fotos an!`
             galleryContainer.appendChild(img);
         }
 
-        // 4. OBSŁUGA POWIĘKSZANIA ZDJĘĆ (LIGHTBOX)
+        // 4. LIGHTBOX
         function openLightbox(imageSrc) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
@@ -227,7 +236,6 @@ Schaut euch gerne meine Fotos an!`
             document.getElementById('lightbox').style.display = 'none';
         }
 
-        // 5. BLOKADA PRZECIĄGANIA I KLIKNIĘĆ NA POWIĘKSZONYM ZDJĘCIU
         document.getElementById('lightbox-img').ondragstart = function() { return false; };
     </script>
 </body>
