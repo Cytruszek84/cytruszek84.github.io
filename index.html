@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cytruszek84 - Portfolio</title>
+    
+    <!-- Firebase SDK (Darmowa baza danych na komentarze i oceny) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             margin: 0;
             padding: 0;
@@ -67,9 +75,6 @@
             cursor: pointer;
             transition: transform 0.3s;
             -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
             pointer-events: auto;
         }
         .gallery img:hover {
@@ -92,7 +97,7 @@
             margin-right: auto;
         }
 
-        /* STYL POWIĘKSZONEGO ZDJĘCIA (LIGHTBOX) */
+        /* --- STYLIZACJA OKNA LIGHTBOX Z KOMENTARZAMI --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -101,20 +106,126 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.92);
             justify-content: center;
             align-items: center;
-            cursor: pointer;
+            padding: 20px;
         }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        .lightbox-container {
+            background: #1c1c1c;
+            border-radius: 12px;
+            max-width: 1100px;
+            width: 100%;
+            max-height: 90vh;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 25px rgba(0,0,0,0.8);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .lightbox-image-box {
+            flex: 1 1 600px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        .lightbox-image-box img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 4px;
             -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
+        }
+        .lightbox-sidebar {
+            flex: 1 1 350px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            max-height: 80vh;
+            background: #181818;
+            border-left: 1px solid #2a2a2a;
+        }
+        .lightbox-sidebar h3 {
+            margin-top: 0;
+            color: #0066cc;
+            font-size: 1.2rem;
+        }
+        .star-rating {
+            font-size: 24px;
+            color: #444;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .star-rating .star {
+            transition: color 0.2s;
+        }
+        .star-rating .star.active {
+            color: #ffca28;
+        }
+        .avg-rating {
+            font-size: 0.9rem;
+            color: #bbb;
+            margin-bottom: 15px;
+        }
+        .comment-form input, .comment-form textarea {
+            width: 100%;
+            background: #282828;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-family: inherit;
+        }
+        .comment-form textarea {
+            resize: vertical;
+            height: 70px;
+        }
+        .comment-form button {
+            background: #0066cc;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+        .comment-form button:hover {
+            background: #0052a3;
+        }
+        .comments-list {
+            margin-top: 20px;
+            border-top: 1px solid #2c2c2c;
+            padding-top: 15px;
+        }
+        .single-comment {
+            background: #222;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .single-comment .author {
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 3px;
+        }
+        .single-comment .rating-stars {
+            color: #ffca28;
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -139,7 +250,6 @@ Każde miejsce ma swoją historię. Wystarczyło tylko sfotografować - resztę 
 Zapraszam do oglądania moich zdjęć!</p>
     </section>
 
-    <!-- Galeria zdjęć -->
     <section class="gallery" id="gallery"></section>
 
     <footer>
@@ -149,13 +259,59 @@ Zapraszam do oglądania moich zdjęć!</p>
         </p>
     </footer>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <img id="lightbox-img" src="" alt="Powiększone zdjęcie">
+    <!-- OKNO POWIĘKSZONEGO ZDJĘCIA Z KOMENTARZAMI -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-container">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <div class="lightbox-image-box">
+                <img id="lightbox-img" src="" alt="Powiększone zdjęcie">
+            </div>
+            <div class="lightbox-sidebar">
+                <h3 id="ui-feedback-title">Oceń i skomentuj</h3>
+                <div class="avg-rating" id="avg-rating-text">Średnia ocenia: Baza wczytywania...</div>
+                
+                <div class="star-rating" id="star-picker">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+
+                <div class="comment-form">
+                    <input type="text" id="reviewer-name" placeholder="Twoje imię / Nick" maxlength="30">
+                    <textarea id="reviewer-comment" placeholder="Napisz komentarz do tego zdjęcia..." maxlength="300"></textarea>
+                    <button id="submit-btn" onclick="submitFeedback()">Dodaj opinię</button>
+                </div>
+
+                <div class="comments-list" id="comments-list">
+                    <!-- Tutaj pojawią się komentarze z bazy danych -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // 1. TEKSTY WIELOJĘZYCZNE Z ADNOTACJĄ PRAWNĄ
+        // --- 1. KONFIGURACJA BAZY FIREBASE (PODMIENIAJ SWOJE KLUCZE PO UTWORZENIU DARMOWEGO KONTA) ---
+        const firebaseConfig = {
+            apiKey: "TWÓJ_API_KEY",
+            authDomain: "twoj-projekt.firebaseapp.com",
+            projectId: "twoj-projekt",
+            storageBucket: "twoj-projekt.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+        
+        // Inicjalizacja (jeśli brak własnego klucza, strona działa lokalnie)
+        let db = null;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+        } catch (e) {
+            console.log("Firebase niepodłączone - uzupełnij firebaseConfig.");
+        }
+
+        // --- 2. JĘZYKI I ADNOTACJA PRAWNA ---
         const texts = {
             pl: {
                 aboutTitle: "O mnie",
@@ -165,7 +321,9 @@ Robię zdjęcia czysto hobbystycznie, dla przyjemności.
 Uwielbiam łapać chwile z natury, codziennego życia i podróży. 
 Każde miejsce ma swoją historię. Wystarczyło tylko sfotografować - resztę dopowie wyobraźnia.
 Zapraszam do oglądania moich zdjęć!`,
-                copyrightText: "Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością. Pobieranie, kopiowanie, rozpowszechnianie lub jakiekolwiek użycie zdjęć bez wiedzy i pisemnej zgody autora jest zabronione."
+                copyrightText: "Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością. Pobieranie, kopiowanie, rozpowszechnianie lub jakiekolwiek użycie zdjęć bez wiedzy i pisemnej zgody autora jest zabronione.",
+                feedbackTitle: "Oceń i skomentuj",
+                btnSubmit: "Dodaj opinię"
             },
             en: {
                 aboutTitle: "About me",
@@ -175,7 +333,9 @@ I take photos purely as a hobby, for the sheer pleasure of it.
 I love capturing moments from nature, everyday life, and my travels.
 Every place has a story; all it takes is a photograph—your imagination fills in the rest.
 I invite you to take a look at my photos!`,
-                copyrightText: "All photos displayed on this website are my exclusive property. Downloading, copying, distributing, or using any images without the author's knowledge and written consent is strictly prohibited."
+                copyrightText: "All photos displayed on this website are my exclusive property. Downloading, copying, distributing, or using any images without the author's knowledge and written consent is strictly prohibited.",
+                feedbackTitle: "Rate & Comment",
+                btnSubmit: "Submit Review"
             },
             de: {
                 aboutTitle: "Über mich",
@@ -185,36 +345,41 @@ Ich fotografiere rein hobbymäßig, einfach aus purer Freude daran.
 Ich liebe es, Momente aus der Natur, dem Alltag und meinen Reisen festzuhalten.
 Jeder Ort hat seine Geschichte; man braucht nur ein Foto – den Rest erledigt die Fantasie.
 Schaut euch gerne meine Fotos an!`,
-                copyrightText: "Alle auf dieser Website veröffentlichten Fotos sind mein ausschließliches Eigentum. Das Herunterladen, Kopieren, Verbreiten oder jegliche Nutzung der Bilder ohne Wissen und schriftliche Zustimmung des Autors ist untersagt."
+                copyrightText: "Alle auf dieser Website veröffentlichten Fotos sind mein ausschließliches Eigentum. Das Herunterladen, Kopieren, Verbreiten oder jegliche Nutzung der Bilder ohne Wissen und schriftliche Zustimmung des Autors ist untersagt.",
+                feedbackTitle: "Bewerten & Kommentieren",
+                btnSubmit: "Bewertung absenden"
             }
         };
 
-        // 2. PRZEŁĄCZANIE JĘZYKÓW
+        let currentLanguage = 'pl';
+
         document.querySelectorAll('.lang-switch button').forEach(button => {
             button.addEventListener('click', function() {
-                const lang = this.getAttribute('data-lang');
-                document.getElementById('about-title').textContent = texts[lang].aboutTitle;
-                document.getElementById('about-text').textContent = texts[lang].aboutText;
-                document.getElementById('copyright-text').textContent = texts[lang].copyrightText;
+                currentLanguage = this.getAttribute('data-lang');
+                document.getElementById('about-title').textContent = texts[currentLanguage].aboutTitle;
+                document.getElementById('about-text').textContent = texts[currentLanguage].aboutText;
+                document.getElementById('copyright-text').textContent = texts[currentLanguage].copyrightText;
+                document.getElementById('ui-feedback-title').textContent = texts[currentLanguage].feedbackTitle;
+                document.getElementById('submit-btn').textContent = texts[currentLanguage].btnSubmit;
 
                 document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
             });
         });
 
-        // 3. GENEROWANIE GALERII (97 ZDJĘĆ)
+        // --- 3. GENEROWANIE GALERII (97 ZDJĘĆ) ---
         const galleryContainer = document.getElementById('gallery');
         const iloscZdjec = 97;
 
         for (let i = 1; i <= iloscZdjec; i++) {
             const img = document.createElement('img');
-            img.src = `1 (${i}).jpg`;
+            const fileName = `1 (${i}).jpg`;
+            img.src = fileName;
             img.alt = `Fotografia ${i}`;
-            
             img.ondragstart = function() { return false; };
 
             img.addEventListener('click', function() {
-                openLightbox(this.src);
+                openLightbox(fileName);
             });
 
             img.onerror = function() {
@@ -224,19 +389,128 @@ Schaut euch gerne meine Fotos an!`,
             galleryContainer.appendChild(img);
         }
 
-        // 4. LIGHTBOX
-        function openLightbox(imageSrc) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            lightboxImg.src = imageSrc;
-            lightbox.style.display = 'flex';
+        // --- 4. LIGHTBOX & SYSTEM OCEN I KOMENTARZY ---
+        let currentPhotoId = "";
+        let selectedRating = 0;
+
+        // Wybór gwiazdek
+        const stars = document.querySelectorAll('#star-picker .star');
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                selectedRating = parseInt(this.getAttribute('data-value'));
+                updateStarDisplay(selectedRating);
+            });
+        });
+
+        function updateStarDisplay(rating) {
+            stars.forEach(s => {
+                const val = parseInt(s.getAttribute('data-value'));
+                if (val <= rating) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+        }
+
+        function openLightbox(fileName) {
+            currentPhotoId = fileName.replace(/[^a-zA-Z0-9]/g, "_"); // Bezpieczny identyfikator w bazie
+            document.getElementById('lightbox-img').src = fileName;
+            document.getElementById('lightbox').style.display = 'flex';
+            
+            // Reset formularza
+            selectedRating = 0;
+            updateStarDisplay(0);
+            document.getElementById('reviewer-name').value = '';
+            document.getElementById('reviewer-comment').value = '';
+
+            loadFeedback(currentPhotoId);
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
         }
 
-        document.getElementById('lightbox-img').ondragstart = function() { return false; };
+        // Zapisywanie opinii do bazy
+        function submitFeedback() {
+            const name = document.getElementById('reviewer-name').value.trim() || 'Anonim';
+            const comment = document.getElementById('reviewer-comment').value.trim();
+
+            if (selectedRating === 0 && !comment) {
+                alert("Wybierz ocenę gwiazdkową lub wpisz komentarz!");
+                return;
+            }
+
+            const feedbackData = {
+                photoId: currentPhotoId,
+                author: name,
+                rating: selectedRating,
+                comment: comment,
+                date: new Date().toLocaleDateString()
+            };
+
+            if (db) {
+                db.collection('reviews').add(feedbackData).then(() => {
+                    loadFeedback(currentPhotoId);
+                    document.getElementById('reviewer-comment').value = '';
+                });
+            } else {
+                // Tryb lokalny (jeśli jeszcze nie podpięto bazy Firebase)
+                alert("Dziękujemy za opinię! (Aby zapisywać opinie dla wszystkich gości, podepnij darmową bazę Firebase)");
+            }
+        }
+
+        // Pobieranie opinii z bazy
+        function loadFeedback(photoId) {
+            const commentsContainer = document.getElementById('comments-list');
+            const avgRatingText = document.getElementById('avg-rating-text');
+            commentsContainer.innerHTML = 'Wczytywanie opinii...';
+
+            if (!db) {
+                commentsContainer.innerHTML = '<p style="color:#777; font-size:0.85rem;">Brak połączenia z bazą. Podepnij Firebase, aby włączyć zapisywanie opinii.</p>';
+                avgRatingText.textContent = 'Brak ocen';
+                return;
+            }
+
+            db.collection('reviews').where('photoId', '==', photoId).get().then(snapshot => {
+                commentsContainer.innerHTML = '';
+                let totalRating = 0;
+                let ratingCount = 0;
+
+                if (snapshot.empty) {
+                    commentsContainer.innerHTML = '<p style="color:#777; font-size:0.85rem;">Brak komentarzy. Bądź pierwszy!</p>';
+                    avgRatingText.textContent = 'Brak ocen';
+                    return;
+                }
+
+                snapshot.forEach(doc => {
+                    const item = doc.data();
+                    if (item.rating > 0) {
+                        totalRating += item.rating;
+                        ratingCount++;
+                    }
+
+                    if (item.comment || item.rating) {
+                        const div = document.createElement('div');
+                        div.className = 'single-comment';
+                        
+                        let starString = '★'.repeat(item.rating) + '☆'.repeat(5 - item.rating);
+                        div.innerHTML = `
+                            <div class="author">${item.author} <span class="rating-stars">${item.rating > 0 ? starString : ''}</span></div>
+                            <div class="text">${item.comment}</div>
+                        `;
+                        commentsContainer.appendChild(div);
+                    }
+                });
+
+                if (ratingCount > 0) {
+                    const avg = (totalRating / ratingCount).toFixed(1);
+                    avgRatingText.textContent = `Średnia ocena: ${avg} / 5 (${ratingCount} ocen)`;
+                } else {
+                    avgRatingText.textContent = 'Brak ocen';
+                }
+            });
+        }
     </script>
 </body>
 </html>
