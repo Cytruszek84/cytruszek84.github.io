@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cytruszek84 - Portfolio</title>
     
-    <!-- Firebase SDK (Darmowa baza danych na komentarze i oceny) -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
@@ -33,6 +33,26 @@
             top: 0;
             z-index: 100;
         }
+        
+        /* Przycisk Kontakt w górnym rogu */
+        .contact-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #0066cc;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            z-index: 101;
+        }
+        .contact-btn:hover {
+            background: #0052a3;
+        }
+
         .lang-switch {
             margin: 10px 0;
         }
@@ -149,7 +169,7 @@
             -webkit-user-drag: none;
         }
 
-        /* Stylizacja strzałek nawigacyjnych */
+        /* Strzałki nawigacji w lightbox */
         .lightbox-nav {
             position: absolute;
             top: 50%;
@@ -256,6 +276,63 @@
             color: #ffca28;
             font-size: 0.8rem;
         }
+
+        /* --- STYLIZACJA MODALA KONTAKTOWEGO --- */
+        .contact-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+        }
+        .contact-box {
+            background: #1c1c1c;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            border: 1px solid #333;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        .contact-box h3 {
+            margin-top: 0;
+            color: #0066cc;
+            font-size: 1.4rem;
+        }
+        .contact-box input, .contact-box textarea {
+            width: 100%;
+            background: #282828;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        .contact-box textarea {
+            height: 110px;
+            resize: vertical;
+        }
+        .contact-box button[type="submit"] {
+            background: #0066cc;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .contact-box button[type="submit"]:hover {
+            background: #0052a3;
+        }
     </style>
 
     <!-- Google tag (gtag.js) -->
@@ -271,6 +348,7 @@
 <body oncontextmenu="return false;">
 
     <header>
+        <div class="contact-btn" id="contact-btn-text" onclick="openContact()">Kontakt</div>
         <h1>Cytruszek84</h1>
         <div class="lang-switch">
             <button data-lang="pl" class="active">Polski</button>
@@ -308,12 +386,11 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
         </div>
     </footer>
 
-    <!-- OKNO POWIĘKSZONEGO ZDJĘCIA Z KOMENTARZAMI I STRZAŁKAMI -->
+    <!-- OKNO POWIĘKSZONEGO ZDJĘCIA -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-container">
             <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
             <div class="lightbox-image-box">
-                <!-- Przyciski nawigacji strzałkami -->
                 <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">&#10094;</button>
                 <img id="lightbox-img" src="" alt="Powiększone zdjęcie">
                 <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">&#10095;</button>
@@ -336,15 +413,27 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
                     <button id="submit-btn" onclick="submitFeedback()">Dodaj opinię</button>
                 </div>
 
-                <div class="comments-list" id="comments-list">
-                    <!-- Tutaj pojawią się komentarze z bazy danych -->
-                </div>
+                <div class="comments-list" id="comments-list"></div>
             </div>
         </div>
     </div>
 
+    <!-- MODAL FORMULARZA KONTAKTOWEGO -->
+    <div class="contact-modal" id="contactModal">
+        <div class="contact-box">
+            <span style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 26px; color: #aaa;" onclick="closeContact()">&times;</span>
+            <h3 id="contact-modal-title">Napisz do mnie</h3>
+            
+            <form action="https://formspree.io/f/xdaqpqay" method="POST">
+                <input type="email" name="email" id="contact-modal-email" placeholder="Twój e-mail zwrotny" required>
+                <textarea name="message" id="contact-modal-msg" placeholder="Treść wiadomości..." required></textarea>
+                <button type="submit" id="contact-modal-btn">Wyślij wiadomość</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // --- 1. KONFIGURACJA BAZY FIREBASE ---
+        // --- 1. FIREBASE CONFIG ---
         const firebaseConfig = {
             apiKey: "AIzaSyDv2QED1Zhbd3xDWIBhcLQJd7Zd7Rz-tWw",
             authDomain: "cytruszek84-c2e33.firebaseapp.com",
@@ -360,7 +449,6 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
             firebase.initializeApp(firebaseConfig);
             db = firebase.firestore();
 
-            // Licznik odwiedzin Firebase
             if (db) {
                 const statsRef = db.collection("stats").doc("page_views");
                 statsRef.get().then((doc) => {
@@ -382,7 +470,7 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
             console.log("Firebase niepodłączone - sprawdź konfigurację.", e);
         }
 
-        // --- 2. JĘZYKI I ADNOTACJA PRAWNA ---
+        // --- 2. JĘZYKI ---
         const texts = {
             pl: {
                 aboutTitle: "O mnie",
@@ -398,7 +486,12 @@ Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją śc
 A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie`,
                 copyrightText: "Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością. Pobieranie, kopiowanie, rozpowszechnianie lub jakiekolwiek użycie zdjęć bez wiedzy i pisemnej zgody autora jest zabronione.",
                 feedbackTitle: "Oceń i skomentuj",
-                btnSubmit: "Dodaj opinię"
+                btnSubmit: "Dodaj opinię",
+                contactBtn: "Kontakt",
+                contactTitle: "Napisz do mnie",
+                contactEmailPlaceholder: "Twój e-mail zwrotny",
+                contactMsgPlaceholder: "Treść wiadomości...",
+                contactSendBtn: "Wyślij wiadomość"
             },
             en: {
                 aboutTitle: "About me",
@@ -414,7 +507,12 @@ Perhaps here you’ll find a photograph that not only adorns your wall but also 
 And if one of these photos makes you pause for a moment… there’s a good chance it will want to make its home with you.`,
                 copyrightText: "All photos displayed on this website are my exclusive property. Downloading, copying, distributing, or using any images without the author's knowledge and written consent is strictly prohibited.",
                 feedbackTitle: "Rate & Comment",
-                btnSubmit: "Submit Review"
+                btnSubmit: "Submit Review",
+                contactBtn: "Contact",
+                contactTitle: "Contact me",
+                contactEmailPlaceholder: "Your email address",
+                contactMsgPlaceholder: "Your message...",
+                contactSendBtn: "Send message"
             },
             de: {
                 aboutTitle: "Über mich",
@@ -430,7 +528,12 @@ Vielleicht findest du hier ein Foto, das nicht nur deine Wand schmückt, sondern
 Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann stehen die Chancen gut, dass es bei dir ein Zuhause finden möchte.`,
                 copyrightText: "Alle auf dieser Website veröffentlichten Fotos sind mein ausschließliches Eigentum. Das Herunterladen, Kopieren, Verbreiten oder jegliche Nutzung der Bilder ohne Wissen und schriftliche Zustimmung des Autors ist untersagt.",
                 feedbackTitle: "Bewerten & Kommentieren",
-                btnSubmit: "Bewertung absenden"
+                btnSubmit: "Bewertung absenden",
+                contactBtn: "Kontakt",
+                contactTitle: "Schreib mir",
+                contactEmailPlaceholder: "Deine E-Mail-Adresse",
+                contactMsgPlaceholder: "Deine Nachricht...",
+                contactSendBtn: "Nachricht senden"
             }
         };
 
@@ -444,6 +547,12 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
                 document.getElementById('copyright-text').textContent = texts[currentLanguage].copyrightText;
                 document.getElementById('ui-feedback-title').textContent = texts[currentLanguage].feedbackTitle;
                 document.getElementById('submit-btn').textContent = texts[currentLanguage].btnSubmit;
+                
+                document.getElementById('contact-btn-text').textContent = texts[currentLanguage].contactBtn;
+                document.getElementById('contact-modal-title').textContent = texts[currentLanguage].contactTitle;
+                document.getElementById('contact-modal-email').placeholder = texts[currentLanguage].contactEmailPlaceholder;
+                document.getElementById('contact-modal-msg').placeholder = texts[currentLanguage].contactMsgPlaceholder;
+                document.getElementById('contact-modal-btn').textContent = texts[currentLanguage].contactSendBtn;
 
                 document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
@@ -472,12 +581,11 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
             galleryContainer.appendChild(img);
         }
 
-        // --- 4. LIGHTBOX, OBSŁUGA STRZAŁEK I SYSTEM OCEN ---
+        // --- 4. LIGHTBOX & KLAWIATURA ---
         let currentPhotoId = "";
         let selectedRating = 0;
         let currentPhotoIndex = 1;
 
-        // Wybór gwiazdek
         const stars = document.querySelectorAll('#star-picker .star');
         stars.forEach(star => {
             star.addEventListener('click', function() {
@@ -498,17 +606,15 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
         }
 
         function openLightbox(fileName) {
-            // Wyciąganie numeru zdjęcia z nazwy pliku "1 (X).jpg"
             const match = fileName.match(/\((\d+)\)/);
             if (match) {
                 currentPhotoIndex = parseInt(match[1]);
             }
 
-            currentPhotoId = fileName.replace(/[^a-zA-Z0-9]/g, "_"); // Bezpieczny identyfikator w bazie
+            currentPhotoId = fileName.replace(/[^a-zA-Z0-9]/g, "_");
             document.getElementById('lightbox-img').src = fileName;
             document.getElementById('lightbox').style.display = 'flex';
             
-            // Reset formularza
             selectedRating = 0;
             updateStarDisplay(0);
             document.getElementById('reviewer-name').value = '';
@@ -521,7 +627,6 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
             document.getElementById('lightbox').style.display = 'none';
         }
 
-        // Przełączanie zdjęć przyciskami (strzałkami)
         function changePhoto(direction) {
             currentPhotoIndex += direction;
             if (currentPhotoIndex > iloscZdjec) {
@@ -532,12 +637,9 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
             openLightbox(`1 (${currentPhotoIndex}).jpg`);
         }
 
-        // Obsługa klawiatury (strzałki lewo/prawo oraz Esc)
         document.addEventListener('keydown', function(event) {
             const lightbox = document.getElementById('lightbox');
             if (lightbox && lightbox.style.display === 'flex') {
-                
-                // Ignoruj strzałki, jeśli użytkownik pisze komentarz
                 const activeEl = document.activeElement;
                 if (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA') {
                     return; 
@@ -553,7 +655,15 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
             }
         });
 
-        // Zapisywanie opinii do bazy
+        // --- 5. KONTAKT MODAL ---
+        function openContact() {
+            document.getElementById('contactModal').style.display = 'flex';
+        }
+        function closeContact() {
+            document.getElementById('contactModal').style.display = 'none';
+        }
+
+        // --- 6. FIREBASE FEEDBACK ---
         function submitFeedback() {
             const name = document.getElementById('reviewer-name').value.trim() || 'Anonim';
             const comment = document.getElementById('reviewer-comment').value.trim();
@@ -577,18 +687,17 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
                     document.getElementById('reviewer-comment').value = '';
                 });
             } else {
-                alert("Dziękujemy za opinię! (Aby zapisywać opinie dla wszystkich gości, podepnij darmową bazę Firebase)");
+                alert("Dziękujemy za opinię!");
             }
         }
 
-        // Pobieranie opinii z bazy
         function loadFeedback(photoId) {
             const commentsContainer = document.getElementById('comments-list');
             const avgRatingText = document.getElementById('avg-rating-text');
             commentsContainer.innerHTML = 'Wczytywanie opinii...';
 
             if (!db) {
-                commentsContainer.innerHTML = '<p style="color:#777; font-size:0.85rem;">Brak połączenia z bazą. Podepnij Firebase, aby włączyć zapisywanie opinii.</p>';
+                commentsContainer.innerHTML = '<p style="color:#777; font-size:0.85rem;">Brak połączenia z bazą.</p>';
                 avgRatingText.textContent = 'Brak ocen';
                 return;
             }
