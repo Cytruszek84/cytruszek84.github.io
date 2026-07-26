@@ -97,7 +97,7 @@
             margin-right: auto;
         }
 
-        /* --- STYLIZACJA OKNA LIGHTBOX Z KOMENTARZAMI --- */
+        /* --- STYLIZACJA OKNA LIGHTBOX Z KOMENTARZAMI I STRZAŁKAMI --- */
         .lightbox {
             display: none;
             position: fixed;
@@ -139,6 +139,7 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
+            position: relative;
         }
         .lightbox-image-box img {
             max-width: 100%;
@@ -147,6 +148,34 @@
             border-radius: 4px;
             -webkit-user-drag: none;
         }
+
+        /* Stylizacja strzałek nawigacyjnych */
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 30px;
+            padding: 10px 15px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            user-select: none;
+            transition: background 0.2s, color 0.2s;
+            z-index: 5;
+        }
+        .lightbox-nav:hover {
+            background: rgba(0, 102, 204, 0.8);
+            color: #fff;
+        }
+        .lightbox-prev {
+            left: 10px;
+        }
+        .lightbox-next {
+            right: 10px;
+        }
+
         .lightbox-sidebar {
             flex: 1 1 350px;
             padding: 25px;
@@ -228,6 +257,7 @@
             font-size: 0.8rem;
         }
     </style>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-83HTWNWWCL"></script>
     <script>
@@ -271,19 +301,22 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
             Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością. Pobieranie, kopiowanie, rozpowszechnianie lub jakiekolwiek użycie zdjęć bez wiedzy i pisemnej zgody autora jest zabronione.
         </p>
         
-        <!-- Licznik odwiedzin umieszczony w stopce -->
+        <!-- Licznik odwiedzin -->
         <div style="text-align: center; margin-top: 25px; margin-bottom: 15px; font-family: sans-serif;">
             <span style="font-size: 14px; color: #aaa;">Liczba odwiedzin: </span>
             <span id="visit-count" style="font-size: 16px; font-weight: bold; color: #fff; background: #4C1D95; padding: 3px 10px; border-radius: 12px;">...</span>
         </div>
     </footer>
 
-    <!-- OKNO POWIĘKSZONEGO ZDJĘCIA Z KOMENTARZAMI -->
+    <!-- OKNO POWIĘKSZONEGO ZDJĘCIA Z KOMENTARZAMI I STRZAŁKAMI -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-container">
             <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
             <div class="lightbox-image-box">
+                <!-- Przyciski nawigacji strzałkami -->
+                <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">&#10094;</button>
                 <img id="lightbox-img" src="" alt="Powiększone zdjęcie">
+                <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">&#10095;</button>
             </div>
             <div class="lightbox-sidebar">
                 <h3 id="ui-feedback-title">Oceń i skomentuj</h3>
@@ -346,7 +379,7 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
                 });
             }
         } catch (e) {
-            console.log("Firebase niepodłączone - sprawdz konfigurację.", e);
+            console.log("Firebase niepodłączone - sprawdź konfigurację.", e);
         }
 
         // --- 2. JĘZYKI I ADNOTACJA PRAWNA ---
@@ -439,9 +472,10 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
             galleryContainer.appendChild(img);
         }
 
-        // --- 4. LIGHTBOX & SYSTEM OCEN I KOMENTARZY ---
+        // --- 4. LIGHTBOX, OBSŁUGA STRZAŁEK I SYSTEM OCEN ---
         let currentPhotoId = "";
         let selectedRating = 0;
+        let currentPhotoIndex = 1;
 
         // Wybór gwiazdek
         const stars = document.querySelectorAll('#star-picker .star');
@@ -464,6 +498,12 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
         }
 
         function openLightbox(fileName) {
+            // Wyciąganie numeru zdjęcia z nazwy pliku "1 (X).jpg"
+            const match = fileName.match(/\((\d+)\)/);
+            if (match) {
+                currentPhotoIndex = parseInt(match[1]);
+            }
+
             currentPhotoId = fileName.replace(/[^a-zA-Z0-9]/g, "_"); // Bezpieczny identyfikator w bazie
             document.getElementById('lightbox-img').src = fileName;
             document.getElementById('lightbox').style.display = 'flex';
@@ -480,6 +520,38 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
         }
+
+        // Przełączanie zdjęć przyciskami (strzałkami)
+        function changePhoto(direction) {
+            currentPhotoIndex += direction;
+            if (currentPhotoIndex > iloscZdjec) {
+                currentPhotoIndex = 1;
+            } else if (currentPhotoIndex < 1) {
+                currentPhotoIndex = iloscZdjec;
+            }
+            openLightbox(`1 (${currentPhotoIndex}).jpg`);
+        }
+
+        // Obsługa klawiatury (strzałki lewo/prawo oraz Esc)
+        document.addEventListener('keydown', function(event) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox && lightbox.style.display === 'flex') {
+                
+                // Ignoruj strzałki, jeśli użytkownik pisze komentarz
+                const activeEl = document.activeElement;
+                if (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA') {
+                    return; 
+                }
+
+                if (event.key === 'ArrowRight') {
+                    changePhoto(1);
+                } else if (event.key === 'ArrowLeft') {
+                    changePhoto(-1);
+                } else if (event.key === 'Escape') {
+                    closeLightbox();
+                }
+            }
+        });
 
         // Zapisywanie opinii do bazy
         function submitFeedback() {
