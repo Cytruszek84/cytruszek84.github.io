@@ -98,10 +98,10 @@
             border-radius: 12px;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
             transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
             background: #1e1e1e;
-            border: 1px solid #00FF66; /* Obramowanie w kolorze #00FF66 */
+            border: 1px solid #0066FF; /* Obramowanie domyślne: Niebieskie */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -109,14 +109,15 @@
         .folder-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 255, 102, 0.4); /* Zielona poświata po najechaniu */
-            border-color: #00FF66;
+            border-color: #00FF66; /* Obramowanie po najechaniu: Zielone */
         }
         .folder-card svg {
-            transition: transform 0.3s ease, filter 0.3s ease;
+            transition: transform 0.3s ease, filter 0.3s ease, stroke 0.3s ease;
         }
         .folder-card:hover svg {
             transform: scale(1.1);
-            filter: drop-shadow(0 0 18px rgba(0, 255, 102, 0.9)); /* Zielony błysk aparatu */
+            stroke: #00FF66; /* Zmiana obrysu aparatu na zielony po najechaniu */
+            filter: drop-shadow(0 0 18px rgba(0, 255, 102, 0.9)); /* Zielony błysk */
         }
         .folder-card .folder-title {
             font-size: 1.2rem;
@@ -681,10 +682,10 @@ Und wenn dich eines der Bilder für einen Moment innehalten lässt… stehen die
                 card.className = 'folder-card';
                 card.onclick = () => openFolder(i);
 
-                // Rysowanie aparatu ze świecącą lampą (SVG) - kontur w kolorze #00FF66
+                // Rysowanie aparatu ze świecącą lampą (SVG) - kontur domyślnie w kolorze #0066FF
                 card.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
-                        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#00FF66" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px rgba(0, 255, 102, 0.8));">
+                        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 10px rgba(0, 102, 255, 0.6));">
                             <!-- Promienie / Błysk lampy -->
                             <path d="M12 2v3M7.5 4.5l1.8 2.4M16.5 4.5l-1.8 2.4M3 9h3M18 9h3" stroke="#ffca28" stroke-width="2"/>
                             <!-- Korpus aparatu -->
