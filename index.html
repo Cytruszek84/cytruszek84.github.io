@@ -718,7 +718,7 @@ Und wenn dich eines der Bilder für einen Moment innehalten lässt… stehen die
 
             for (let i = start; i <= end; i++) {
                 const img = document.createElement('img');
-                const fileName = `1 (${i}).jpg`;
+                const fileName = `${i}.jpg`;
                 img.src = fileName;
                 img.alt = `Fotografia ${i}`;
                 img.ondragstart = function() { return false; };
@@ -804,7 +804,7 @@ Und wenn dich eines der Bilder für einen Moment innehalten lässt… stehen die
                 openFolder(neededFolder);
             }
 
-            openLightbox(`1 (${currentPhotoIndex}).jpg`);
+            openLightbox(`${currentPhotoIndex}.jpg`);
         }
 
         document.addEventListener('keydown', function(event) {
