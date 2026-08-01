@@ -34,7 +34,6 @@
             z-index: 100;
         }
         
-        /* Przycisk Kontakt w górnym rogu */
         .contact-btn {
             position: absolute;
             top: 15px;
@@ -79,14 +78,88 @@
             text-align: center;
             white-space: pre-line;
         }
-        .gallery {
+
+        /* --- SIATKA FOLDERÓW I ZDJĘĆ --- */
+        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+        }
+
+        .folders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .folder-card {
+            position: relative;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .folder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,102,204,0.4);
+            border-color: #0066cc;
+        }
+        .folder-card svg {
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .folder-card:hover svg {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 18px rgba(0, 102, 204, 1));
+        }
+        .folder-card .folder-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-top: 15px;
+        }
+
+        /* Widok ze zdjęciami konkretnego folderu */
+        .folder-view-header {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .back-btn {
+            background: #0066cc;
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #0052a3;
+        }
+        .folder-current-title {
+            font-size: 1.5rem;
+            margin: 0;
+            color: #fff;
+        }
+
+        .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 20px;
-            min-height: 400px;
         }
         .gallery img {
             width: 100%;
@@ -96,42 +169,9 @@
             cursor: pointer;
             transition: transform 0.3s;
             -webkit-user-drag: none;
-            pointer-events: auto;
         }
         .gallery img:hover {
             transform: scale(1.03);
-        }
-
-        /* --- STYLIZACJA PAGINACJI (PRZYCISKÓW STRON) --- */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        .pagination button {
-            background: #222;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 8px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
-        .pagination button:hover:not(:disabled) {
-            background: #0066cc;
-            border-color: #0066cc;
-        }
-        .pagination button.active {
-            background: #0066cc;
-            border-color: #0066cc;
-        }
-        .pagination button:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
         }
 
         footer {
@@ -151,7 +191,7 @@
             margin-right: auto;
         }
 
-        /* --- STYLIZACJA OKNA LIGHTBOX Z KOMENTARZAMI I STRZAŁKAMI --- */
+        /* Lightbox */
         .lightbox {
             display: none;
             position: fixed;
@@ -310,7 +350,6 @@
             font-size: 0.8rem;
         }
 
-        /* --- STYLIZACJA MODALA KONTAKTOWEGO --- */
         .contact-modal {
             display: none;
             position: fixed;
@@ -397,18 +436,27 @@ Aparat zabieram wszędzie. Serio. Czasem mam wrażenie, że częściej patrzę p
 Urodziłem się w czerwcowym słońcu 1984 roku w Kielcach, a od tamtej pory kolekcjonuję nie rzeczy, lecz chwile. Wschody słońca, mgły o świcie, opuszczone miejsca, górskie szlaki, miasta, które zasypiają dopiero nad ranem… To właśnie tam powstają moje fotografie.
 Mówią, że jedno zdjęcie jest warte tysiąca słów. Ja uważam, że najlepsze zdjęcia są bezcenne – bo potrafią każdego dnia wywołać ten sam zachwyt, co w chwili ich wykonania.
 Nie sprzedaję fotografii.
-Sprzedaję spokój poranka zamknięty w ramie. Zachód słońca, który nigdy nie gaśnie. Miejsce, do którego można wrócić, nie ruszając się z fotela. I ten moment, kiedy goście przerywają rozmowę, żebym zapytać: „Wow… gdzie zostało zrobione to zdjęcie?”
+Sprzedaję spokój poranka zamknięty w ramie. Zachód słońca, który nigdy nie gaśnie. Miejsce, do którego można wrócić, nie ruszając się z fotela. I ten moment, kiedy goście przerywają rozmowę, żeby zapytać: „Wow… gdzie zostało zrobione to zdjęcie?”
 Każdy kadr w tej galerii to efekt godzin czekania na idealne światło, setek przejechanych kilometrów i przekonania, że najpiękniejsze historie pisze natura.
 Rozejrzyj się. Nie spiesz się.
 Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.
 A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie</p>
     </section>
 
-    <!-- GALERIA FOTOGRAFII -->
-    <section class="gallery" id="gallery"></section>
+    <!-- KONTENER GALERII I FOLDERÓW -->
+    <div class="container" id="main-container">
+        <!-- Nagłówek po wejściu w dany folder -->
+        <div class="folder-view-header" id="folder-header">
+            <button class="back-btn" id="back-btn" onclick="showFolders()">← Powrót do folderów</button>
+            <h3 class="folder-current-title" id="folder-title-display">Folder 1</h3>
+        </div>
 
-    <!-- PASEK PRZEŁĄCZANIA STRON (PAGINACJA) -->
-    <div class="pagination" id="pagination"></div>
+        <!-- Siatka kafelków folderów z grafiką aparatu -->
+        <div class="folders-grid" id="folders-grid"></div>
+
+        <!-- Siatka zdjęć po wybranym folderze -->
+        <div class="gallery" id="gallery" style="display: none;"></div>
+    </div>
 
     <footer>
         <p>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
@@ -416,14 +464,13 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
             Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością. Pobieranie, kopiowanie, rozpowszechnianie lub jakiekolwiek użycie zdjęć bez wiedzy i pisemnej zgody autora jest zabronione.
         </p>
         
-        <!-- Licznik odwiedzin -->
         <div style="text-align: center; margin-top: 25px; margin-bottom: 15px; font-family: sans-serif;">
             <span style="font-size: 14px; color: #aaa;">Liczba odwiedzin: </span>
             <span id="visit-count" style="font-size: 16px; font-weight: bold; color: #fff; background: #4C1D95; padding: 3px 10px; border-radius: 12px;">...</span>
         </div>
     </footer>
 
-    <!-- OKNO POWIĘKSZONEGO ZDJĘCIA -->
+    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-container">
             <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
@@ -455,7 +502,7 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
         </div>
     </div>
 
-    <!-- MODAL FORMULARZA KONTAKTOWEGO -->
+    <!-- KONTAKT MODAL -->
     <div class="contact-modal" id="contactModal">
         <div class="contact-box">
             <span style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 26px; color: #aaa;" onclick="closeContact()">&times;</span>
@@ -470,7 +517,6 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
     </div>
 
     <script>
-        // --- 1. FIREBASE CONFIG ---
         const firebaseConfig = {
             apiKey: "AIzaSyDv2QED1Zhbd3xDWIBhcLQJd7Zd7Rz-tWw",
             authDomain: "cytruszek84-c2e33.firebaseapp.com",
@@ -504,10 +550,9 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
                 });
             }
         } catch (e) {
-            console.log("Firebase niepodłączone - sprawdź konfigurację.", e);
+            console.log("Firebase niepodłączone", e);
         }
 
-        // --- 2. JĘZYKI ---
         const texts = {
             pl: {
                 aboutTitle: "O mnie",
@@ -528,49 +573,37 @@ A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora s
                 contactTitle: "Napisz do mnie",
                 contactEmailPlaceholder: "Twój e-mail zwrotny",
                 contactMsgPlaceholder: "Treść wiadomości...",
-                contactSendBtn: "Wyślij wiadomość"
+                contactSendBtn: "Wyślij wiadomość",
+                backBtn: "← Powrót do folderów",
+                folderPrefix: "Folder "
             },
             en: {
                 aboutTitle: "About me",
-                aboutText: `Hi! I’m Piotr (Cytruszek84).
-I take my camera everywhere. Seriously. Sometimes I feel like I look through the lens more often than through my own glasses.
-I was born in the June sunshine of 1984 in Kielce, and ever since, I’ve been collecting moments rather than things. Sunrises, dawn mists, abandoned places, mountain trails, cities that only fall asleep at daybreak… That is where my photographs are born.
-They say a picture is worth a thousand words. I believe the best photos are priceless—because they can evoke the same sense of wonder every day as they did the moment they were taken.
-I don’t sell photographs.
-I sell the peace of a morning captured in a frame. A sunset that never fades. A place you can return to without ever leaving your armchair. And that moment when guests pause their conversation to ask: "Wow… where was this photo taken?"
-Every shot in this gallery is the result of hours spent waiting for the perfect light, hundreds of kilometers traveled, and the conviction that nature writes the most beautiful stories.
-Take a look around. Take your time.
-Perhaps here you’ll find a photograph that not only adorns your wall but also reminds you every day that the world still has the power to amaze.
-And if one of these photos makes you pause for a moment… there’s a good chance it will want to make its home with you.`,
-                copyrightText: "All photos displayed on this website are my exclusive property. Downloading, copying, distributing, or using any images without the author's knowledge and written consent is strictly prohibited.",
+                aboutText: `Hi! I’m Piotr (Cytruszek84)...`,
+                copyrightText: "All photos displayed on this website are my exclusive property...",
                 feedbackTitle: "Rate & Comment",
                 btnSubmit: "Submit Review",
                 contactBtn: "Contact",
                 contactTitle: "Contact me",
                 contactEmailPlaceholder: "Your email address",
                 contactMsgPlaceholder: "Your message...",
-                contactSendBtn: "Send message"
+                contactSendBtn: "Send message",
+                backBtn: "← Back to folders",
+                folderPrefix: "Folder "
             },
             de: {
                 aboutTitle: "Über mich",
-                aboutText: `Hallo! Ich bin Piotr (Cytruszek84).
-Ich habe meine Kamera überall dabei. Im Ernst. Manchmal habe ich das Gefühl, öfter durch das Objektiv zu blicken als durch meine eigene Brille.
-Ich wurde im Juni 1984 im Sonnenschein von Kielce geboren, und seither sammle ich eher Momente als Dinge. Sonnenaufgänge, Morgennebel, verlassene Orte, Bergpfade, Städte, die erst bei Tagesanbruch zur Ruhe kommen … Genau dort entstehen meine Fotografien.
-Man sagt, ein Bild sage mehr als tausend Worte. Ich glaube, die besten Fotos sind unbezahlbar – denn sie können jeden Tag aufs Neue jenes Staunen hervorrufen, das man im Moment der Aufnahme empfand.
-Ich verkaufe keine Fotografien.
-Ich verkaufe die in einem Rahmen eingefangene Stille des Morgens. Einen Sonnenuntergang, der niemals verblasst. Einen Ort, an den man zurückkehren kann, ohne jemals den Sessel zu verlassen. Und jenen Moment, in dem Gäste ihr Gespräch unterbrechen und fragen: „Wow … wo wurde dieses Foto aufgenommen?“
-Jede Aufnahme in dieser Galerie ist das Ergebnis von stundenlangem Warten auf das perfekte Licht, von hunderten zurückgelegten Kilometern und der Überzeugung, dass die Natur die schönsten Geschichten schreibt.
-Schau dich ruhig um. Nimm dir Zeit.
-Vielleicht findest du hier ein Foto, das nicht nur deine Wand schmückt, sondern dich auch täglich daran erinnert, dass die Welt noch immer die Kraft hat, uns zum Staunen zu bringen.
-Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann stehen die Chancen gut, dass es bei dir ein Zuhause finden möchte.`,
-                copyrightText: "Alle auf dieser Website veröffentlichten Fotos sind mein ausschließliches Eigentum. Das Herunterladen, Kopieren, Verbreiten oder jegliche Nutzung der Bilder ohne Wissen und schriftliche Zustimmung des Autors ist untersagt.",
+                aboutText: `Hallo! Ich bin Piotr (Cytruszek84)...`,
+                copyrightText: "Alle auf dieser Website veröffentlichten Fotos sind mein ausschließliches Eigentum...",
                 feedbackTitle: "Bewerten & Kommentieren",
                 btnSubmit: "Bewertung absenden",
                 contactBtn: "Kontakt",
                 contactTitle: "Schreib mir",
                 contactEmailPlaceholder: "Deine E-Mail-Adresse",
                 contactMsgPlaceholder: "Deine Nachricht...",
-                contactSendBtn: "Nachricht senden"
+                contactSendBtn: "Nachricht senden",
+                backBtn: "← Zurück zu Ordnern",
+                folderPrefix: "Ordner "
             }
         };
 
@@ -590,25 +623,79 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
                 document.getElementById('contact-modal-email').placeholder = texts[currentLanguage].contactEmailPlaceholder;
                 document.getElementById('contact-modal-msg').placeholder = texts[currentLanguage].contactMsgPlaceholder;
                 document.getElementById('contact-modal-btn').textContent = texts[currentLanguage].contactSendBtn;
+                document.getElementById('back-btn').textContent = texts[currentLanguage].backBtn;
 
                 document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
+
+                // Przeliczenie widoku
+                renderFolders();
+                if(currentFolderIndex !== null) {
+                    document.getElementById('folder-title-display').textContent = `${texts[currentLanguage].folderPrefix} ${currentFolderIndex}`;
+                }
             });
         });
 
-        // --- 3. LOGIKA PAGINACJI (PO 9 ZDJĘĆ NA STRONĘ) ---
-        const totalPhotos = 97;
-        const photosPerPage = 9;
-        let currentPage = 1;
-        const totalPages = Math.ceil(totalPhotos / photosPerPage);
+        // --- ZARZĄDZANIE FOLDERAMI I ZDJĘCIAMI ---
+        let totalPhotos = 97;
+        const photosPerFolder = 9;
+        let currentFolderIndex = null;
 
-        function renderGallery(page) {
-            currentPage = page;
-            const galleryContainer = document.getElementById('gallery');
-            galleryContainer.innerHTML = '';
+        fetch('photos.json')
+            .then(res => res.json())
+            .then(data => {
+                if(data && data.count) {
+                    totalPhotos = data.count;
+                    renderFolders();
+                }
+            })
+            .catch(() => {
+                renderFolders();
+            });
 
-            const start = (page - 1) * photosPerPage + 1;
-            const end = Math.min(page * photosPerPage, totalPhotos);
+        function renderFolders() {
+            const foldersGrid = document.getElementById('folders-grid');
+            foldersGrid.innerHTML = '';
+            const totalFolders = Math.ceil(totalPhotos / photosPerFolder);
+
+            for (let i = 1; i <= totalFolders; i++) {
+                const card = document.createElement('div');
+                card.className = 'folder-card';
+                card.onclick = () => openFolder(i);
+
+                // Rysowanie aparatu ze świecącą lampą (SVG)
+                card.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
+                        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#0066cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px rgba(0, 102, 204, 0.8));">
+                            <!-- Promienie / Błysk lampy -->
+                            <path d="M12 2v3M7.5 4.5l1.8 2.4M16.5 4.5l-1.8 2.4M3 9h3M18 9h3" stroke="#ffca28" stroke-width="2"/>
+                            <!-- Korpus aparatu -->
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <!-- Obiektyw -->
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                        <div class="folder-title">
+                            ${texts[currentLanguage].folderPrefix} ${i}
+                        </div>
+                    </div>
+                `;
+
+                foldersGrid.appendChild(card);
+            }
+        }
+
+        function openFolder(folderNum) {
+            currentFolderIndex = folderNum;
+            document.getElementById('folders-grid').style.display = 'none';
+            document.getElementById('folder-header').style.display = 'flex';
+            document.getElementById('gallery').style.display = 'grid';
+            document.getElementById('folder-title-display').textContent = `${texts[currentLanguage].folderPrefix} ${folderNum}`;
+
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+
+            const start = (folderNum - 1) * photosPerFolder + 1;
+            const end = Math.min(folderNum * photosPerFolder, totalPhotos);
 
             for (let i = start; i <= end; i++) {
                 const img = document.createElement('img');
@@ -625,63 +712,21 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
                     this.style.display = 'none';
                 };
 
-                galleryContainer.appendChild(img);
+                gallery.appendChild(img);
             }
 
-            renderPagination();
+            document.getElementById('main-container').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function renderPagination() {
-            const paginationContainer = document.getElementById('pagination');
-            paginationContainer.innerHTML = '';
-
-            // Przycisk "Poprzednia"
-            const prevBtn = document.createElement('button');
-            prevBtn.textContent = '« Poprzednia';
-            prevBtn.disabled = currentPage === 1;
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    renderGallery(currentPage - 1);
-                    scrollToGallery();
-                }
-            });
-            paginationContainer.appendChild(prevBtn);
-
-            // Numerowane przyciski
-            for (let i = 1; i <= totalPages; i++) {
-                const pageBtn = document.createElement('button');
-                pageBtn.textContent = i;
-                if (i === currentPage) pageBtn.classList.add('active');
-
-                pageBtn.addEventListener('click', () => {
-                    renderGallery(i);
-                    scrollToGallery();
-                });
-
-                paginationContainer.appendChild(pageBtn);
-            }
-
-            // Przycisk "Następna"
-            const nextBtn = document.createElement('button');
-            nextBtn.textContent = 'Następna »';
-            nextBtn.disabled = currentPage === totalPages;
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < totalPages) {
-                    renderGallery(currentPage + 1);
-                    scrollToGallery();
-                }
-            });
-            paginationContainer.appendChild(nextBtn);
+        function showFolders() {
+            currentFolderIndex = null;
+            document.getElementById('gallery').style.display = 'none';
+            document.getElementById('folder-header').style.display = 'none';
+            document.getElementById('folders-grid').style.display = 'grid';
+            document.getElementById('main-container').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function scrollToGallery() {
-            document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Inicjalne ładowanie pierwszej 9-tki
-        renderGallery(1);
-
-        // --- 4. LIGHTBOX & KLAWIATURA ---
+        // --- LIGHTBOX & FEEDBACK ---
         let currentPhotoId = "";
         let selectedRating = 0;
         let currentPhotoIndex = 1;
@@ -735,10 +780,9 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
                 currentPhotoIndex = totalPhotos;
             }
 
-            // Aktualizacja strony w tle, aby strona pod lightboxem odpowiadała obecnemu zdjęciu
-            const neededPage = Math.ceil(currentPhotoIndex / photosPerPage);
-            if (neededPage !== currentPage) {
-                renderGallery(neededPage);
+            const neededFolder = Math.ceil(currentPhotoIndex / photosPerFolder);
+            if (currentFolderIndex !== neededFolder) {
+                openFolder(neededFolder);
             }
 
             openLightbox(`1 (${currentPhotoIndex}).jpg`);
@@ -762,7 +806,6 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
             }
         });
 
-        // --- 5. KONTAKT MODAL ---
         function openContact() {
             document.getElementById('contactModal').style.display = 'flex';
         }
@@ -770,7 +813,6 @@ Und wenn eines dieser Bilder dich für einen Moment innehalten lässt … dann s
             document.getElementById('contactModal').style.display = 'none';
         }
 
-        // --- 6. FIREBASE FEEDBACK ---
         function submitFeedback() {
             const name = document.getElementById('reviewer-name').value.trim() || 'Anonim';
             const comment = document.getElementById('reviewer-comment').value.trim();
