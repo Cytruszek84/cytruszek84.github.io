@@ -4,6 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cytruszek84 - Fotografia</title>
+
+    <!-- Google tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-83HTNWWCL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-83HTNWWCL');
+    </script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -243,10 +258,48 @@
     <footer>
         <p id="footer-subtitle>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
         <p class="copyright-notice" id="footer-copyright">Wszystkie zdjęcia są moją wyłączną własnością. Kopiowanie i rozpowszechnianie bez zgody jest całkowicie zabronione.</p>
-        <p style="margin-top: 10px;"><span id="footer-visits">Liczba odwiedzin:</span> <span class="counter-badge" id="visit-counter">278</span></p>
+        <p style="margin-top: 10px;"><span id="footer-visits">Liczba odwiedzin:</span> <span class="counter-badge" id="visit-counter">...</span></p>
     </footer>
 
     <script>
+        // Konfiguracja Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDv2QED1ZHbd3xDWIBhcLQJd7Zd7Rz-tWw",
+            authDomain: "cytruszek84-c2e33.firebaseapp.com",
+            projectId: "cytruszek84-c2e33",
+            storageBucket: "cytruszek84-c2e33.firebasestorage.app",
+            messagingSenderId: "89741680278",
+            appId: "1:89741680278:web:1f032fb3cf28ee73d02cb7",
+            measurementId: "G-83HTNWWCL"
+        };
+
+        // Inicjalizacja Firebase & Analytics
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+        const db = firebase.firestore();
+
+        // Licznik odwiedzin z bazy danych
+        function updateAndGetVisits() {
+            const counterRef = db.collection('stats').doc('visits');
+            db.runTransaction((transaction) => {
+                return transaction.get(counterRef).then((doc) => {
+                    let newCount = 1;
+                    if (doc.exists) {
+                        newCount = (doc.data().count || 0) + 1;
+                    }
+                    transaction.set(counterRef, { count: newCount }, { merge: true });
+                    return newCount;
+                });
+            }).then((count) => {
+                document.getElementById('visit-counter').textContent = count;
+            }).catch((err) => {
+                console.error("Błąd licznika:", err);
+                document.getElementById('visit-counter').textContent = "278";
+            });
+        }
+
+        updateAndGetVisits();
+
         const photosPerFolder = 10;
         let totalPhotos = 245;
         let currentLanguage = 'pl';
@@ -296,7 +349,6 @@
                     <p><strong>Hallo! Ich bin Piotr (Cytruszek84).</strong></p>
                     <p>Ich nehme meine Kamera überallhin mit. Im Ernst. Manchmal habe ich das Gefühl, dass ich öfter durch das Objektiv schaue als durch meine eigene Brille.</p>
                     <p>Ich wurde im Juni-Sonnenschein von 1984 in Kielce geboren und seitdem sammle ich keine Dinge, sondern Momente. Sonnenaufgänge, Morgennebel, verlassene Orte, Bergpfade, Städte, die erst am Morgen einschlafen… Genau dort entstehen meine Fotografien.</p>
-
                     <p>Man sagt, ein Bild sagt mehr als tausend Worte. Ich glaube, die besten Fotos sind unbezahlbar – denn sie können jeden Tag aufs Neue dieselbe Begeisterung hervorrufen wie in dem Moment, als sie aufgenommen wurden.</p>
                     <p>Ich verkaufe keine Fotografien.<br>
                     Ich verkaufe die Ruhe des Morgens, eingerahmt an deiner Wand. Einen Sonnenuntergang, der niemals verblasst. Einen Ort, an den du zurückkehren kannst, ohne deinen Sessel zu verlassen. Und diesen Moment, wenn Gäste ihr Gespräch unterbrechen, um zu fragen: <em>„Wow… wo wurde dieses Foto gemacht?“</em></p>
