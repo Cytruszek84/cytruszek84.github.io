@@ -89,8 +89,7 @@
    .folders-grid, #gallery {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 25px;
 }
 
@@ -680,7 +679,7 @@ Und wenn dich eines der Bilder für einen Moment innehalten lässt… stehen die
             foldersGrid.innerHTML = '';
             const totalFolders = Math.ceil(totalPhotos / photosPerFolder);
 
-        for (let i = 1; i <= totalFolders; i++) {  
+        for (let i = totalFolders; i >= 1; i--) { 
                 const card = document.createElement('div');
                 card.className = 'folder-card';
                 card.onclick = () => openFolder(i);
@@ -719,7 +718,7 @@ Und wenn dich eines der Bilder für einen Moment innehalten lässt… stehen die
             const start = (folderNum - 1) * photosPerFolder + 1;
             const end = Math.min(folderNum * photosPerFolder, totalPhotos);
 
-            for (let i = start; i <= end; i++) {
+            for (let i = end; i >= start; i--) {
                 const img = document.createElement('img');
                 const fileName = `${i}.jpg`;
                 img.src = fileName;
