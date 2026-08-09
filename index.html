@@ -34,10 +34,10 @@
         }
 
         .author-info {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #38bdf8;
             margin-bottom: 15px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .lang-switch {
@@ -208,7 +208,7 @@
 
     <header>
         <h1>Cytruszek84</h1>
-        <div class="author-info" id="author-text">Piotr Głuszek • Polska</div>
+        <div class="author-info" id="author-text">Cześć, mam na imię Piotr, pochodzę z Kielc. Fotografia to moje hobby.</div>
         <div class="lang-switch">
             <button class="lang-btn active" onclick="setLanguage('pl')">Polski</button>
             <button class="lang-btn" onclick="setLanguage('en')">English</button>
@@ -238,7 +238,7 @@
 
     <footer>
         <p id="footer-subtitle>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
-        <p class="copyright-notice" id="footer-copyright">Wszystkie zdjęcia są moją wyłączną własnością. Kopiowanie i rozpowszechnianie bez zgody jest zabronione.</p>
+        <p class="copyright-notice" id="footer-copyright">Wszystkie zdjęcia są moją wyłączną własnością. Kopiowanie i rozpowszechnianie bez zgody jest całkowicie zabronione.</p>
         <p style="margin-top: 10px;"><span id="footer-visits">Liczba odwiedzin:</span> <span class="counter-badge" id="visit-counter">278</span></p>
     </footer>
 
@@ -250,7 +250,7 @@
 
         const translations = {
             pl: {
-                author: "Piotr Głuszek • Polska",
+                author: "Cześć, mam na imię Piotr, pochodzę z Kielc. Fotografia to moje hobby.",
                 intro: "Rozejrzyj się. Nie śpiesz się.<br>Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.<br>A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz... jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie.",
                 folderPrefix: "Folder",
                 backBtn: "← Powrót do folderów",
@@ -259,7 +259,7 @@
                 footerVisits: "Liczba odwiedzin:"
             },
             en: {
-                author: "Piotr Głuszek • Poland",
+                author: "Hi, my name is Piotr, I come from Kielce. Photography is my hobby.",
                 intro: "Take a look around. Take your time.<br>Maybe right here you will find a photograph that will not only decorate your wall, but remind you every day that the world can still amaze.<br>And if one of the photos makes you pause for a moment... there's a good chance it will want to stay with you.",
                 folderPrefix: "Folder",
                 backBtn: "← Back to folders",
@@ -268,7 +268,7 @@
                 footerVisits: "Total visits:"
             },
             de: {
-                author: "Piotr Głuszek • Polen",
+                author: "Hallo, ich heiße Piotr, ich komme aus Kielce. Fotografie ist mein Hobby.",
                 intro: "Schau dich um. Nimm dir Zeit.<br>Vielleicht findest du genau hier ein Foto, das nicht nur deine Wand dekoriert, sondern dich jeden Tag daran erinnert, wie wunderschön die Welt ist.<br>Und wenn dich eines der Bilder für einen Moment innehalten lässt... besteht eine gute Chance, dass es bei dir einziehen möchte.",
                 folderPrefix: "Ordner",
                 backBtn: "← Zurück zu den Ordnern",
@@ -278,7 +278,6 @@
             }
         };
 
-        // Pobieranie dokładnej liczby zdjęć z pliku JSON (jeśli istnieje)
         fetch('photos.json')
             .then(res => res.json())
             .then(data => {
@@ -368,13 +367,11 @@
         function setLanguage(lang) {
             currentLanguage = lang;
             
-            // Podświetlenie aktywnego przycisku
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             if (event && event.target) {
                 event.target.classList.add('active');
             }
 
-            // Podmiana tekstów na stronie
             const t = translations[lang];
             document.getElementById('author-text').textContent = t.author;
             document.getElementById('intro-desc').innerHTML = t.intro;
@@ -383,16 +380,13 @@
             document.getElementById('footer-copyright').textContent = t.footerCopyright;
             document.getElementById('footer-visits').textContent = t.footerVisits;
 
-            // Przeładowanie widoku folderów
             renderFolders();
 
-            // Jeśli jesteśmy w otwartym folderze, odśwież tytuł folderu
             if (currentOpenFolder !== null) {
                 document.getElementById('folder-title-display').textContent = `${t.folderPrefix} ${currentOpenFolder}`;
             }
         }
 
-        // Pierwsze wyrenderowanie
         renderFolders();
     </script>
 </body>
