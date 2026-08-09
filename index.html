@@ -29,15 +29,8 @@
 
         h1 {
             font-size: 2.2rem;
-            margin-bottom: 5px;
-            color: #ffffff;
-        }
-
-        .author-info {
-            font-size: 1.15rem;
-            color: #38bdf8;
             margin-bottom: 15px;
-            font-weight: 600;
+            color: #ffffff;
         }
 
         .lang-switch {
@@ -62,12 +55,17 @@
         }
 
         .intro-text {
-            max-width: 800px;
+            max-width: 850px;
             margin: 30px auto 10px;
             padding: 0 20px;
             text-align: center;
-            line-height: 1.6;
+            line-height: 1.7;
             color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        .intro-text p {
+            margin-bottom: 12px;
         }
 
         /* --- SIATKA FOLDERÓW I ZDJĘĆ --- */
@@ -208,7 +206,6 @@
 
     <header>
         <h1>Cytruszek84</h1>
-        <div class="author-info" id="author-text">Cześć, mam na imię Piotr, pochodzę z Kielc. Fotografia to moje hobby.</div>
         <div class="lang-switch">
             <button class="lang-btn active" onclick="setLanguage('pl')">Polski</button>
             <button class="lang-btn" onclick="setLanguage('en')">English</button>
@@ -217,9 +214,16 @@
     </header>
 
     <div class="intro-text" id="intro-desc">
-        Rozejrzyj się. Nie śpiesz się.<br>
+        <p><strong>Cześć! Jestem Piotr (Cytruszek84).</strong></p>
+        <p>Aparat zabieram wszędzie. Serio. Czasem mam wrażenie, że częściej patrzę przez obiektyw niż przez własne okulary.</p>
+        <p>Urodziłem się w czerwcowym słońcu 1984 roku w Kielcach, a od tamtej pory kolekcjonuję nie rzeczy, lecz chwile. Wschody słońca, mgły o świcie, opuszczone miejsca, górskie szlaki, miasta, które zasypiają dopiero nad ranem… To właśnie tam powstają moje fotografie.</p>
+        <p>Mówią, że jedno zdjęcie jest warte tysiąca słów. Ja uważam, że najlepsze zdjęcia są bezcenne – bo potrafią każdego dnia wywołać ten sam zachwyt, co w chwili ich wykonania.</p>
+        <p>Nie sprzedaję fotografii.<br>
+        Sprzedaję spokój poranka zamknięty w ramie. Zachód słońca, który nigdy nie gaśnie. Miejsce, do którego można wrócić, nie ruszając się z fotela. I ten moment, kiedy goście przerywają rozmowę, żeby zapytać: <em>„Wow… gdzie zostało zrobione to zdjęcie?”</em></p>
+        <p>Każdy kadr w tej galerii to efekt godzin czekania na idealne światło, setek przejechanych kilometrów i przekonania, że najpiękniejsze historie pisze natura.</p>
+        <p>Rozejrzyj się. Nie spiesz się.<br>
         Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.<br>
-        A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz... jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie.
+        A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie.</p>
     </div>
 
     <div class="container">
@@ -250,8 +254,18 @@
 
         const translations = {
             pl: {
-                author: "Cześć, mam na imię Piotr, pochodzę z Kielc. Fotografia to moje hobby.",
-                intro: "Rozejrzyj się. Nie śpiesz się.<br>Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.<br>A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz... jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie.",
+                intro: `
+                    <p><strong>Cześć! Jestem Piotr (Cytruszek84).</strong></p>
+                    <p>Aparat zabieram wszędzie. Serio. Czasem mam wrażenie, że częściej patrzę przez obiektyw niż przez własne okulary.</p>
+                    <p>Urodziłem się w czerwcowym słońcu 1984 roku w Kielcach, a od tamtej pory kolekcjonuję nie rzeczy, lecz chwile. Wschody słońca, mgły o świcie, opuszczone miejsca, górskie szlaki, miasta, które zasypiają dopiero nad ranem… To właśnie tam powstają moje fotografie.</p>
+                    <p>Mówią, że jedno zdjęcie jest warte tysiąca słów. Ja uważam, że najlepsze zdjęcia są bezcenne – bo potrafią każdego dnia wywołać ten sam zachwyt, co w chwili ich wykonania.</p>
+                    <p>Nie sprzedaję fotografii.<br>
+                    Sprzedaję spokój poranka zamknięty w ramie. Zachód słońca, który nigdy nie gaśnie. Miejsce, do którego można wrócić, nie ruszając się z fotela. I ten moment, kiedy goście przerywają rozmowę, żeby zapytać: <em>„Wow… gdzie zostało zrobione to zdjęcie?”</em></p>
+                    <p>Każdy kadr w tej galerii to efekt godzin czekania na idealne światło, setek przejechanych kilometrów i przekonania, że najpiękniejsze historie pisze natura.</p>
+                    <p>Rozejrzyj się. Nie spiesz się.<br>
+                    Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.<br>
+                    A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie.</p>
+                `,
                 folderPrefix: "Folder",
                 backBtn: "← Powrót do folderów",
                 footerSubtitle: "© FotoCytruszek84 – Amatorska fotografia hobbystyczna",
@@ -259,8 +273,18 @@
                 footerVisits: "Liczba odwiedzin:"
             },
             en: {
-                author: "Hi, my name is Piotr, I come from Kielce. Photography is my hobby.",
-                intro: "Take a look around. Take your time.<br>Maybe right here you will find a photograph that will not only decorate your wall, but remind you every day that the world can still amaze.<br>And if one of the photos makes you pause for a moment... there's a good chance it will want to stay with you.",
+                intro: `
+                    <p><strong>Hi! I am Piotr (Cytruszek84).</strong></p>
+                    <p>I take my camera everywhere. Seriously. Sometimes I feel like I look through the lens more often than through my own glasses.</p>
+                    <p>I was born under the June sun of 1984 in Kielce, and ever since then, I collect moments, not things. Sunrises, morning mist, abandoned places, mountain trails, cities that only fall asleep at dawn… That's where my photographs are born.</p>
+                    <p>They say a picture is worth a thousand words. I believe the best photos are priceless – because every single day they can evoke the exact same wonder as the moment they were taken.</p>
+                    <p>I don't sell photography.<br>
+                    I sell the morning serenity framed on your wall. A sunset that never fades. A place you can return to without leaving your armchair. And that moment when guests pause their conversation to ask: <em>"Wow… where was this photo taken?"</em></p>
+                    <p>Every frame in this gallery is the result of hours waiting for the perfect light, hundreds of kilometers driven, and the firm belief that nature writes the most beautiful stories.</p>
+                    <p>Take a look around. Take your time.<br>
+                    Maybe right here you will find a photograph that will not only decorate your wall, but remind you every day that the world can still amaze.<br>
+                    And if one of the photos makes you pause for a moment… there's a good chance it will want to live with you.</p>
+                `,
                 folderPrefix: "Folder",
                 backBtn: "← Back to folders",
                 footerSubtitle: "© FotoCytruszek84 – Hobby Photography",
@@ -268,8 +292,19 @@
                 footerVisits: "Total visits:"
             },
             de: {
-                author: "Hallo, ich heiße Piotr, ich komme aus Kielce. Fotografie ist mein Hobby.",
-                intro: "Schau dich um. Nimm dir Zeit.<br>Vielleicht findest du genau hier ein Foto, das nicht nur deine Wand dekoriert, sondern dich jeden Tag daran erinnert, wie wunderschön die Welt ist.<br>Und wenn dich eines der Bilder für einen Moment innehalten lässt... besteht eine gute Chance, dass es bei dir einziehen möchte.",
+                intro: `
+                    <p><strong>Hallo! Ich bin Piotr (Cytruszek84).</strong></p>
+                    <p>Ich nehme meine Kamera überallhin mit. Im Ernst. Manchmal habe ich das Gefühl, dass ich öfter durch das Objektiv schaue als durch meine eigene Brille.</p>
+                    <p>Ich wurde im Juni-Sonnenschein von 1984 in Kielce geboren und seitdem sammle ich keine Dinge, sondern Momente. Sonnenaufgänge, Morgennebel, verlassene Orte, Bergpfade, Städte, die erst am Morgen einschlafen… Genau dort entstehen meine Fotografien.</p>
+
+                    <p>Man sagt, ein Bild sagt mehr als tausend Worte. Ich glaube, die besten Fotos sind unbezahlbar – denn sie können jeden Tag aufs Neue dieselbe Begeisterung hervorrufen wie in dem Moment, als sie aufgenommen wurden.</p>
+                    <p>Ich verkaufe keine Fotografien.<br>
+                    Ich verkaufe die Ruhe des Morgens, eingerahmt an deiner Wand. Einen Sonnenuntergang, der niemals verblasst. Einen Ort, an den du zurückkehren kannst, ohne deinen Sessel zu verlassen. Und diesen Moment, wenn Gäste ihr Gespräch unterbrechen, um zu fragen: <em>„Wow… wo wurde dieses Foto gemacht?“</em></p>
+                    <p>Jedes Bild in dieser Galerie ist das Ergebnis stundenlangen Wartens auf das perfekte Licht, hunderter gefahrener Kilometer und der Überzeugung, dass die Natur die schönsten Geschichten schreibt.</p>
+                    <p>Schau dich um. Nimm dir Zeit.<br>
+                    Vielleicht findest du genau hier ein Foto, das nicht nur deine Wand dekoriert, sondern dich jeden Tag daran erinnert, wie wunderschön die Welt ist.<br>
+                    Und wenn dich eines der Bilder für einen Moment innehalten lässt… besteht eine gute Chance, dass es bei dir einziehen möchte.</p>
+                `,
                 folderPrefix: "Ordner",
                 backBtn: "← Zurück zu den Ordnern",
                 footerSubtitle: "© FotoCytruszek84 – Hobbyfotografie",
@@ -373,7 +408,6 @@
             }
 
             const t = translations[lang];
-            document.getElementById('author-text').textContent = t.author;
             document.getElementById('intro-desc').innerHTML = t.intro;
             document.getElementById('back-btn-text').textContent = t.backBtn;
             document.getElementById('footer-subtitle').textContent = t.footerSubtitle;
