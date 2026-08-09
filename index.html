@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Q<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -92,7 +92,7 @@
             border-radius: 12px;
             cursor: pointer;
             border: 1px solid #0066FF;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
         }
 
         #gallery img:hover {
@@ -230,7 +230,7 @@
 
     <script>
         const photosPerFolder = 10;
-        let totalPhotos = 280; // Domyślna liczba zdjęć (jeśli brak jsona)
+        let totalPhotos = 245; // Aktualna liczba posiadanych zdjęć
         let currentLanguage = 'pl';
 
         const texts = {
@@ -239,7 +239,7 @@
             de: { folderPrefix: "Ordner" }
         };
 
-        // Pobieranie dokładnej liczby zdjęć z pliku JSON
+        // Pobieranie dokładnej liczby zdjęć z pliku JSON (jeśli istnieje)
         fetch('photos.json')
             .then(res => res.json())
             .then(data => {
@@ -292,15 +292,24 @@
             const start = (folderNum - 1) * photosPerFolder + 1;
             const end = Math.min(folderNum * photosPerFolder, totalPhotos);
 
-            // Zdjęcia wewnątrz folderu – od najnowszego do najstarszego
+            // Wyświetlanie zdjęć wewnątrz folderu (od najnowszego do najstarszego)
             for (let i = end; i >= start; i--) {
                 const img = document.createElement('img');
                 const fileName = `${i}.jpg`;
                 img.src = fileName;
+
+                // Automatyczna obsługa plików z wielkim rozszerzeniem (.JPG)
+                img.onerror = function() {
+                    if (!this.getAttribute('data-tried-capital')) {
+                        this.setAttribute('data-tried-capital', 'true');
+                        this.src = `${i}.JPG`;
+                    }
+                };
+
                 img.alt = `Fotografia ${i}`;
                 img.ondragstart = function() { return false; };
                 img.addEventListener('click', function() {
-                    openLightbox(fileName);
+                    openLightbox(this.src);
                 });
                 gallery.appendChild(img);
             }
