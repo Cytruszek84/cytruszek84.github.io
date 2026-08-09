@@ -3,80 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cytruszek84 - Portfolio</title>
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-
+    <title>Cytruszek84 - Fotografia</title>
     <style>
         * {
             box-sizing: border-box;
-        }
-        body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #113;
-            color: #eee;
-            line-height: 1.6;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
+
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
         header {
-            background: #1a1a1a;
-            padding: 1rem;
+            padding: 30px 20px;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
         }
-        
-        .contact-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: #0066cc;
-            color: #fff;
-            padding: 8px 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-            z-index: 101;
-        }
-        .contact-btn:hover {
-            background: #0052a3;
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #ffffff;
         }
 
         .lang-switch {
-            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
-        .lang-switch button {
-            background: #333;
+
+        .lang-btn {
+            background: #334155;
             color: #fff;
             border: none;
             padding: 8px 16px;
-            margin: 0 5px;
+            border-radius: 6px;
             cursor: pointer;
-            border-radius: 4px;
+            font-weight: 600;
             transition: background 0.2s;
         }
-        .lang-switch button.active {
-            background: #0066cc;
+
+        .lang-btn.active, .lang-btn:hover {
+            background: #0066FF;
         }
-        h1 {
-            margin: 10px 0;
-        }
-        .about {
+
+        .intro-text {
             max-width: 800px;
-            margin: 40px auto;
+            margin: 30px auto 10px;
             padding: 0 20px;
             text-align: center;
-            white-space: pre-line;
+            line-height: 1.6;
+            color: #cbd5e1;
         }
 
         /* --- SIATKA FOLDERÓW I ZDJĘĆ --- */
@@ -84,588 +68,182 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            flex: 1;
+            width: 100%;
         }
 
-   .folders-grid, #gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 25px;
-}
+        .folders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
 
-       .folder-card {
-    position: relative;
-    width: 280px;
-    height: 220px;
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    background: #1e1e1e;
-    border: 1px solid #0066FF; /* Obramowanie domyślne: Niebieskie */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        #gallery img {
+            width: 280px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px solid #0066FF;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #gallery img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 255, 102, 0.4);
+            border-color: #00FF66;
+        }
+
+        .folder-card {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            background: #1e1e1e;
+            border: 1px solid #0066FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .folder-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 255, 102, 0.4); /* Zielona poświata po najechaniu */
-            border-color: #00FF66; /* Obramowanie po najechaniu: Zielone */
-        }
-        .folder-card svg {
-            transition: transform 0.3s ease, filter 0.3s ease, stroke 0.3s ease;
-        }
-        .folder-card:hover svg {
-            transform: scale(1.1);
-            stroke: #00FF66; /* Zmiana obrysu aparatu na zielony po najechaniu */
-            filter: drop-shadow(0 0 18px rgba(0, 255, 102, 0.9)); /* Zielony błysk */
-        }
-        .folder-card .folder-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #fff;
-            text-align: center;
-            letter-spacing: 1px;
-            margin-top: 15px;
+            box-shadow: 0 8px 25px rgba(0, 255, 102, 0.4);
+            border-color: #00FF66;
         }
 
-        /* Widok ze zdjęciami konkretnego folderu */
-        .folder-view-header {
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
+        .folder-title {
+            position: absolute;
+            bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #ffffff;
         }
+
+        #folder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
         .back-btn {
-            background: #0066cc;
-            color: #fff;
+            background: #0066FF;
+            color: white;
             border: none;
-            padding: 10px 22px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
             transition: background 0.2s;
         }
+
         .back-btn:hover {
-            background: #0052a3;
-        }
-        .folder-current-title {
-            font-size: 1.5rem;
-            margin: 0;
-            color: #fff;
+            background: #0052cc;
         }
 
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-        }
-        .gallery img {
+        /* Lightbox */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 280px;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s;
-            -webkit-user-drag: none;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
-        .gallery img:hover {
-            transform: scale(1.03);
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
         }
 
         footer {
             text-align: center;
-            padding: 30px 20px;
-            background: #1a1a1a;
-            margin-top: 50px;
-            border-top: 1px solid #2a2a2a;
-        }
-        .copyright-notice {
-            font-size: 0.85rem;
-            color: #aaa;
-            margin-top: 10px;
-            line-height: 1.4;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.92);
-            justify-content: center;
-            align-items: center;
             padding: 20px;
-        }
-        .lightbox-container {
-            background: #1c1c1c;
-            border-radius: 12px;
-            max-width: 1100px;
-            width: 100%;
-            max-height: 90vh;
-            display: flex;
-            flex-wrap: wrap;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 0 25px rgba(0,0,0,0.8);
-        }
-        .lightbox-close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 28px;
-            color: #fff;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .lightbox-image-box {
-            flex: 1 1 600px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            position: relative;
-        }
-        .lightbox-image-box img {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 4px;
-            -webkit-user-drag: none;
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            font-size: 30px;
-            padding: 10px 15px;
-            cursor: pointer;
-            border: none;
-            border-radius: 4px;
-            user-select: none;
-            transition: background 0.2s, color 0.2s;
-            z-index: 5;
-        }
-        .lightbox-nav:hover {
-            background: rgba(0, 102, 204, 0.8);
-            color: #fff;
-        }
-        .lightbox-prev {
-            left: 10px;
-        }
-        .lightbox-next {
-            right: 10px;
-        }
-
-        .lightbox-sidebar {
-            flex: 1 1 350px;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            max-height: 80vh;
-            background: #181818;
-            border-left: 1px solid #2a2a2a;
-        }
-        .lightbox-sidebar h3 {
-            margin-top: 0;
-            color: #0066cc;
-            font-size: 1.2rem;
-        }
-        .star-rating {
-            font-size: 24px;
-            color: #444;
-            cursor: pointer;
-            margin: 10px 0;
-        }
-        .star-rating .star {
-            transition: color 0.2s;
-        }
-        .star-rating .star.active {
-            color: #ffca28;
-        }
-        .avg-rating {
-            font-size: 0.9rem;
-            color: #bbb;
-            margin-bottom: 15px;
-        }
-        .comment-form input, .comment-form textarea {
-            width: 100%;
-            background: #282828;
-            border: 1px solid #333;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            font-family: inherit;
-        }
-        .comment-form textarea {
-            resize: vertical;
-            height: 70px;
-        }
-        .comment-form button {
-            background: #0066cc;
-            color: #fff;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-        }
-        .comment-form button:hover {
-            background: #0052a3;
-        }
-        .comments-list {
-            margin-top: 20px;
-            border-top: 1px solid #2c2c2c;
-            padding-top: 15px;
-        }
-        .single-comment {
-            background: #222;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 10px;
+            background: #0f172a;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
             font-size: 0.9rem;
         }
-        .single-comment .author {
-            font-weight: bold;
-            color: #0066cc;
-            margin-bottom: 3px;
-        }
-        .single-comment .rating-stars {
-            color: #ffca28;
-            font-size: 0.8rem;
-        }
 
-        .contact-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            justify-content: center;
-            align-items: center;
-        }
-        .contact-box {
-            background: #1c1c1c;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 450px;
-            width: 90%;
-            position: relative;
-            border: 1px solid #333;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
-        }
-        .contact-box h3 {
-            margin-top: 0;
-            color: #0066cc;
-            font-size: 1.4rem;
-        }
-        .contact-box input, .contact-box textarea {
-            width: 100%;
-            background: #282828;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            font-family: inherit;
-        }
-        .contact-box textarea {
-            height: 110px;
-            resize: vertical;
-        }
-        .contact-box button[type="submit"] {
-            background: #0066cc;
-            color: #fff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
+        .counter-badge {
+            background: #0066FF;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
             font-weight: bold;
-            font-size: 1rem;
-        }
-        .contact-box button[type="submit"]:hover {
-            background: #0052a3;
         }
     </style>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-83HTWNWWCL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-83HTWNWWCL');
-    </script>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
     <header>
-        <div class="contact-btn" id="contact-btn-text" onclick="openContact()">Kontakt</div>
         <h1>Cytruszek84</h1>
         <div class="lang-switch">
-            <button data-lang="pl" class="active">Polski</button>
-            <button data-lang="en">English</button>
-            <button data-lang="de">Deutsch</button>
+            <button class="lang-btn active" onclick="setLanguage('pl')">Polski</button>
+            <button class="lang-btn" onclick="setLanguage('en')">English</button>
+            <button class="lang-btn" onclick="setLanguage('de')">Deutsch</button>
         </div>
     </header>
 
-    <section class="about" id="about">
-        <h2 id="about-title">O mnie</h2>
-        <p id="about-text">Cześć! Jestem Piotr (Cytruszek84).
-Aparat zabieram wszędzie. Serio. Czasem mam wrażenie, że częściej patrzę przez obiektyw niż przez własne okulary.
-Urodziłem się w czerwcowym słońcu 1984 roku w Kielcach, a od tamtej pory kolekcjonuję nie rzeczy, lecz chwile. Wschody słońca, mgły o świcie, opuszczone miejsca, górskie szlaki, miasta, które zasypiają dopiero nad ranem… To właśnie tam powstają moje fotografie.
-Mówią, że jedno zdjęcie jest warte tysiąca słów. Ja uważam, że najlepsze zdjęcia są bezcenne – bo potrafią każdego dnia wywołać ten sam zachwyt, co w chwili ich wykonania.
-Nie sprzedaję fotografii.
-Sprzedaję spokój poranka zamknięty w ramie. Zachód słońca, który nigdy nie gaśnie. Miejsce, do którego można wrócić, nie ruszając się z fotela. I ten moment, kiedy goście przerywają rozmowę, żeby zapytać: „Wow… gdzie zostało zrobione to zdjęcie?”
-Każdy kadr w tej galerii to efekt godzin czekania na idealne światło, setek przejechanych kilometrów i przekonania, że najpiękniejsze historie pisze natura.
-Rozejrzyj się. Nie spiesz się.
-Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.
-A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie</p>
-    </section>
+    <div class="intro-text" id="intro-desc">
+        Rozejrzyj się. Nie śpiesz się.<br>
+        Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.<br>
+        A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz... jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie.
+    </div>
 
-    <!-- KONTENER GALERII I FOLDERÓW -->
-    <div class="container" id="main-container">
-        <!-- Nagłówek po wejściu w dany folder -->
-        <div class="folder-view-header" id="folder-header">
-            <button class="back-btn" id="back-btn" onclick="showFolders()">← Powrót do folderów</button>
-            <h3 class="folder-current-title" id="folder-title-display">Folder 1</h3>
+    <div class="container">
+        <div id="folder-header" style="display: none;">
+            <button class="back-btn" onclick="showFolders()">← Powrót do folderów</button>
+            <h2 id="folder-title-display"></h2>
         </div>
 
-        <!-- Siatka kafelków folderów z grafiką aparatu -->
-        <div class="folders-grid" id="folders-grid"></div>
+        <div id="folders-grid" class="folders-grid"></div>
+        <div id="gallery" style="display: none;"></div>
+    </div>
 
-        <!-- Siatka zdjęć po wybranym folderze -->
-        <div class="gallery" id="gallery" style="display: none;"></div>
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Powiększenie">
     </div>
 
     <footer>
         <p>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
-        <p class="copyright-notice" id="copyright-text">
-            Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością. Pobieranie, kopiowanie, rozpowszechnianie lub jakiekolwiek użycie zdjęć bez wiedzy i pisemnej zgody autora jest zabronione.
-        </p>
-        
-        <div style="text-align: center; margin-top: 25px; margin-bottom: 15px; font-family: sans-serif;">
-            <span style="font-size: 14px; color: #aaa;">Liczba odwiedzin: </span>
-            <span id="visit-count" style="font-size: 16px; font-weight: bold; color: #fff; background: #4C1D95; padding: 3px 10px; border-radius: 12px;">...</span>
-        </div>
+        <p style="margin-top: 5px;">Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością.</p>
+        <p style="margin-top: 10px;">Liczba odwiedzin: <span class="counter-badge" id="visit-counter">278</span></p>
     </footer>
 
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox">
-        <div class="lightbox-container">
-            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-            <div class="lightbox-image-box">
-                <button class="lightbox-nav lightbox-prev" onclick="changePhoto(-1)">&#10094;</button>
-                <img id="lightbox-img" src="" alt="Powiększone zdjęcie">
-                <button class="lightbox-nav lightbox-next" onclick="changePhoto(1)">&#10095;</button>
-            </div>
-            <div class="lightbox-sidebar">
-                <h3 id="ui-feedback-title">Oceń i skomentuj</h3>
-                <div class="avg-rating" id="avg-rating-text">Średnia ocena: Baza wczytywania...</div>
-                
-                <div class="star-rating" id="star-picker">
-                    <span class="star" data-value="1">★</span>
-                    <span class="star" data-value="2">★</span>
-                    <span class="star" data-value="3">★</span>
-                    <span class="star" data-value="4">★</span>
-                    <span class="star" data-value="5">★</span>
-                </div>
-
-                <div class="comment-form">
-                    <input type="text" id="reviewer-name" placeholder="Twoje imię / Nick" maxlength="30">
-                    <textarea id="reviewer-comment" placeholder="Napisz komentarz do tego zdjęcia..." maxlength="300"></textarea>
-                    <button id="submit-btn" onclick="submitFeedback()">Dodaj opinię</button>
-                </div>
-
-                <div class="comments-list" id="comments-list"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- KONTAKT MODAL -->
-    <div class="contact-modal" id="contactModal">
-        <div class="contact-box">
-            <span style="position: absolute; right: 15px; top: 10px; cursor: pointer; font-size: 26px; color: #aaa;" onclick="closeContact()">&times;</span>
-            <h3 id="contact-modal-title">Napisz do mnie</h3>
-            
-            <form action="https://formspree.io/f/xdaqpqay" method="POST">
-                <input type="email" name="email" id="contact-modal-email" placeholder="Twój e-mail zwrotny" required>
-                <textarea name="message" id="contact-modal-msg" placeholder="Treść wiadomości..." required></textarea>
-                <button type="submit" id="contact-modal-btn">Wyślij wiadomość</button>
-            </form>
-        </div>
-    </div>
-
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyDv2QED1Zhbd3xDWIBhcLQJd7Zd7Rz-tWw",
-            authDomain: "cytruszek84-c2e33.firebaseapp.com",
-            projectId: "cytruszek84-c2e33",
-            storageBucket: "cytruszek84-c2e33.firebasestorage.app",
-            messagingSenderId: "89741680278",
-            appId: "1:89741680278:web:1f032fb3cf28ee73d02cb7",
-            measurementId: "G-83HTWNWWCL"
-        };
-        
-        let db = null;
-        try {
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.firestore();
-
-            if (db) {
-                const statsRef = db.collection("stats").doc("page_views");
-                statsRef.get().then((doc) => {
-                    if (doc.exists) {
-                        statsRef.update({ count: firebase.firestore.FieldValue.increment(1) });
-                        const countEl = document.getElementById("visit-count");
-                        if (countEl) countEl.textContent = doc.data().count + 1;
-                    } else {
-                        statsRef.set({ count: 1 });
-                        const countEl = document.getElementById("visit-count");
-                        if (countEl) countEl.textContent = 1;
-                    }
-                }).catch(() => {
-                    const countEl = document.getElementById("visit-count");
-                    if (countEl) countEl.textContent = "1";
-                });
-            }
-        } catch (e) {
-            console.log("Firebase niepodłączone", e);
-        }
-
-        const texts = {
-            pl: {
-                aboutTitle: "O mnie",
-                aboutText: `Cześć! Jestem Piotr (Cytruszek84).
-Aparat zabieram wszędzie. Serio. Czasem mam wrażenie, że częściej patrzę przez obiektyw niż przez własne okulary.
-Urodziłem się w czerwcowym słońcu 1984 roku w Kielcach, a od tamtej pory kolekcjonuję nie rzeczy, lecz chwile. Wschody słońca, mgły o świcie, opuszczone miejsca, górskie szlaki, miasta, które zasypiają dopiero nad ranem… To właśnie tam powstają moje fotografie.
-Mówią, że jedno zdjęcie jest warte tysiąca słów. Ja uważam, że najlepsze zdjęcia są bezcenne – bo potrafią każdego dnia wywołać ten sam zachwyt, co w chwili ich wykonania.
-Nie sprzedaję fotografii.
-Sprzedaję spokój poranka zamknięty w ramie. Zachód słońca, który nigdy nie gaśnie. Miejsce, do którego można wrócić, nie ruszając się z fotela. I ten moment, kiedy goście przerywają rozmowę, żeby zapytać: „Wow… gdzie zostało zrobione to zdjęcie?”
-Każdy kadr w tej galerii to efekt godzin czekania na idealne światło, setek przejechanych kilometrów i przekonania, że najpiękniejsze historie pisze natura.
-Rozejrzyj się. Nie spiesz się.
-Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.
-A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie`,
-                copyrightText: "Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością. Pobieranie, kopiowanie, rozpowszechnianie lub jakiekolwiek użycie zdjęć bez wiedzy i pisemnej zgody autora jest zabronione.",
-                feedbackTitle: "Oceń i skomentuj",
-                btnSubmit: "Dodaj opinię",
-                contactBtn: "Kontakt",
-                contactTitle: "Napisz do mnie",
-                contactEmailPlaceholder: "Twój e-mail zwrotny",
-                contactMsgPlaceholder: "Treść wiadomości...",
-                contactSendBtn: "Wyślij wiadomość",
-                backBtn: "← Powrót do folderów",
-                folderPrefix: "Folder "
-            },
-            en: {
-                aboutTitle: "About me",
-                aboutText: `Hi! I’m Piotr (Cytruszek84).
-I take my camera everywhere. Seriously. Sometimes I feel like I look through the lens more often than through my own glasses.
-I was born under the June sun of 1984 in Kielce, and ever since, I've been collecting moments instead of things. Sunrises, morning mist, abandoned places, mountain trails, cities that only fall asleep at dawn… That is where my photographs are born.
-They say a picture is worth a thousand words. I believe the best pictures are priceless – because every single day they can evoke the exact same awe as the moment they were taken.
-I don't sell photographs.
-I sell the calm of a morning framed on your wall. A sunset that never fades. A place you can return to without leaving your armchair. And that moment when guests pause their conversation to ask, "Wow… where was this photo taken?"
-Every shot in this gallery is the result of hours waiting for the perfect light, hundreds of miles traveled, and the conviction that nature writes the most beautiful stories.
-Take a look around. Take your time.
-Maybe right here you'll find a photo that not only decorates your wall, but also reminds you every day that the world can still amaze us.
-And if one of the pictures makes you stop for a moment… there’s a good chance it will want to stay with you.`,
-                copyrightText: "All photos displayed on this website are my exclusive property. Downloading, copying, distributing or any use of the photos without the author's knowledge and written consent is strictly prohibited.",
-                feedbackTitle: "Rate & Comment",
-                btnSubmit: "Submit Review",
-                contactBtn: "Contact",
-                contactTitle: "Contact me",
-                contactEmailPlaceholder: "Your email address",
-                contactMsgPlaceholder: "Your message...",
-                contactSendBtn: "Send message",
-                backBtn: "← Back to folders",
-                folderPrefix: "Folder "
-            },
-            de: {
-                aboutTitle: "Über mich",
-                aboutText: `Hallo! Ich bin Piotr (Cytruszek84).
-Ich nehme meine Kamera überallhin mit. Im Ernst. Manchmal habe ich das Gefühl, dass ich öfter durch das Objektiv schaue als durch meine eigene Brille.
-Ich wurde im Juni 1984 in Kielce geboren und sammle seitdem keine Dinge, sondern Momente. Sonnenaufgänge, Nebel am Morgen, verlassene Orte, Bergpfade, Städte, die erst im Morgengrauen einschlafen… Genau dort entstehen meine Fotografien.
-Man sagt, ein Bild sagt mehr als tausend Worte. Ich denke, die besten Fotos sind unbezahlbar – weil sie jeden Tag aufs Neue dieselbe Begeisterung hervorrufen können wie im Moment ihrer Entstehung.
-Ich verkaufe keine Fotografien.
-Ich verkaufe die Ruhe des Morgens, festgehalten in einem Rahmen. Einen Sonnenuntergang, der nie verblasst. Einen Ort, an den man zurückkehren kann, ohne den Sessel zu verlassen. Und diesen Moment, wenn Gäste innehalten und fragen: „Wow… wo wurde dieses Foto gemacht?“
-Jeder Aufnahmemoment in dieser Galerie ist das Ergebnis stundenlangen Wartens auf das perfekte Licht, hunderter gefahrener Kilometer und der Überzeugung, dass die Natur die schönsten Geschichten schreibt.
-Schau dich um. Nimm dir Zeit.
-Vielleicht findest du genau hier ein Foto, das nicht nur deine Wand schmückt, sondern dich jeden Tag daran erinnert, wie wunderschön die Welt sein kann.
-Und wenn dich eines der Bilder für einen Moment innehalten lässt… stehen die Chancen gut, dass es bei dir einziehen möchte.`,
-                copyrightText: "Alle auf dieser Website veröffentlichten Fotos sind mein ausschließliches Eigentum. Das Herunterladen, Kopieren, Verbreiten oder jegliche Verwendung der Fotos ohne Wissen und schriftliche Zustimmung des Autors ist strengstens untersagt.",
-                feedbackTitle: "Bewerten & Kommentieren",
-                btnSubmit: "Bewertung absenden",
-                contactBtn: "Kontakt",
-                contactTitle: "Schreib mir",
-                contactEmailPlaceholder: "Deine E-Mail-Adresse",
-                contactMsgPlaceholder: "Deine Nachricht...",
-                contactSendBtn: "Nachricht senden",
-                backBtn: "← Zurück zu Ordnern",
-                folderPrefix: "Ordner "
-            }
-        };
-
+        const photosPerFolder = 10;
+        let totalPhotos = 280; // Domyślna liczba zdjęć (jeśli brak jsona)
         let currentLanguage = 'pl';
 
-        document.querySelectorAll('.lang-switch button').forEach(button => {
-            button.addEventListener('click', function() {
-                currentLanguage = this.getAttribute('data-lang');
-                document.getElementById('about-title').textContent = texts[currentLanguage].aboutTitle;
-                document.getElementById('about-text').textContent = texts[currentLanguage].aboutText;
-                document.getElementById('copyright-text').textContent = texts[currentLanguage].copyrightText;
-                document.getElementById('ui-feedback-title').textContent = texts[currentLanguage].feedbackTitle;
-                document.getElementById('submit-btn').textContent = texts[currentLanguage].btnSubmit;
-                
-                document.getElementById('contact-btn-text').textContent = texts[currentLanguage].contactBtn;
-                document.getElementById('contact-modal-title').textContent = texts[currentLanguage].contactTitle;
-                document.getElementById('contact-modal-email').placeholder = texts[currentLanguage].contactEmailPlaceholder;
-                document.getElementById('contact-modal-msg').placeholder = texts[currentLanguage].contactMsgPlaceholder;
-                document.getElementById('contact-modal-btn').textContent = texts[currentLanguage].contactSendBtn;
-                document.getElementById('back-btn').textContent = texts[currentLanguage].backBtn;
+        const texts = {
+            pl: { folderPrefix: "Folder" },
+            en: { folderPrefix: "Folder" },
+            de: { folderPrefix: "Ordner" }
+        };
 
-                document.querySelectorAll('.lang-switch button').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-
-                // Przeliczenie widoku
-                renderFolders();
-                if(currentFolderIndex !== null) {
-                    document.getElementById('folder-title-display').textContent = `${texts[currentLanguage].folderPrefix} ${currentFolderIndex}`;
-                }
-            });
-        });
-
-        // --- ZARZĄDZANIE FOLDERAMI I ZDJĘCIAMI ---
-        let totalPhotos = 245;
-        const photosPerFolder = 9;
-        let currentFolderIndex = null;
-
+        // Pobieranie dokładnej liczby zdjęć z pliku JSON
         fetch('photos.json')
             .then(res => res.json())
             .then(data => {
-                if(data && data.count) {
+                if (data && data.count) {
                     totalPhotos = data.count;
                     renderFolders();
                 }
@@ -679,15 +257,15 @@ Und wenn dich eines der Bilder für einen Moment innehalten lässt… stehen die
             foldersGrid.innerHTML = '';
             const totalFolders = Math.ceil(totalPhotos / photosPerFolder);
 
-        for (let i = totalFolders; i >= 1; i--) { 
+            // Odliczanie od najnowszego folderu do najstarszego
+            for (let i = totalFolders; i >= 1; i--) {
                 const card = document.createElement('div');
                 card.className = 'folder-card';
                 card.onclick = () => openFolder(i);
 
-                // Rysowanie aparatu ze świecącą lampą (SVG) - kontur domyślnie w kolorze #0066FF
                 card.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
-                        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 10px rgba(0, 102, 255, 0.6));">
+                        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <!-- Promienie / Błysk lampy -->
                             <path d="M12 2v3M7.5 4.5l1.8 2.4M16.5 4.5l-1.8 2.4M3 9h3M18 9h3" stroke="#ffca28" stroke-width="2"/>
                             <!-- Korpus aparatu -->
@@ -695,21 +273,17 @@ Und wenn dich eines der Bilder für einen Moment innehalten lässt… stehen die
                             <!-- Obiektyw -->
                             <circle cx="12" cy="13" r="4"/>
                         </svg>
-                        <div class="folder-title">
-                            ${texts[currentLanguage].folderPrefix} ${i}
-                        </div>
+                        <div class="folder-title">${texts[currentLanguage].folderPrefix} ${i}</div>
                     </div>
                 `;
-
                 foldersGrid.appendChild(card);
             }
         }
 
         function openFolder(folderNum) {
-            currentFolderIndex = folderNum;
             document.getElementById('folders-grid').style.display = 'none';
             document.getElementById('folder-header').style.display = 'flex';
-            document.getElementById('gallery').style.display = 'grid';
+            document.getElementById('gallery').style.display = 'flex';
             document.getElementById('folder-title-display').textContent = `${texts[currentLanguage].folderPrefix} ${folderNum}`;
 
             const gallery = document.getElementById('gallery');
@@ -718,199 +292,44 @@ Und wenn dich eines der Bilder für einen Moment innehalten lässt… stehen die
             const start = (folderNum - 1) * photosPerFolder + 1;
             const end = Math.min(folderNum * photosPerFolder, totalPhotos);
 
+            // Zdjęcia wewnątrz folderu – od najnowszego do najstarszego
             for (let i = end; i >= start; i--) {
                 const img = document.createElement('img');
                 const fileName = `${i}.jpg`;
                 img.src = fileName;
                 img.alt = `Fotografia ${i}`;
                 img.ondragstart = function() { return false; };
-
                 img.addEventListener('click', function() {
                     openLightbox(fileName);
                 });
-
-                img.onerror = function() {
-                    this.style.display = 'none';
-                };
-
                 gallery.appendChild(img);
             }
-
-            document.getElementById('main-container').scrollIntoView({ behavior: 'smooth' });
         }
 
         function showFolders() {
-            currentFolderIndex = null;
-            document.getElementById('gallery').style.display = 'none';
-            document.getElementById('folder-header').style.display = 'none';
             document.getElementById('folders-grid').style.display = 'grid';
-            document.getElementById('main-container').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('folder-header').style.display = 'none';
+            document.getElementById('gallery').style.display = 'none';
         }
 
-        // --- LIGHTBOX & FEEDBACK ---
-        let currentPhotoId = "";
-        let selectedRating = 0;
-        let currentPhotoIndex = 1;
-
-        const stars = document.querySelectorAll('#star-picker .star');
-        stars.forEach(star => {
-            star.addEventListener('click', function() {
-                selectedRating = parseInt(this.getAttribute('data-value'));
-                updateStarDisplay(selectedRating);
-            });
-        });
-
-        function updateStarDisplay(rating) {
-            stars.forEach(s => {
-                const val = parseInt(s.getAttribute('data-value'));
-                if (val <= rating) {
-                    s.classList.add('active');
-                } else {
-                    s.classList.remove('active');
-                }
-            });
-        }
-
-        function openLightbox(fileName) {
-            const match = fileName.match(/\((\d+)\)/);
-            if (match) {
-                currentPhotoIndex = parseInt(match[1]);
-            }
-
-            currentPhotoId = fileName.replace(/[^a-zA-Z0-9]/g, "_");
-            document.getElementById('lightbox-img').src = fileName;
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').style.display = 'flex';
-            
-            selectedRating = 0;
-            updateStarDisplay(0);
-            document.getElementById('reviewer-name').value = '';
-            document.getElementById('reviewer-comment').value = '';
-
-            loadFeedback(currentPhotoId);
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').style.display = 'none';
         }
 
-        function changePhoto(direction) {
-            currentPhotoIndex += direction;
-            if (currentPhotoIndex > totalPhotos) {
-                currentPhotoIndex = 1;
-            } else if (currentPhotoIndex < 1) {
-                currentPhotoIndex = totalPhotos;
-            }
-
-            const neededFolder = Math.ceil(currentPhotoIndex / photosPerFolder);
-            if (currentFolderIndex !== neededFolder) {
-                openFolder(neededFolder);
-            }
-
-            openLightbox(`${currentPhotoIndex}.jpg`);
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderFolders();
         }
 
-        document.addEventListener('keydown', function(event) {
-            const lightbox = document.getElementById('lightbox');
-            if (lightbox && lightbox.style.display === 'flex') {
-                const activeEl = document.activeElement;
-                if (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA') {
-                    return; 
-                }
-
-                if (event.key === 'ArrowRight') {
-                    changePhoto(1);
-                } else if (event.key === 'ArrowLeft') {
-                    changePhoto(-1);
-                } else if (event.key === 'Escape') {
-                    closeLightbox();
-                }
-            }
-        });
-
-        function openContact() {
-            document.getElementById('contactModal').style.display = 'flex';
-        }
-        function closeContact() {
-            document.getElementById('contactModal').style.display = 'none';
-        }
-
-        function submitFeedback() {
-            const name = document.getElementById('reviewer-name').value.trim() || 'Anonim';
-            const comment = document.getElementById('reviewer-comment').value.trim();
-
-            if (selectedRating === 0 && !comment) {
-                alert("Wybierz ocenę gwiazdkową lub wpisz komentarz!");
-                return;
-            }
-
-            const feedbackData = {
-                photoId: currentPhotoId,
-                author: name,
-                rating: selectedRating,
-                comment: comment,
-                date: new Date().toLocaleDateString()
-            };
-
-            if (db) {
-                db.collection('reviews').add(feedbackData).then(() => {
-                    loadFeedback(currentPhotoId);
-                    document.getElementById('reviewer-comment').value = '';
-                });
-            } else {
-                alert("Dziękujemy za opinię!");
-            }
-        }
-
-        function loadFeedback(photoId) {
-            const commentsContainer = document.getElementById('comments-list');
-            const avgRatingText = document.getElementById('avg-rating-text');
-            commentsContainer.innerHTML = 'Wczytywanie opinii...';
-
-            if (!db) {
-                commentsContainer.innerHTML = '<p style="color:#777; font-size:0.85rem;">Brak połączenia z bazą.</p>';
-                avgRatingText.textContent = 'Brak ocen';
-                return;
-            }
-
-            db.collection('reviews').where('photoId', '==', photoId).get().then(snapshot => {
-                commentsContainer.innerHTML = '';
-                let totalRating = 0;
-                let ratingCount = 0;
-
-                if (snapshot.empty) {
-                    commentsContainer.innerHTML = '<p style="color:#777; font-size:0.85rem;">Brak komentarzy. Bądź pierwszy!</p>';
-                    avgRatingText.textContent = 'Brak ocen';
-                    return;
-                }
-
-                snapshot.forEach(doc => {
-                    const item = doc.data();
-                    if (item.rating > 0) {
-                        totalRating += item.rating;
-                        ratingCount++;
-                    }
-
-                    if (item.comment || item.rating) {
-                        const div = document.createElement('div');
-                        div.className = 'single-comment';
-                        
-                        let starString = '★'.repeat(item.rating) + '☆'.repeat(5 - item.rating);
-                        div.innerHTML = `
-                            <div class="author">${item.author} <span class="rating-stars">${item.rating > 0 ? starString : ''}</span></div>
-                            <div class="text">${item.comment}</div>
-                        `;
-                        commentsContainer.appendChild(div);
-                    }
-                });
-
-                if (ratingCount > 0) {
-                    const avg = (totalRating / ratingCount).toFixed(1);
-                    avgRatingText.textContent = `Średnia ocena: ${avg} / 5 (${ratingCount} ocen)`;
-                } else {
-                    avgRatingText.textContent = 'Brak ocen';
-                }
-            });
-        }
+        // Pierwsze wyrenderowanie
+        renderFolders();
     </script>
 </body>
 </html>
