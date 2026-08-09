@@ -1,4 +1,4 @@
-Q<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -29,8 +29,15 @@ Q<!DOCTYPE html>
 
         h1 {
             font-size: 2.2rem;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             color: #ffffff;
+        }
+
+        .author-info {
+            font-size: 1.1rem;
+            color: #38bdf8;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
 
         .lang-switch {
@@ -182,6 +189,12 @@ Q<!DOCTYPE html>
             font-size: 0.9rem;
         }
 
+        .copyright-notice {
+            color: #ef4444;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
         .counter-badge {
             background: #0066FF;
             color: white;
@@ -195,6 +208,7 @@ Q<!DOCTYPE html>
 
     <header>
         <h1>Cytruszek84</h1>
+        <div class="author-info" id="author-text">Piotr Głuszek • Polska</div>
         <div class="lang-switch">
             <button class="lang-btn active" onclick="setLanguage('pl')">Polski</button>
             <button class="lang-btn" onclick="setLanguage('en')">English</button>
@@ -210,7 +224,7 @@ Q<!DOCTYPE html>
 
     <div class="container">
         <div id="folder-header" style="display: none;">
-            <button class="back-btn" onclick="showFolders()">← Powrót do folderów</button>
+            <button class="back-btn" id="back-btn-text" onclick="showFolders()">← Powrót do folderów</button>
             <h2 id="folder-title-display"></h2>
         </div>
 
@@ -223,20 +237,45 @@ Q<!DOCTYPE html>
     </div>
 
     <footer>
-        <p>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
-        <p style="margin-top: 5px;">Wszystkie zdjęcia zamieszczone na tej stronie są moją wyłączną własnością.</p>
-        <p style="margin-top: 10px;">Liczba odwiedzin: <span class="counter-badge" id="visit-counter">278</span></p>
+        <p id="footer-subtitle>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
+        <p class="copyright-notice" id="footer-copyright">Wszystkie zdjęcia są moją wyłączną własnością. Kopiowanie i rozpowszechnianie bez zgody jest zabronione.</p>
+        <p style="margin-top: 10px;"><span id="footer-visits">Liczba odwiedzin:</span> <span class="counter-badge" id="visit-counter">278</span></p>
     </footer>
 
     <script>
         const photosPerFolder = 10;
-        let totalPhotos = 245; // Aktualna liczba posiadanych zdjęć
+        let totalPhotos = 245;
         let currentLanguage = 'pl';
+        let currentOpenFolder = null;
 
-        const texts = {
-            pl: { folderPrefix: "Folder" },
-            en: { folderPrefix: "Folder" },
-            de: { folderPrefix: "Ordner" }
+        const translations = {
+            pl: {
+                author: "Piotr Głuszek • Polska",
+                intro: "Rozejrzyj się. Nie śpiesz się.<br>Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.<br>A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz... jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie.",
+                folderPrefix: "Folder",
+                backBtn: "← Powrót do folderów",
+                footerSubtitle: "© FotoCytruszek84 – Amatorska fotografia hobbystyczna",
+                footerCopyright: "Wszystkie zdjęcia są moją wyłączną własnością. Kopiowanie i rozpowszechnianie bez zgody jest całkowicie zabronione.",
+                footerVisits: "Liczba odwiedzin:"
+            },
+            en: {
+                author: "Piotr Głuszek • Poland",
+                intro: "Take a look around. Take your time.<br>Maybe right here you will find a photograph that will not only decorate your wall, but remind you every day that the world can still amaze.<br>And if one of the photos makes you pause for a moment... there's a good chance it will want to stay with you.",
+                folderPrefix: "Folder",
+                backBtn: "← Back to folders",
+                footerSubtitle: "© FotoCytruszek84 – Hobby Photography",
+                footerCopyright: "All photos are my exclusive property. Copying and distribution without permission is strictly prohibited.",
+                footerVisits: "Total visits:"
+            },
+            de: {
+                author: "Piotr Głuszek • Polen",
+                intro: "Schau dich um. Nimm dir Zeit.<br>Vielleicht findest du genau hier ein Foto, das nicht nur deine Wand dekoriert, sondern dich jeden Tag daran erinnert, wie wunderschön die Welt ist.<br>Und wenn dich eines der Bilder für einen Moment innehalten lässt... besteht eine gute Chance, dass es bei dir einziehen möchte.",
+                folderPrefix: "Ordner",
+                backBtn: "← Zurück zu den Ordnern",
+                footerSubtitle: "© FotoCytruszek84 – Hobbyfotografie",
+                footerCopyright: "Alle Fotos sind mein ausschließliches Eigentum. Kopieren und Verbreitung ohne Genehmigung ist strengstens untersagt.",
+                footerVisits: "Besucheranzahl:"
+            }
         };
 
         // Pobieranie dokładnej liczby zdjęć z pliku JSON (jeśli istnieje)
@@ -257,7 +296,6 @@ Q<!DOCTYPE html>
             foldersGrid.innerHTML = '';
             const totalFolders = Math.ceil(totalPhotos / photosPerFolder);
 
-            // Odliczanie od najnowszego folderu do najstarszego
             for (let i = totalFolders; i >= 1; i--) {
                 const card = document.createElement('div');
                 card.className = 'folder-card';
@@ -266,14 +304,11 @@ Q<!DOCTYPE html>
                 card.innerHTML = `
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
                         <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <!-- Promienie / Błysk lampy -->
                             <path d="M12 2v3M7.5 4.5l1.8 2.4M16.5 4.5l-1.8 2.4M3 9h3M18 9h3" stroke="#ffca28" stroke-width="2"/>
-                            <!-- Korpus aparatu -->
                             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                            <!-- Obiektyw -->
                             <circle cx="12" cy="13" r="4"/>
                         </svg>
-                        <div class="folder-title">${texts[currentLanguage].folderPrefix} ${i}</div>
+                        <div class="folder-title">${translations[currentLanguage].folderPrefix} ${i}</div>
                     </div>
                 `;
                 foldersGrid.appendChild(card);
@@ -281,10 +316,11 @@ Q<!DOCTYPE html>
         }
 
         function openFolder(folderNum) {
+            currentOpenFolder = folderNum;
             document.getElementById('folders-grid').style.display = 'none';
             document.getElementById('folder-header').style.display = 'flex';
             document.getElementById('gallery').style.display = 'flex';
-            document.getElementById('folder-title-display').textContent = `${texts[currentLanguage].folderPrefix} ${folderNum}`;
+            document.getElementById('folder-title-display').textContent = `${translations[currentLanguage].folderPrefix} ${folderNum}`;
 
             const gallery = document.getElementById('gallery');
             gallery.innerHTML = '';
@@ -292,13 +328,11 @@ Q<!DOCTYPE html>
             const start = (folderNum - 1) * photosPerFolder + 1;
             const end = Math.min(folderNum * photosPerFolder, totalPhotos);
 
-            // Wyświetlanie zdjęć wewnątrz folderu (od najnowszego do najstarszego)
             for (let i = end; i >= start; i--) {
                 const img = document.createElement('img');
                 const fileName = `${i}.jpg`;
                 img.src = fileName;
 
-                // Automatyczna obsługa plików z wielkim rozszerzeniem (.JPG)
                 img.onerror = function() {
                     if (!this.getAttribute('data-tried-capital')) {
                         this.setAttribute('data-tried-capital', 'true');
@@ -316,6 +350,7 @@ Q<!DOCTYPE html>
         }
 
         function showFolders() {
+            currentOpenFolder = null;
             document.getElementById('folders-grid').style.display = 'grid';
             document.getElementById('folder-header').style.display = 'none';
             document.getElementById('gallery').style.display = 'none';
@@ -332,9 +367,29 @@ Q<!DOCTYPE html>
 
         function setLanguage(lang) {
             currentLanguage = lang;
+            
+            // Podświetlenie aktywnego przycisku
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+
+            // Podmiana tekstów na stronie
+            const t = translations[lang];
+            document.getElementById('author-text').textContent = t.author;
+            document.getElementById('intro-desc').innerHTML = t.intro;
+            document.getElementById('back-btn-text').textContent = t.backBtn;
+            document.getElementById('footer-subtitle').textContent = t.footerSubtitle;
+            document.getElementById('footer-copyright').textContent = t.footerCopyright;
+            document.getElementById('footer-visits').textContent = t.footerVisits;
+
+            // Przeładowanie widoku folderów
             renderFolders();
+
+            // Jeśli jesteśmy w otwartym folderze, odśwież tytuł folderu
+            if (currentOpenFolder !== null) {
+                document.getElementById('folder-title-display').textContent = `${t.folderPrefix} ${currentOpenFolder}`;
+            }
         }
 
         // Pierwsze wyrenderowanie
