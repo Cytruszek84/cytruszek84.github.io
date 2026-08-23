@@ -1,27 +1,13 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-&#x20;   <meta charset="UTF-8">
-&#x20;   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-<title>BEZ KADRU | Fotografia</title>
-
-<meta name="description"
-      content="BEZ KADRU – fotografia wolności, natury, podróży, światła i chwil poza schematem.">
-
-<link rel="canonical" href="https://cytruszek84.github.io/">
-
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://cytruszek84.github.io/">
-<meta property="og:title" content="BEZ KADRU | Fotografia">
-<meta property="og:description"
-      content="Fotografia wolności, natury, podróży, światła i chwil poza schematem.">
-<meta name="twitter:card" content="summary_large_image">
-
+<title>Cytruszek84 | Photography</title>
 
 <meta name="description"
-      content="Bez Kadru Photography – fotografia krajobrazowa, natura, góry, miasta, mgły, światło i wyjątkowe chwile.">
+      content="Cytruszek84 Photography – fotografia krajobrazowa, natura, góry, miasta, mgły, światło i wyjątkowe chwile.">
 
 <meta name="theme-color" content="#f7f5f0">
 
@@ -29,7 +15,6 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-83HTNWWCL"></script>
 
 <script>
-    const SITE_URL = "https://cytruszek84.github.io/";
     window.dataLayer = window.dataLayer || [];
 
     function gtag() {
@@ -812,7 +797,7 @@
     }
 
     .photo-card::after {
-        content: "© Bez Kadru";
+        content: "© Cytruszek84";
 
         position: absolute;
 
@@ -1262,18 +1247,16 @@
 
 </style>
 
-
 </head>
 <body
-&#x20;   oncontextmenu="return false;"
-&#x20;   ondragstart="return false;"
-&#x20;   onselectstart="return false;"
-\>
+    oncontextmenu="return false;"
+    ondragstart="return false;"
+    onselectstart="return false;"
+>
 <!-- =========================================================
-&#x20;    HEADER
-\========================================================= -->
+     HEADER
+========================================================= -->
 <header>
-
 
 <div class="nav">
 
@@ -1283,7 +1266,7 @@
         aria-label="Strona główna"
     >
         <span class="brand-name">
-            BEZ KADRU
+            CYTRUSZEK84
         </span>
 
         <span class="brand-sub">
@@ -1343,13 +1326,11 @@
 
 </div>
 
-
 </header>
 <!-- =========================================================
-&#x20;    HOME
-\========================================================= -->
+     HOME
+========================================================= -->
 <main id="home-view">
-
 
 <!-- HERO -->
 
@@ -1412,7 +1393,7 @@
             <!-- GŁÓWNE ZDJĘCIE -->
             <img
                 src="hero.jpg"
-                alt="Fotografia Bez Kadru"
+                alt="Fotografia Cytruszek84"
                 draggable="false"
             >
 
@@ -1499,7 +1480,7 @@
                 <!-- LINK TIKTOK -->
                 <a
                     class="social-link"
-                    href="https://www.tiktok.com/@bezkadru"
+                    href="https://www.tiktok.com/@cytruszek84"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -1510,7 +1491,7 @@
                 <!-- LINK INSTAGRAM -->
                 <a
                     class="social-link"
-                    href="https://www.instagram.com/bezkadru"
+                    href="https://www.instagram.com/cytruszek84"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -1525,16 +1506,14 @@
 
 </section>
 
-
 </main>
 <!-- =========================================================
-&#x20;    GALLERY VIEW
-\========================================================= -->
+     GALLERY VIEW
+========================================================= -->
 <section
-&#x20;   id="gallery-view"
-&#x20;   class="section"
-\>
-
+    id="gallery-view"
+    class="section"
+>
 
 <div class="gallery-header">
 
@@ -1561,16 +1540,14 @@
 >
 </div>
 
-
 </section>
 <!-- =========================================================
-&#x20;    ABOUT
-\========================================================= -->
+     ABOUT
+========================================================= -->
 <section
-&#x20;   id="about-view"
-&#x20;   class="section"
-\>
-
+    id="about-view"
+    class="section"
+>
 
 <div class="about-layout">
 
@@ -1589,7 +1566,7 @@
 
         <img
             src="omnie.jpg"
-            alt="Piotr – Bez Kadru"
+            alt="Piotr – Cytruszek84"
             draggable="false"
             onerror="this.src='about.jpg';"
         >
@@ -1598,7 +1575,7 @@
             class="about-photo-label"
             id="about-photo-label"
         >
-            Piotr · Bez Kadru
+            Piotr · Cytruszek84
         </div>
 
     </div>
@@ -1626,7 +1603,7 @@
 
             <p>
                 Mam na imię Piotr, a w świecie fotografii
-                możecie znaleźć mnie jako <strong>Bez Kadru</strong>.
+                możecie znaleźć mnie jako <strong>Cytruszek84</strong>.
             </p>
 
             <p>
@@ -1668,16 +1645,14 @@
 
 </div>
 
-
 </section>
 <!-- =========================================================
-&#x20;    LIGHTBOX
-\========================================================= -->
+     LIGHTBOX
+========================================================= -->
 <div
-&#x20;   id="lightbox"
-&#x20;   onclick="closeLightbox()"
-\>
-
+    id="lightbox"
+    onclick="closeLightbox()"
+>
 
 <button
     class="lightbox-close"
@@ -1695,16 +1670,14 @@
     draggable="false"
 >
 
-
 </div>
 <!-- =========================================================
-&#x20;    FOOTER
-\========================================================= -->
+     FOOTER
+========================================================= -->
 <footer>
 
-
 <div class="footer-brand">
-    BEZ KADRU
+    CYTRUSZEK84
 </div>
 
 <p
@@ -1738,144 +1711,130 @@
 
 </div>
 
-
 </footer>
 <script>
 
 /* =========================================================
-&#x20;  FIREBASE
-\========================================================= */
+   FIREBASE
+========================================================= */
 
 const firebaseConfig = {
 
-&#x20;   apiKey: "AIzaSyDv2QED1ZHbd3xDWIBhcLQJd7Zd7Rz-tWw",
+    apiKey: "AIzaSyDv2QED1ZHbd3xDWIBhcLQJd7Zd7Rz-tWw",
 
-&#x20;   authDomain:
-&#x20;       "bezkadru-c2e33.firebaseapp.com",
+    authDomain:
+        "cytruszek84-c2e33.firebaseapp.com",
 
-&#x20;   projectId:
-&#x20;       "bezkadru-c2e33",
+    projectId:
+        "cytruszek84-c2e33",
 
-&#x20;   storageBucket:
-&#x20;       "bezkadru-c2e33.firebasestorage.app",
+    storageBucket:
+        "cytruszek84-c2e33.firebasestorage.app",
 
-&#x20;   messagingSenderId:
-&#x20;       "89741680278",
+    messagingSenderId:
+        "89741680278",
 
-&#x20;   appId:
-&#x20;       "1:89741680278:web:1f032fb3cf28ee73d02cb7",
+    appId:
+        "1:89741680278:web:1f032fb3cf28ee73d02cb7",
 
-&#x20;   measurementId:
-&#x20;       "G-83HTNWWCL"
+    measurementId:
+        "G-83HTNWWCL"
 };
 
-
 let db = null;
-
 
 /* INIT FIREBASE */
 
 try {
 
-&#x20;   firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
 
-&#x20;   db = firebase.firestore();
+    db = firebase.firestore();
 
-&#x20;   try {
-&#x20;       firebase.analytics();
-&#x20;   } catch (e) {
-&#x20;       console.warn("Analytics niedostępne.");
-&#x20;   }
+    try {
+        firebase.analytics();
+    } catch (e) {
+        console.warn("Analytics niedostępne.");
+    }
 
 } catch (error) {
 
-&#x20;   console.error(
-&#x20;       "Firebase initialization error:",
-&#x20;       error
-&#x20;   );
+    console.error(
+        "Firebase initialization error:",
+        error
+    );
 }
 
-
 /* =========================================================
-&#x20;  VISIT COUNTER
-\========================================================= */
+   VISIT COUNTER
+========================================================= */
 
 function updateVisitCounter() {
 
-&#x20;   const counterElement =
-&#x20;       document.getElementById("visit-counter");
+    const counterElement =
+        document.getElementById("visit-counter");
 
+    if (!db) {
 
-&#x20;   if (!db) {
+        counterElement.textContent = "—";
 
-&#x20;       counterElement.textContent = "—";
+        return;
+    }
 
-&#x20;       return;
-&#x20;   }
+    const counterRef =
+        db.collection("stats")
+          .doc("visits");
 
+    db.runTransaction(async transaction => {
 
-&#x20;   const counterRef =
-&#x20;       db.collection("stats")
-&#x20;         .doc("visits");
+        const doc =
+            await transaction.get(counterRef);
 
+        let count = 1;
 
-&#x20;   db.runTransaction(async transaction => {
+        if (doc.exists) {
 
-&#x20;       const doc =
-&#x20;           await transaction.get(counterRef);
+            const oldCount =
+                Number(doc.data().count) || 0;
 
+            count = oldCount + 1;
+        }
 
-&#x20;       let count = 1;
+        transaction.set(
+            counterRef,
+            {
+                count: count
+            },
+            {
+                merge: true
+            }
+        );
 
+        return count;
 
-&#x20;       if (doc.exists) {
+    })
+    .then(count => {
 
-&#x20;           const oldCount =
-&#x20;               Number(doc.data().count) || 0;
+        counterElement.textContent =
+            count.toLocaleString();
 
-&#x20;           count = oldCount + 1;
-&#x20;       }
+    })
+    .catch(error => {
 
+        console.error(
+            "Błąd licznika odwiedzin:",
+            error
+        );
 
-&#x20;       transaction.set(
-&#x20;           counterRef,
-&#x20;           {
-&#x20;               count: count
-&#x20;           },
-&#x20;           {
-&#x20;               merge: true
-&#x20;           }
-&#x20;       );
-
-
-&#x20;       return count;
-
-&#x20;   })
-&#x20;   .then(count => {
-
-&#x20;       counterElement.textContent =
-&#x20;           count.toLocaleString();
-
-&#x20;   })
-&#x20;   .catch(error => {
-
-&#x20;       console.error(
-&#x20;           "Błąd licznika odwiedzin:",
-&#x20;           error
-&#x20;       );
-
-
-&#x20;       counterElement.textContent = "—";
-&#x20;   });
+        counterElement.textContent = "—";
+    });
 }
-
 
 updateVisitCounter();
 
-
 /* =========================================================
-&#x20;  SETTINGS
-\========================================================= */
+   SETTINGS
+========================================================= */
 
 const photosPerFolder = 10;
 
@@ -1885,946 +1844,851 @@ let currentLanguage = "pl";
 
 let currentOpenFolder = null;
 
-
 /* =========================================================
-&#x20;  NAZWY FOLDERÓW
-\========================================================= */
+   NAZWY FOLDERÓW
+========================================================= */
 
 const folderNames = {
 
-&#x20;   pl: [
-&#x20;       "Światło natury",
-&#x20;       "Górskie historie",
-&#x20;       "Mgły o poranku",
-&#x20;       "Opuszczone miejsca",
-&#x20;       "Miasto po zmroku",
-&#x20;       "Zachody słońca",
-&#x20;       "Drogi i podróże",
-&#x20;       "Chwile bez scenariusza"
-&#x20;   ],
+    pl: [
+        "Światło natury",
+        "Górskie historie",
+        "Mgły o poranku",
+        "Opuszczone miejsca",
+        "Miasto po zmroku",
+        "Zachody słońca",
+        "Drogi i podróże",
+        "Chwile bez scenariusza"
+    ],
 
-&#x20;   en: [
-&#x20;       "Nature & Light",
-&#x20;       "Mountain Stories",
-&#x20;       "Morning Mist",
-&#x20;       "Abandoned Places",
-&#x20;       "City After Dark",
-&#x20;       "Sunset Stories",
-&#x20;       "Roads & Journeys",
-&#x20;       "Unscripted Moments"
-&#x20;   ],
+    en: [
+        "Nature & Light",
+        "Mountain Stories",
+        "Morning Mist",
+        "Abandoned Places",
+        "City After Dark",
+        "Sunset Stories",
+        "Roads & Journeys",
+        "Unscripted Moments"
+    ],
 
-&#x20;   de: [
-&#x20;       "Natur & Licht",
-&#x20;       "Berggeschichten",
-&#x20;       "Morgennebel",
-&#x20;       "Verlassene Orte",
-&#x20;       "Stadt bei Nacht",
-&#x20;       "Sonnenuntergänge",
-&#x20;       "Reisen & Wege",
-&#x20;       "Ungeplante Momente"
-&#x20;   ]
+    de: [
+        "Natur & Licht",
+        "Berggeschichten",
+        "Morgennebel",
+        "Verlassene Orte",
+        "Stadt bei Nacht",
+        "Sonnenuntergänge",
+        "Reisen & Wege",
+        "Ungeplante Momente"
+    ]
 };
 
-
 /* =========================================================
-&#x20;  TRANSLATIONS
-\========================================================= */
+   TRANSLATIONS
+========================================================= */
 
 const translations = {
 
-&#x20;   pl: {
+    pl: {
 
-&#x20;       heroLabel:
-&#x20;           "Fotografia",
+        heroLabel:
+            "Fotografia",
 
-&#x20;       heroTitle:
-&#x20;           "Świat zapisany<br><span>w kadrze.</span>",
+        heroTitle:
+            "Świat zapisany<br><span>w kadrze.</span>",
 
-&#x20;       heroText:
-&#x20;           "Fotografia to dla mnie sposób zatrzymywania chwil, do których można wrócić nawet po wielu latach. Światło, natura, przestrzeń i emocje — właśnie tego szukam za każdym razem, kiedy biorę aparat do ręki.",
+        heroText:
+            "Fotografia to dla mnie sposób zatrzymywania chwil, do których można wrócić nawet po wielu latach. Światło, natura, przestrzeń i emocje — właśnie tego szukam za każdym razem, kiedy biorę aparat do ręki.",
 
-&#x20;       heroGallery:
-&#x20;           "Odkryj galerię",
+        heroGallery:
+            "Odkryj galerię",
 
-&#x20;       heroAbout:
-&#x20;           "Poznaj mnie",
+        heroAbout:
+            "Poznaj mnie",
 
-&#x20;       heroBadgeTitle:
-&#x20;           "Chwile. Światło. Emocje.",
+        heroBadgeTitle:
+            "Chwile. Światło. Emocje.",
 
-&#x20;       heroBadgeText:
-&#x20;           "Fotografia z pasją",
+        heroBadgeText:
+            "Fotografia z pasją",
 
-&#x20;       galleryLabel:
-&#x20;           "Portfolio",
+        galleryLabel:
+            "Portfolio",
 
-&#x20;       galleryTitle:
-&#x20;           "Historie zatrzymane w czasie",
+        galleryTitle:
+            "Historie zatrzymane w czasie",
 
-&#x20;       galleryDescription:
-&#x20;           "Wybierz kolekcję i zobacz fotografie. Każdy folder to inna historia, inne światło i inne miejsce.",
+        galleryDescription:
+            "Wybierz kolekcję i zobacz fotografie. Każdy folder to inna historia, inne światło i inne miejsce.",
 
-&#x20;       aboutLabel:
-&#x20;           "O mnie",
+        aboutLabel:
+            "O mnie",
 
-&#x20;       aboutTitle:
-&#x20;           "Nie tylko robię zdjęcia. Zbieram chwile.",
+        aboutTitle:
+            "Nie tylko robię zdjęcia. Zbieram chwile.",
 
-&#x20;       aboutPhoto:
-&#x20;           "Piotr · Bez Kadru",
+        aboutPhoto:
+            "Piotr · Cytruszek84",
 
-&#x20;       socialTitle:
-&#x20;           "Zobacz więcej moich kadrów",
+        socialTitle:
+            "Zobacz więcej moich kadrów",
 
-&#x20;       socialDescription:
-&#x20;           "Obserwuj mnie również w mediach społecznościowych.",
+        socialDescription:
+            "Obserwuj mnie również w mediach społecznościowych.",
 
-&#x20;       back:
-&#x20;           "← Wróć do kolekcji",
+        back:
+            "← Wróć do kolekcji",
 
-&#x20;       visits:
-&#x20;           "Odwiedziny",
+        visits:
+            "Odwiedziny",
 
-&#x20;       copyright:
-&#x20;           "© Wszystkie fotografie są chronione prawem autorskim. Kopiowanie i rozpowszechnianie bez zgody autora jest zabronione.",
+        copyright:
+            "© Wszystkie fotografie są chronione prawem autorskim. Kopiowanie i rozpowszechnianie bez zgody autora jest zabronione.",
 
-&#x20;       photoCount:
-&#x20;           "fotografii"
+        photoCount:
+            "fotografii"
 
-&#x20;   },
+    },
 
+    en: {
 
-&#x20;   en: {
+        heroLabel:
+            "Photography",
 
-&#x20;       heroLabel:
-&#x20;           "Photography",
+        heroTitle:
+            "The world captured<br><span>in a frame.</span>",
 
-&#x20;       heroTitle:
-&#x20;           "The world captured<br><span>in a frame.</span>",
+        heroText:
+            "Photography is my way of preserving moments that can be revisited years later. Light, nature, space and emotion — these are the things I look for every time I pick up my camera.",
 
-&#x20;       heroText:
-&#x20;           "Photography is my way of preserving moments that can be revisited years later. Light, nature, space and emotion — these are the things I look for every time I pick up my camera.",
+        heroGallery:
+            "Explore gallery",
 
-&#x20;       heroGallery:
-&#x20;           "Explore gallery",
+        heroAbout:
+            "About me",
 
-&#x20;       heroAbout:
-&#x20;           "About me",
+        heroBadgeTitle:
+            "Moments. Light. Emotion.",
 
-&#x20;       heroBadgeTitle:
-&#x20;           "Moments. Light. Emotion.",
+        heroBadgeText:
+            "Photography with passion",
 
-&#x20;       heroBadgeText:
-&#x20;           "Photography with passion",
+        galleryLabel:
+            "Portfolio",
 
-&#x20;       galleryLabel:
-&#x20;           "Portfolio",
+        galleryTitle:
+            "Stories captured in time",
 
-&#x20;       galleryTitle:
-&#x20;           "Stories captured in time",
+        galleryDescription:
+            "Choose a collection and explore the photographs. Every folder tells a different story.",
 
-&#x20;       galleryDescription:
-&#x20;           "Choose a collection and explore the photographs. Every folder tells a different story.",
+        aboutLabel:
+            "About me",
 
-&#x20;       aboutLabel:
-&#x20;           "About me",
+        aboutTitle:
+            "I don't just take photos. I collect moments.",
 
-&#x20;       aboutTitle:
-&#x20;           "I don't just take photos. I collect moments.",
+        aboutPhoto:
+            "Piotr · Cytruszek84",
 
-&#x20;       aboutPhoto:
-&#x20;           "Piotr · Bez Kadru",
+        socialTitle:
+            "Discover more of my photography",
 
-&#x20;       socialTitle:
-&#x20;           "Discover more of my photography",
+        socialDescription:
+            "Follow me on social media.",
 
-&#x20;       socialDescription:
-&#x20;           "Follow me on social media.",
+        back:
+            "← Back to collections",
 
-&#x20;       back:
-&#x20;           "← Back to collections",
+        visits:
+            "Visits",
 
-&#x20;       visits:
-&#x20;           "Visits",
+        copyright:
+            "© All photographs are protected by copyright. Copying or distributing them without permission is prohibited.",
 
-&#x20;       copyright:
-&#x20;           "© All photographs are protected by copyright. Copying or distributing them without permission is prohibited.",
+        photoCount:
+            "photographs"
 
-&#x20;       photoCount:
-&#x20;           "photographs"
+    },
 
-&#x20;   },
+    de: {
 
+        heroLabel:
+            "Fotografie",
 
-&#x20;   de: {
+        heroTitle:
+            "Die Welt eingefangen<br><span>in einem Bild.</span>",
 
-&#x20;       heroLabel:
-&#x20;           "Fotografie",
+        heroText:
+            "Fotografie bedeutet für mich, Momente festzuhalten, zu denen man auch Jahre später zurückkehren kann. Licht, Natur, Raum und Emotionen — danach suche ich jedes Mal, wenn ich meine Kamera in die Hand nehme.",
 
-&#x20;       heroTitle:
-&#x20;           "Die Welt eingefangen<br><span>in einem Bild.</span>",
+        heroGallery:
+            "Galerie entdecken",
 
-&#x20;       heroText:
-&#x20;           "Fotografie bedeutet für mich, Momente festzuhalten, zu denen man auch Jahre später zurückkehren kann. Licht, Natur, Raum und Emotionen — danach suche ich jedes Mal, wenn ich meine Kamera in die Hand nehme.",
+        heroAbout:
+            "Über mich",
 
-&#x20;       heroGallery:
-&#x20;           "Galerie entdecken",
+        heroBadgeTitle:
+            "Momente. Licht. Emotionen.",
 
-&#x20;       heroAbout:
-&#x20;           "Über mich",
+        heroBadgeText:
+            "Fotografie mit Leidenschaft",
 
-&#x20;       heroBadgeTitle:
-&#x20;           "Momente. Licht. Emotionen.",
+        galleryLabel:
+            "Portfolio",
 
-&#x20;       heroBadgeText:
-&#x20;           "Fotografie mit Leidenschaft",
+        galleryTitle:
+            "Geschichten, festgehalten in der Zeit",
 
-&#x20;       galleryLabel:
-&#x20;           "Portfolio",
+        galleryDescription:
+            "Wähle eine Sammlung und entdecke die Fotografien.",
 
-&#x20;       galleryTitle:
-&#x20;           "Geschichten, festgehalten in der Zeit",
+        aboutLabel:
+            "Über mich",
 
-&#x20;       galleryDescription:
-&#x20;           "Wähle eine Sammlung und entdecke die Fotografien.",
+        aboutTitle:
+            "Ich mache nicht nur Fotos. Ich sammle Momente.",
 
-&#x20;       aboutLabel:
-&#x20;           "Über mich",
+        aboutPhoto:
+            "Piotr · Cytruszek84",
 
-&#x20;       aboutTitle:
-&#x20;           "Ich mache nicht nur Fotos. Ich sammle Momente.",
+        socialTitle:
+            "Mehr von meiner Fotografie entdecken",
 
-&#x20;       aboutPhoto:
-&#x20;           "Piotr · Bez Kadru",
+        socialDescription:
+            "Folge mir auch in den sozialen Medien.",
 
-&#x20;       socialTitle:
-&#x20;           "Mehr von meiner Fotografie entdecken",
+        back:
+            "← Zurück zu den Sammlungen",
 
-&#x20;       socialDescription:
-&#x20;           "Folge mir auch in den sozialen Medien.",
+        visits:
+            "Besuche",
 
-&#x20;       back:
-&#x20;           "← Zurück zu den Sammlungen",
+        copyright:
+            "© Alle Fotografien sind urheberrechtlich geschützt. Kopieren und Verbreiten ohne Genehmigung ist untersagt.",
 
-&#x20;       visits:
-&#x20;           "Besuche",
+        photoCount:
+            "Fotografien"
 
-&#x20;       copyright:
-&#x20;           "© Alle Fotografien sind urheberrechtlich geschützt. Kopieren und Verbreiten ohne Genehmigung ist untersagt.",
-
-&#x20;       photoCount:
-&#x20;           "Fotografien"
-
-&#x20;   }
+    }
 
 };
 
-
 /* =========================================================
-&#x20;  FOLDER RENDER
-\========================================================= */
+   FOLDER RENDER
+========================================================= */
 
 function getFolderName(folderNumber) {
 
-&#x20;   const names =
-&#x20;       folderNames[currentLanguage];
+    const names =
+        folderNames[currentLanguage];
 
-&#x20;   const index =
-&#x20;       (folderNumber - 1) % names.length;
+    const index =
+        (folderNumber - 1) % names.length;
 
-&#x20;   return names[index];
+    return names[index];
 }
-
 
 function renderFolders() {
 
-&#x20;   const grid =
-&#x20;       document.getElementById(
-&#x20;           "folders-grid"
-&#x20;       );
+    const grid =
+        document.getElementById(
+            "folders-grid"
+        );
 
+    grid.innerHTML = "";
 
-&#x20;   grid.innerHTML = "";
+    const totalFolders =
+        Math.ceil(
+            totalPhotos / photosPerFolder
+        );
 
+    for (
+        let i = totalFolders;
+        i >= 1;
+        i--
+    ) {
 
-&#x20;   const totalFolders =
-&#x20;       Math.ceil(
-&#x20;           totalPhotos / photosPerFolder
-&#x20;       );
+        const card =
+            document.createElement("div");
 
+        card.className =
+            "folder-card";
 
-&#x20;   for (
-&#x20;       let i = totalFolders;
-&#x20;       i >= 1;
-&#x20;       i--
-&#x20;   ) {
+        const artClass =
+            "art-" +
+            (((i - 1) % 8) + 1);
 
-&#x20;       const card =
-&#x20;           document.createElement("div");
+        const start =
+            ((i - 1) *
+                photosPerFolder) + 1;
 
+        const end =
+            Math.min(
+                i * photosPerFolder,
+                totalPhotos
+            );
 
-&#x20;       card.className =
-&#x20;           "folder-card";
+        const count =
+            end - start + 1;
 
+        card.innerHTML = `
 
-&#x20;       const artClass =
-&#x20;           "art-" +
-&#x20;           (((i - 1) % 8) + 1);
+            <div class="folder-art ${artClass}">
+            </div>
 
+            <div class="folder-number">
+                ${String(i).padStart(2, "0")}
+            </div>
 
-&#x20;       const start =
-&#x20;           ((i - 1) *
-&#x20;               photosPerFolder) + 1;
+            <div class="folder-info">
 
+                <div class="folder-title">
+                    ${getFolderName(i)}
+                </div>
 
-&#x20;       const end =
-&#x20;           Math.min(
-&#x20;               i * photosPerFolder,
-&#x20;               totalPhotos
-&#x20;           );
+                <div class="folder-count">
+                    ${count}
+                    ${translations[currentLanguage].photoCount}
+                </div>
 
+            </div>
+        `;
 
-&#x20;       const count =
-&#x20;           end - start + 1;
+        card.addEventListener(
+            "click",
+            () => openFolder(i)
+        );
 
-
-&#x20;       card.innerHTML = `
-
-&#x20;           <div class="folder-art ${artClass}">
-&#x20;           </div>
-
-&#x20;           <div class="folder-number">
-&#x20;               ${String(i).padStart(2, "0")}
-&#x20;           </div>
-
-&#x20;           <div class="folder-info">
-
-&#x20;               <div class="folder-title">
-&#x20;                   ${getFolderName(i)}
-&#x20;               </div>
-
-&#x20;               <div class="folder-count">
-&#x20;                   ${count}
-&#x20;                   ${translations[currentLanguage].photoCount}
-&#x20;               </div>
-
-&#x20;           </div>
-&#x20;       `;
-
-
-&#x20;       card.addEventListener(
-&#x20;           "click",
-&#x20;           () => openFolder(i)
-&#x20;       );
-
-
-&#x20;       grid.appendChild(card);
-&#x20;   }
+        grid.appendChild(card);
+    }
 }
 
-
 /* =========================================================
-&#x20;  OPEN FOLDER
-\========================================================= */
+   OPEN FOLDER
+========================================================= */
 
 function openFolder(folderNumber) {
 
-&#x20;   currentOpenFolder =
-&#x20;       folderNumber;
+    currentOpenFolder =
+        folderNumber;
 
+    document.getElementById(
+        "home-view"
+    ).style.display = "none";
 
-&#x20;   document.getElementById(
-&#x20;       "home-view"
-&#x20;   ).style.display = "none";
+    document.getElementById(
+        "gallery-view"
+    ).style.display = "block";
 
+    document.getElementById(
+        "about-view"
+    ).style.display = "none";
 
-&#x20;   document.getElementById(
-&#x20;       "gallery-view"
-&#x20;   ).style.display = "block";
+    document.getElementById(
+        "nav-gallery"
+    ).classList.add("active");
 
+    document.getElementById(
+        "nav-about"
+    ).classList.remove("active");
 
-&#x20;   document.getElementById(
-&#x20;       "about-view"
-&#x20;   ).style.display = "none";
+    document.getElementById(
+        "folder-title-display"
+    ).textContent =
+        getFolderName(folderNumber);
 
+    const grid =
+        document.getElementById(
+            "photo-grid"
+        );
 
-&#x20;   document.getElementById(
-&#x20;       "nav-gallery"
-&#x20;   ).classList.add("active");
+    grid.innerHTML = "";
 
+    const start =
+        ((folderNumber - 1) *
+            photosPerFolder) + 1;
 
-&#x20;   document.getElementById(
-&#x20;       "nav-about"
-&#x20;   ).classList.remove("active");
+    const end =
+        Math.min(
+            folderNumber *
+                photosPerFolder,
+            totalPhotos
+        );
 
+    /* Najnowsze zdjęcia pierwsze */
 
-&#x20;   document.getElementById(
-&#x20;       "folder-title-display"
-&#x20;   ).textContent =
-&#x20;       getFolderName(folderNumber);
+    for (
+        let i = end;
+        i >= start;
+        i--
+    ) {
 
+        const card =
+            document.createElement("div");
 
-&#x20;   const grid =
-&#x20;       document.getElementById(
-&#x20;           "photo-grid"
-&#x20;       );
+        card.className =
+            "photo-card";
 
+        const img =
+            document.createElement("img");
 
-&#x20;   grid.innerHTML = "";
+        img.src =
+            `${i}.jpg`;
 
+        img.alt =
+            `Cytruszek84 Photography ${i}`;
 
-&#x20;   const start =
-&#x20;       ((folderNumber - 1) *
-&#x20;           photosPerFolder) + 1;
+        img.draggable = false;
 
+        img.onerror =
+            function () {
 
-&#x20;   const end =
-&#x20;       Math.min(
-&#x20;           folderNumber *
-&#x20;               photosPerFolder,
-&#x20;           totalPhotos
-&#x20;       );
+                if (
+                    !this.dataset.capital
+                ) {
 
+                    this.dataset.capital =
+                        "1";
 
-&#x20;   /* Najnowsze zdjęcia pierwsze */
+                    this.src =
+                        `${i}.JPG`;
 
-&#x20;   for (
-&#x20;       let i = end;
-&#x20;       i >= start;
-&#x20;       i--
-&#x20;   ) {
+                } else {
 
-&#x20;       const card =
-&#x20;           document.createElement("div");
+                    this.parentElement.style.display =
+                        "none";
+                }
 
+            };
 
-&#x20;       card.className =
-&#x20;           "photo-card";
+        const protection =
+            document.createElement("div");
 
+        protection.className =
+            "photo-protection";
 
-&#x20;       const img =
-&#x20;           document.createElement("img");
+        card.appendChild(img);
 
+        card.appendChild(protection);
 
-&#x20;       img.src =
-&#x20;           `${i}.jpg`;
+        card.addEventListener(
+            "click",
+            function () {
 
+                openLightbox(
+                    img.src
+                );
 
-&#x20;       img.alt =
-&#x20;           `Bez Kadru Photography ${i}`;
+            }
+        );
 
+        grid.appendChild(card);
+    }
 
-&#x20;       img.draggable = false;
-
-
-&#x20;       img.onerror =
-&#x20;           function () {
-
-&#x20;               if (
-&#x20;                   !this.dataset.capital
-&#x20;               ) {
-
-&#x20;                   this.dataset.capital =
-&#x20;                       "1";
-
-&#x20;                   this.src =
-&#x20;                       `${i}.JPG`;
-
-&#x20;               } else {
-
-&#x20;                   this.parentElement.style.display =
-&#x20;                       "none";
-&#x20;               }
-
-&#x20;           };
-
-
-&#x20;       const protection =
-&#x20;           document.createElement("div");
-
-
-&#x20;       protection.className =
-&#x20;           "photo-protection";
-
-
-&#x20;       card.appendChild(img);
-
-&#x20;       card.appendChild(protection);
-
-
-&#x20;       card.addEventListener(
-&#x20;           "click",
-&#x20;           function () {
-
-&#x20;               openLightbox(
-&#x20;                   img.src
-&#x20;               );
-
-&#x20;           }
-&#x20;       );
-
-
-&#x20;       grid.appendChild(card);
-&#x20;   }
-
-
-&#x20;   window\.scrollTo({
-&#x20;       top: 0,
-&#x20;       behavior: "smooth"
-&#x20;   });
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
-
 /* =========================================================
-&#x20;  HOME
-\========================================================= */
+   HOME
+========================================================= */
 
 function showHome() {
 
-&#x20;   currentOpenFolder = null;
+    currentOpenFolder = null;
 
+    document.getElementById(
+        "home-view"
+    ).style.display = "block";
 
-&#x20;   document.getElementById(
-&#x20;       "home-view"
-&#x20;   ).style.display = "block";
+    document.getElementById(
+        "gallery-view"
+    ).style.display = "none";
 
+    document.getElementById(
+        "about-view"
+    ).style.display = "none";
 
-&#x20;   document.getElementById(
-&#x20;       "gallery-view"
-&#x20;   ).style.display = "none";
+    document.getElementById(
+        "nav-gallery"
+    ).classList.add("active");
 
+    document.getElementById(
+        "nav-about"
+    ).classList.remove("active");
 
-&#x20;   document.getElementById(
-&#x20;       "about-view"
-&#x20;   ).style.display = "none";
-
-
-&#x20;   document.getElementById(
-&#x20;       "nav-gallery"
-&#x20;   ).classList.add("active");
-
-
-&#x20;   document.getElementById(
-&#x20;       "nav-about"
-&#x20;   ).classList.remove("active");
-
-
-&#x20;   window\.scrollTo({
-&#x20;       top: 0,
-&#x20;       behavior: "smooth"
-&#x20;   });
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
-
 /* =========================================================
-&#x20;  ABOUT
-\========================================================= */
+   ABOUT
+========================================================= */
 
 function showAbout() {
 
-&#x20;   document.getElementById(
-&#x20;       "home-view"
-&#x20;   ).style.display = "none";
+    document.getElementById(
+        "home-view"
+    ).style.display = "none";
 
+    document.getElementById(
+        "gallery-view"
+    ).style.display = "none";
 
-&#x20;   document.getElementById(
-&#x20;       "gallery-view"
-&#x20;   ).style.display = "none";
+    document.getElementById(
+        "about-view"
+    ).style.display = "block";
 
+    document.getElementById(
+        "nav-gallery"
+    ).classList.remove("active");
 
-&#x20;   document.getElementById(
-&#x20;       "about-view"
-&#x20;   ).style.display = "block";
+    document.getElementById(
+        "nav-about"
+    ).classList.add("active");
 
-
-&#x20;   document.getElementById(
-&#x20;       "nav-gallery"
-&#x20;   ).classList.remove("active");
-
-
-&#x20;   document.getElementById(
-&#x20;       "nav-about"
-&#x20;   ).classList.add("active");
-
-
-&#x20;   window\.scrollTo({
-&#x20;       top: 0,
-&#x20;       behavior: "smooth"
-&#x20;   });
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
-
 /* =========================================================
-&#x20;  SCROLL TO GALLERY
-\========================================================= */
+   SCROLL TO GALLERY
+========================================================= */
 
 function scrollToGallery() {
 
-&#x20;   showHome();
+    showHome();
 
+    setTimeout(() => {
 
-&#x20;   setTimeout(() => {
+        document.getElementById(
+            "gallery-section"
+        ).scrollIntoView({
+            behavior: "smooth"
+        });
 
-&#x20;       document.getElementById(
-&#x20;           "gallery-section"
-&#x20;       ).scrollIntoView({
-&#x20;           behavior: "smooth"
-&#x20;       });
-
-&#x20;   }, 50);
+    }, 50);
 }
 
-
 /* =========================================================
-&#x20;  LIGHTBOX
-\========================================================= */
+   LIGHTBOX
+========================================================= */
 
 function openLightbox(src) {
 
-&#x20;   const lightbox =
-&#x20;       document.getElementById(
-&#x20;           "lightbox"
-&#x20;       );
+    const lightbox =
+        document.getElementById(
+            "lightbox"
+        );
 
+    const image =
+        document.getElementById(
+            "lightbox-img"
+        );
 
-&#x20;   const image =
-&#x20;       document.getElementById(
-&#x20;           "lightbox-img"
-&#x20;       );
+    image.src = src;
 
+    lightbox.classList.add(
+        "show"
+    );
 
-&#x20;   image.src = src;
-
-&#x20;   lightbox.classList.add(
-&#x20;       "show"
-&#x20;   );
-
-
-&#x20;   document.body.style.overflow =
-&#x20;       "hidden";
+    document.body.style.overflow =
+        "hidden";
 }
-
 
 function closeLightbox() {
 
-&#x20;   const lightbox =
-&#x20;       document.getElementById(
-&#x20;           "lightbox"
-&#x20;       );
+    const lightbox =
+        document.getElementById(
+            "lightbox"
+        );
 
+    lightbox.classList.remove(
+        "show"
+    );
 
-&#x20;   lightbox.classList.remove(
-&#x20;       "show"
-&#x20;   );
-
-
-&#x20;   document.body.style.overflow =
-&#x20;       "";
+    document.body.style.overflow =
+        "";
 }
 
-
 document
-&#x20;   .getElementById("lightbox-img")
-&#x20;   .addEventListener(
-&#x20;       "click",
-&#x20;       event => {
-&#x20;           event.stopPropagation();
-&#x20;       }
-&#x20;   );
-
+    .getElementById("lightbox-img")
+    .addEventListener(
+        "click",
+        event => {
+            event.stopPropagation();
+        }
+    );
 
 /* =========================================================
-&#x20;  LANGUAGE
-\========================================================= */
+   LANGUAGE
+========================================================= */
 
 function setLanguage(lang) {
 
-&#x20;   if (!translations[lang]) {
-&#x20;       return;
-&#x20;   }
+    if (!translations[lang]) {
+        return;
+    }
 
+    currentLanguage = lang;
 
-&#x20;   currentLanguage = lang;
+    const t =
+        translations[lang];
 
+    /* buttons */
 
-&#x20;   const t =
-&#x20;       translations[lang];
+    document
+        .querySelectorAll(".lang-btn")
+        .forEach(button => {
 
+            button.classList.toggle(
+                "active",
+                button.dataset.lang === lang
+            );
 
-&#x20;   /* buttons */
+        });
 
-&#x20;   document
-&#x20;       .querySelectorAll(".lang-btn")
-&#x20;       .forEach(button => {
+    /* HERO */
 
-&#x20;           button.classList.toggle(
-&#x20;               "active",
-&#x20;               button.dataset.lang === lang
-&#x20;           );
+    document.getElementById(
+        "hero-label"
+    ).textContent =
+        t.heroLabel;
 
-&#x20;       });
+    document.getElementById(
+        "hero-title"
+    ).innerHTML =
+        t.heroTitle;
 
+    document.getElementById(
+        "hero-text"
+    ).textContent =
+        t.heroText;
 
-&#x20;   /* HERO */
+    document.getElementById(
+        "hero-gallery-btn"
+    ).textContent =
+        t.heroGallery;
 
-&#x20;   document.getElementById(
-&#x20;       "hero-label"
-&#x20;   ).textContent =
-&#x20;       t.heroLabel;
+    document.getElementById(
+        "hero-about-btn"
+    ).textContent =
+        t.heroAbout;
 
+    document.getElementById(
+        "hero-badge-title"
+    ).textContent =
+        t.heroBadgeTitle;
 
-&#x20;   document.getElementById(
-&#x20;       "hero-title"
-&#x20;   ).innerHTML =
-&#x20;       t.heroTitle;
+    document.getElementById(
+        "hero-badge-text"
+    ).textContent =
+        t.heroBadgeText;
 
+    /* GALLERY */
 
-&#x20;   document.getElementById(
-&#x20;       "hero-text"
-&#x20;   ).textContent =
-&#x20;       t.heroText;
+    document.getElementById(
+        "gallery-label"
+    ).textContent =
+        t.galleryLabel;
 
+    document.getElementById(
+        "gallery-title"
+    ).textContent =
+        t.galleryTitle;
 
-&#x20;   document.getElementById(
-&#x20;       "hero-gallery-btn"
-&#x20;   ).textContent =
-&#x20;       t.heroGallery;
+    document.getElementById(
+        "gallery-description"
+    ).textContent =
+        t.galleryDescription;
 
+    /* ABOUT */
 
-&#x20;   document.getElementById(
-&#x20;       "hero-about-btn"
-&#x20;   ).textContent =
-&#x20;       t.heroAbout;
+    document.getElementById(
+        "about-label"
+    ).textContent =
+        t.aboutLabel;
 
+    document.getElementById(
+        "about-title"
+    ).textContent =
+        t.aboutTitle;
 
-&#x20;   document.getElementById(
-&#x20;       "hero-badge-title"
-&#x20;   ).textContent =
-&#x20;       t.heroBadgeTitle;
+    document.getElementById(
+        "about-photo-label"
+    ).textContent =
+        t.aboutPhoto;
 
+    /* SOCIAL */
 
-&#x20;   document.getElementById(
-&#x20;       "hero-badge-text"
-&#x20;   ).textContent =
-&#x20;       t.heroBadgeText;
+    document.getElementById(
+        "social-title"
+    ).textContent =
+        t.socialTitle;
 
+    document.getElementById(
+        "social-description"
+    ).textContent =
+        t.socialDescription;
 
-&#x20;   /* GALLERY */
+    /* FOOTER */
 
-&#x20;   document.getElementById(
-&#x20;       "gallery-label"
-&#x20;   ).textContent =
-&#x20;       t.galleryLabel;
+    document.getElementById(
+        "back-btn"
+    ).textContent =
+        t.back;
 
+    document.getElementById(
+        "footer-visits"
+    ).textContent =
+        t.visits;
 
-&#x20;   document.getElementById(
-&#x20;       "gallery-title"
-&#x20;   ).textContent =
-&#x20;       t.galleryTitle;
+    document.getElementById(
+        "footer-copyright"
+    ).textContent =
+        t.copyright;
 
+    /* FOLDERS */
 
-&#x20;   document.getElementById(
-&#x20;       "gallery-description"
-&#x20;   ).textContent =
-&#x20;       t.galleryDescription;
+    renderFolders();
 
+    /* OPEN FOLDER */
 
-&#x20;   /* ABOUT */
+    if (
+        currentOpenFolder !== null
+    ) {
 
-&#x20;   document.getElementById(
-&#x20;       "about-label"
-&#x20;   ).textContent =
-&#x20;       t.aboutLabel;
-
-
-&#x20;   document.getElementById(
-&#x20;       "about-title"
-&#x20;   ).textContent =
-&#x20;       t.aboutTitle;
-
-
-&#x20;   document.getElementById(
-&#x20;       "about-photo-label"
-&#x20;   ).textContent =
-&#x20;       t.aboutPhoto;
-
-
-&#x20;   /* SOCIAL */
-
-&#x20;   document.getElementById(
-&#x20;       "social-title"
-&#x20;   ).textContent =
-&#x20;       t.socialTitle;
-
-
-&#x20;   document.getElementById(
-&#x20;       "social-description"
-&#x20;   ).textContent =
-&#x20;       t.socialDescription;
-
-
-&#x20;   /* FOOTER */
-
-&#x20;   document.getElementById(
-&#x20;       "back-btn"
-&#x20;   ).textContent =
-&#x20;       t.back;
-
-
-&#x20;   document.getElementById(
-&#x20;       "footer-visits"
-&#x20;   ).textContent =
-&#x20;       t.visits;
-
-
-&#x20;   document.getElementById(
-&#x20;       "footer-copyright"
-&#x20;   ).textContent =
-&#x20;       t.copyright;
-
-
-&#x20;   /* FOLDERS */
-
-&#x20;   renderFolders();
-
-
-&#x20;   /* OPEN FOLDER */
-
-&#x20;   if (
-&#x20;       currentOpenFolder !== null
-&#x20;   ) {
-
-&#x20;       document.getElementById(
-&#x20;           "folder-title-display"
-&#x20;       ).textContent =
-&#x20;           getFolderName(
-&#x20;               currentOpenFolder
-&#x20;           );
-&#x20;   }
+        document.getElementById(
+            "folder-title-display"
+        ).textContent =
+            getFolderName(
+                currentOpenFolder
+            );
+    }
 }
 
-
 /* =========================================================
-&#x20;  LOAD PHOTOS COUNT
-\========================================================= */
+   LOAD PHOTOS COUNT
+========================================================= */
 
 fetch("photos.json", {
-&#x20;   cache: "no-cache"
+    cache: "no-cache"
 })
 .then(response => {
 
-&#x20;   if (!response.ok) {
-&#x20;       throw new Error(
-&#x20;           "photos.json error"
-&#x20;       );
-&#x20;   }
+    if (!response.ok) {
+        throw new Error(
+            "photos.json error"
+        );
+    }
 
-&#x20;   return response.json();
+    return response.json();
 
 })
 .then(data => {
 
-&#x20;   if (
-&#x20;       data &&
-&#x20;       Number(data.count) > 0
-&#x20;   ) {
+    if (
+        data &&
+        Number(data.count) > 0
+    ) {
 
-&#x20;       totalPhotos =
-&#x20;           Number(data.count);
+        totalPhotos =
+            Number(data.count);
 
-&#x20;       renderFolders();
-&#x20;   }
+        renderFolders();
+    }
 
 })
 .catch(error => {
 
-&#x20;   console.warn(
-&#x20;       "Nie udało się odczytać photos.json. Używam wartości domyślnej 245.",
-&#x20;       error
-&#x20;   );
+    console.warn(
+        "Nie udało się odczytać photos.json. Używam wartości domyślnej 245.",
+        error
+    );
 
-&#x20;   renderFolders();
+    renderFolders();
 });
 
-
 /* =========================================================
-&#x20;  KEYBOARD PROTECTION
-\========================================================= */
+   KEYBOARD PROTECTION
+========================================================= */
 
 document.addEventListener(
-&#x20;   "keydown",
-&#x20;   function(event) {
+    "keydown",
+    function(event) {
 
-&#x20;       /* ESC */
+        /* ESC */
 
-&#x20;       if (
-&#x20;           event.key === "Escape"
-&#x20;       ) {
+        if (
+            event.key === "Escape"
+        ) {
 
-&#x20;           closeLightbox();
+            closeLightbox();
 
-&#x20;       }
+        }
 
+        /*
+         * Ctrl+S
+         * Ctrl+U
+         * Ctrl+C
+         * Ctrl+Shift+I
+         * Ctrl+Shift+J
+         * F12
+         */
 
-&#x20;       /*
-&#x20;        * Ctrl+S
-&#x20;        * Ctrl+U
-&#x20;        * Ctrl+C
-&#x20;        * Ctrl+Shift+I
-&#x20;        * Ctrl+Shift+J
-&#x20;        * F12
-&#x20;        */
+        const blocked =
+            event.ctrlKey ||
+            event.metaKey;
 
-&#x20;       const blocked =
-&#x20;           event.ctrlKey ||
-&#x20;           event.metaKey;
+        if (
+            blocked &&
+            (
+                event.key.toLowerCase() === "s" ||
+                event.key.toLowerCase() === "u" ||
+                event.key.toLowerCase() === "c"
+            )
+        ) {
 
+            event.preventDefault();
 
-&#x20;       if (
-&#x20;           blocked &&
-&#x20;           (
-&#x20;               event.key.toLowerCase() === "s" ||
-&#x20;               event.key.toLowerCase() === "u" ||
-&#x20;               event.key.toLowerCase() === "c"
-&#x20;           )
-&#x20;       ) {
+        }
 
-&#x20;           event.preventDefault();
+        if (
+            event.key === "F12"
+        ) {
 
-&#x20;       }
+            event.preventDefault();
 
+        }
 
-&#x20;       if (
-&#x20;           event.key === "F12"
-&#x20;       ) {
+        if (
+            blocked &&
+            event.shiftKey &&
+            (
+                event.key === "I" ||
+                event.key === "J" ||
+                event.key === "C"
+            )
+        ) {
 
-&#x20;           event.preventDefault();
+            event.preventDefault();
 
-&#x20;       }
+        }
 
-
-&#x20;       if (
-&#x20;           blocked &&
-&#x20;           event.shiftKey &&
-&#x20;           (
-&#x20;               event.key === "I" ||
-&#x20;               event.key === "J" ||
-&#x20;               event.key === "C"
-&#x20;           )
-&#x20;       ) {
-
-&#x20;           event.preventDefault();
-
-&#x20;       }
-
-&#x20;   }
+    }
 );
 
-
 /* =========================================================
-&#x20;  INIT
-\========================================================= */
+   INIT
+========================================================= */
 
 renderFolders();
 
