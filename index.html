@@ -1,479 +1,1976 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cytruszek84 - Fotografia</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-83HTNWWCL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-83HTNWWCL');
-    </script>
+<title>Cytruszek84 — Fotografia</title>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+<meta name="description" content="Cytruszek84 — fotografia natury, gór, miast, opuszczonych miejsc i wyjątkowych chwil.">
+<meta name="theme-color" content="#070a10">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
-        header {
-            padding: 30px 20px;
-            text-align: center;
-            background: #1e293b;
-            border-bottom: 1px solid #334155;
-        }
+<style>
+:root {
+    --bg: #070a10;
+    --bg2: #0c111b;
+    --card: rgba(17,24,39,.72);
+    --border: rgba(255,255,255,.09);
+    --text: #f8fafc;
+    --muted: #94a3b8;
+    --blue: #3b82f6;
+    --cyan: #22d3ee;
+    --gold: #f5c451;
+    --red: #ef4444;
+}
 
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-            color: #ffffff;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .lang-switch {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        .lang-btn {
-            background: #334155;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
+body {
+    min-height: 100vh;
+    color: var(--text);
+    font-family: Inter, Arial, sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(59,130,246,.15), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(34,211,238,.10), transparent 30%),
+        linear-gradient(135deg, #05070b, #0a0f19 50%, #05070b);
+    overflow-x: hidden;
+}
 
-        .lang-btn.active, .lang-btn:hover {
-            background: #0066FF;
-        }
+/* =========================================
+   HERO
+========================================= */
 
-        .intro-text {
-            max-width: 850px;
-            margin: 30px auto 10px;
-            padding: 0 20px;
-            text-align: center;
-            line-height: 1.7;
-            color: #cbd5e1;
-            font-size: 1.05rem;
-        }
+header {
+    position: relative;
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 60px 20px;
+}
 
-        .intro-text p {
-            margin-bottom: 12px;
-        }
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(
+            circle at center,
+            transparent 0%,
+            rgba(0,0,0,.25) 45%,
+            rgba(0,0,0,.85) 100%
+        );
+    z-index: 1;
+}
 
-        /* --- SIATKA FOLDERÓW I ZDJĘĆ --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            flex: 1;
-            width: 100%;
-        }
+header::after {
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: rgba(37,99,235,.08);
+    filter: blur(100px);
+    animation: heroGlow 8s ease-in-out infinite alternate;
+}
 
-        .folders-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
+@keyframes heroGlow {
+    from {
+        transform: translate(-100px,-30px);
+    }
 
-        #gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
+    to {
+        transform: translate(100px,40px);
+    }
+}
 
-        #gallery img {
-            width: 280px;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 12px;
-            cursor: pointer;
-            border: 1px solid #0066FF;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-        }
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+}
 
-        #gallery img:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 255, 102, 0.4);
-            border-color: #00FF66;
-        }
+.hero-kicker {
+    color: var(--cyan);
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
 
-        .folder-card {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-            background: #1e1e1e;
-            border: 1px solid #0066FF;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(4rem, 11vw, 8rem);
+    line-height: .9;
+    letter-spacing: -.05em;
+    margin-bottom: 30px;
+    text-shadow: 0 20px 60px rgba(0,0,0,.7);
+}
 
-        .folder-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 255, 102, 0.4);
-            border-color: #00FF66;
-        }
+.hero-subtitle {
+    max-width: 700px;
+    margin: auto;
+    color: #cbd5e1;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
 
-        .folder-title {
-            position: absolute;
-            bottom: 15px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #ffffff;
-        }
+/* =========================================
+   LANG
+========================================= */
 
-        #folder-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+.lang-switch {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 35px;
+}
 
-        .back-btn {
-            background: #0066FF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
+.lang-btn {
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.05);
+    color: #cbd5e1;
+    padding: 10px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: .3s;
+    backdrop-filter: blur(15px);
+}
 
-        .back-btn:hover {
-            background: #0052cc;
-        }
+.lang-btn:hover,
+.lang-btn.active {
+    color: white;
+    background: linear-gradient(135deg,#2563eb,#0891b2);
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(37,99,235,.3);
+}
 
-        /* Lightbox */
-        #lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+/* =========================================
+   INTRO
+========================================= */
 
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
-        }
+.intro-wrapper {
+    width: min(950px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 20px 0 80px;
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #0f172a;
-            border-top: 1px solid #334155;
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
+.intro-text {
+    color: #cbd5e1;
+    text-align: center;
+    font-size: 1.03rem;
+    line-height: 1.9;
+}
 
-        .copyright-notice {
-            color: #ef4444;
-            font-weight: bold;
-            margin-top: 5px;
-        }
+.intro-text p {
+    margin-bottom: 20px;
+}
 
-        .counter-badge {
-            background: #0066FF;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-    </style>
+.intro-text strong {
+    color: white;
+}
+
+.intro-text em {
+    color: var(--gold);
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+.container {
+    width: min(1300px, calc(100% - 30px));
+    margin: auto;
+    padding-bottom: 100px;
+}
+
+/* =========================================
+   SECTION
+========================================= */
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.section-label {
+    color: var(--cyan);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+}
+
+.section-title {
+    margin-top: 7px;
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+}
+
+.photo-count {
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+/* =========================================
+   FOLDERS
+========================================= */
+
+.folders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(290px,1fr));
+    gap: 22px;
+}
+
+.folder-card {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 1px solid var(--border);
+    background: #111827;
+    cursor: pointer;
+    box-shadow: 0 15px 50px rgba(0,0,0,.3);
+    transition:
+        transform .45s cubic-bezier(.2,.8,.2,1),
+        box-shadow .45s,
+        border-color .45s;
+}
+
+.folder-card:hover {
+    transform: translateY(-9px);
+    border-color: rgba(59,130,246,.6);
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.55),
+        0 0 40px rgba(59,130,246,.12);
+}
+
+.folder-preview {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: .62;
+    transition: .7s ease;
+}
+
+.folder-card:hover .folder-preview {
+    transform: scale(1.08);
+    opacity: .85;
+}
+
+.folder-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.95),
+            rgba(0,0,0,.1) 65%
+        );
+}
+
+.folder-info {
+    position: absolute;
+    z-index: 2;
+    left: 22px;
+    bottom: 20px;
+}
+
+.folder-number {
+    color: var(--cyan);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.folder-title {
+    font-family: "Playfair Display", serif;
+    font-size: 1.7rem;
+    margin-top: 4px;
+}
+
+.folder-arrow {
+    position: absolute;
+    z-index: 3;
+    right: 20px;
+    bottom: 20px;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: white;
+    background: rgba(255,255,255,.10);
+    backdrop-filter: blur(15px);
+    font-size: 1.3rem;
+    transition: .3s;
+}
+
+.folder-card:hover .folder-arrow {
+    background: var(--blue);
+    transform: translateX(3px);
+}
+
+/* =========================================
+   FOLDER HEADER
+========================================= */
+
+#folder-header {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+#folder-title-display {
+    margin-top: 5px;
+    font-family: "Playfair Display", serif;
+    font-size: 2.5rem;
+}
+
+.back-btn {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.06);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.back-btn:hover {
+    background: var(--blue);
+    border-color: transparent;
+    transform: translateX(-4px);
+}
+
+/* =========================================
+   GALLERY
+========================================= */
+
+#gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
+    gap: 18px;
+}
+
+.photo-card {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: #111827;
+    cursor: pointer;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    transition: transform .6s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.06);
+}
+
+.photo-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    background: linear-gradient(
+        transparent 40%,
+        rgba(0,0,0,.75)
+    );
+    opacity: 0;
+    transition: .3s;
+}
+
+.photo-card:hover .photo-overlay {
+    opacity: 1;
+}
+
+.photo-number {
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+/* =========================================
+   LIGHTBOX
+========================================= */
+
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    background: rgba(1,3,7,.96);
+    backdrop-filter: blur(20px);
+}
+
+.lightbox-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#lightbox-img {
+    max-width: 92vw;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-drag: none;
+    box-shadow: 0 30px 100px rgba(0,0,0,.8);
+}
+
+/* Znak wodny */
+
+.lightbox-watermark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%) rotate(-22deg);
+    color: rgba(255,255,255,.13);
+    font-size: clamp(2rem,7vw,6rem);
+    font-weight: 800;
+    letter-spacing: .1em;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    z-index: 20;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.08);
+    color: white;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+    backdrop-filter: blur(15px);
+    transition: .25s;
+}
+
+.lightbox-close {
+    top: 15px;
+    right: 15px;
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    background: var(--blue);
+    transform: scale(1.08);
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #cbd5e1;
+    background: rgba(0,0,0,.55);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: .8rem;
+}
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading {
+    min-height: 250px;
+    display: grid;
+    place-items: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,.1);
+    border-top-color: var(--cyan);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    border-top: 1px solid var(--border);
+    background: rgba(3,6,12,.9);
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--muted);
+}
+
+.footer-brand {
+    font-family: "Playfair Display", serif;
+    color: white;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+}
+
+.copyright-notice {
+    max-width: 750px;
+    margin: 14px auto;
+    color: #f87171;
+    font-size: .85rem;
+    line-height: 1.7;
+}
+
+.counter-line {
+    margin-top: 20px;
+}
+
+.counter-badge {
+    display: inline-block;
+    margin-left: 5px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: rgba(59,130,246,.14);
+    color: #93c5fd;
+    border: 1px solid rgba(59,130,246,.3);
+    font-weight: 700;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:700px) {
+
+    header {
+        min-height: 540px;
+        padding: 50px 18px;
+    }
+
+    h1 {
+        font-size: clamp(3.5rem,18vw,5rem);
+    }
+
+    .intro-wrapper {
+        width: calc(100% - 30px);
+        padding-bottom: 55px;
+    }
+
+    .container {
+        width: calc(100% - 20px);
+    }
+
+    .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .folders-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .folder-card {
+        height: 245px;
+    }
+
+    #gallery {
+        grid-template-columns: repeat(2,1fr);
+        gap: 8px;
+    }
+
+    .photo-card {
+        border-radius: 11px;
+    }
+
+    .photo-overlay {
+        display: none;
+    }
+
+    #folder-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #folder-title-display {
+        font-size: 2rem;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+        top: auto;
+        bottom: 25px;
+    }
+
+    .lightbox-prev {
+        left: 25%;
+    }
+
+    .lightbox-next {
+        right: 25%;
+    }
+}
+</style>
 </head>
-<body>
 
-    <header>
+<body
+    oncontextmenu="return false"
+    ondragstart="return false"
+    onselectstart="return false"
+>
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<header>
+
+    <div class="hero-content">
+
+        <div class="hero-kicker">
+            Photography · Nature · Moments
+        </div>
+
         <h1>Cytruszek84</h1>
+
+        <p class="hero-subtitle">
+            Aparat zabieram wszędzie.
+            Kolekcjonuję nie rzeczy, lecz chwile —
+            światło, mgłę, góry, miasta i miejsca,
+            do których chce się wracać.
+        </p>
+
         <div class="lang-switch">
-            <button class="lang-btn active" onclick="setLanguage('pl')">Polski</button>
-            <button class="lang-btn" onclick="setLanguage('en')">English</button>
-            <button class="lang-btn" onclick="setLanguage('de')">Deutsch</button>
-        </div>
-    </header>
 
-    <div class="intro-text" id="intro-desc">
-        <p><strong>Cześć! Jestem Piotr (Cytruszek84).</strong></p>
-        <p>Aparat zabieram wszędzie. Serio. Czasem mam wrażenie, że częściej patrzę przez obiektyw niż przez własne okulary.</p>
-        <p>Urodziłem się w czerwcowym słońcu 1984 roku w Kielcach, a od tamtej pory kolekcjonuję nie rzeczy, lecz chwile. Wschody słońca, mgły o świcie, opuszczone miejsca, górskie szlaki, miasta, które zasypiają dopiero nad ranem… To właśnie tam powstają moje fotografie.</p>
-        <p>Mówią, że jedno zdjęcie jest warte tysiąca słów. Ja uważam, że najlepsze zdjęcia są bezcenne – bo potrafią każdego dnia wywołać ten sam zachwyt, co w chwili ich wykonania.</p>
-        <p>Nie sprzedaję fotografii.<br>
-        Sprzedaję spokój poranka zamknięty w ramie. Zachód słońca, który nigdy nie gaśnie. Miejsce, do którego można wrócić, nie ruszając się z fotela. I ten moment, kiedy goście przerywają rozmowę, żeby zapytać: <em>„Wow… gdzie zostało zrobione to zdjęcie?”</em></p>
-        <p>Każdy kadr w tej galerii to efekt godzin czekania na idealne światło, setek przejechanych kilometrów i przekonania, że najpiękniejsze historie pisze natura.</p>
-        <p>Rozejrzyj się. Nie spiesz się.<br>
-        Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.<br>
-        A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie.</p>
+            <button class="lang-btn active" data-lang="pl">
+                Polski
+            </button>
+
+            <button class="lang-btn" data-lang="en">
+                English
+            </button>
+
+            <button class="lang-btn" data-lang="de">
+                Deutsch
+            </button>
+
+        </div>
+
     </div>
 
-    <div class="container">
-        <div id="folder-header" style="display: none;">
-            <button class="back-btn" id="back-btn-text" onclick="showFolders()">← Powrót do folderów</button>
+</header>
+
+<!-- =========================================
+     INTRO
+========================================= -->
+
+<section class="intro-wrapper">
+
+    <div
+        class="intro-text"
+        id="intro-desc"
+    ></div>
+
+</section>
+
+<!-- =========================================
+     CONTENT
+========================================= -->
+
+<main class="container">
+
+    <div id="folder-header">
+
+        <div>
+
+            <div
+                class="section-label"
+                id="folder-kicker"
+            >
+                Kolekcja
+            </div>
+
             <h2 id="folder-title-display"></h2>
+
         </div>
 
-        <div id="folders-grid" class="folders-grid"></div>
-        <div id="gallery" style="display: none;"></div>
+        <button
+            class="back-btn"
+            id="back-btn-text"
+        >
+            ← Powrót do folderów
+        </button>
+
     </div>
 
-    <div id="lightbox" onclick="closeLightbox()">
-        <img id="lightbox-img" src="" alt="Powiększenie">
+    <div id="home-section">
+
+        <div class="section-header">
+
+            <div>
+
+                <div
+                    class="section-label"
+                    id="portfolio-label"
+                >
+                    Portfolio
+                </div>
+
+                <h2
+                    class="section-title"
+                    id="collection-title"
+                >
+                    Kolekcje fotografii
+                </h2>
+
+            </div>
+
+            <div class="photo-count">
+
+                <span id="photo-count-label">
+                    Zdjęć
+                </span>
+
+                :
+
+                <strong id="total-photo-count">
+                    ...
+                </strong>
+
+            </div>
+
+        </div>
+
+        <div
+            id="folders-grid"
+            class="folders-grid"
+        >
+
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+
+        </div>
+
     </div>
 
-    <footer>
-        <p id="footer-subtitle>© FotoCytruszek84 – Amatorska fotografia hobbystyczna</p>
-        <p class="copyright-notice" id="footer-copyright">Wszystkie zdjęcia są moją wyłączną własnością. Kopiowanie i rozpowszechnianie bez zgody jest całkowicie zabronione.</p>
-        <p style="margin-top: 10px;"><span id="footer-visits">Liczba odwiedzin:</span> <span class="counter-badge" id="visit-counter">...</span></p>
-    </footer>
+    <div
+        id="gallery"
+        style="display:none"
+    ></div>
 
-    <script>
-        // Konfiguracja Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDv2QED1ZHbd3xDWIBhcLQJd7Zd7Rz-tWw",
-            authDomain: "cytruszek84-c2e33.firebaseapp.com",
-            projectId: "cytruszek84-c2e33",
-            storageBucket: "cytruszek84-c2e33.firebasestorage.app",
-            messagingSenderId: "89741680278",
-            appId: "1:89741680278:web:1f032fb3cf28ee73d02cb7",
-            measurementId: "G-83HTNWWCL"
+</main>
+
+<!-- =========================================
+     LIGHTBOX
+========================================= -->
+
+<div id="lightbox">
+
+    <div class="lightbox-inner">
+
+        <button
+            class="lightbox-close"
+            id="lightbox-close"
+            aria-label="Zamknij"
+        >
+            ×
+        </button>
+
+        <button
+            class="lightbox-prev"
+            id="lightbox-prev"
+            aria-label="Poprzednie zdjęcie"
+        >
+            ‹
+        </button>
+
+        <img
+            id="lightbox-img"
+            src=""
+            alt="Fotografia"
+            draggable="false"
+        >
+
+        <div class="lightbox-watermark">
+            CYTRUSZEK84
+        </div>
+
+        <button
+            class="lightbox-next"
+            id="lightbox-next"
+            aria-label="Następne zdjęcie"
+        >
+            ›
+        </button>
+
+        <div
+            class="lightbox-counter"
+            id="lightbox-counter"
+        >
+            1 / 1
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+    <div class="footer-brand">
+        Cytruszek84
+    </div>
+
+    <p id="footer-subtitle">
+        © FotoCytruszek84 – Amatorska fotografia hobbystyczna
+    </p>
+
+    <p
+        class="copyright-notice"
+        id="footer-copyright"
+    >
+        Wszystkie zdjęcia są moją wyłączną własnością.
+        Kopiowanie i rozpowszechnianie bez zgody jest całkowicie zabronione.
+    </p>
+
+    <p class="counter-line">
+
+        <span id="footer-visits">
+            Liczba odwiedzin:
+        </span>
+
+        <span
+            class="counter-badge"
+            id="visit-counter"
+        >
+            ...
+        </span>
+
+    </p>
+
+</footer>
+
+<script>
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDv2QED1ZHbd3xDWIBhcLQJd7Zd7Rz-tWw",
+    authDomain: "cytruszek84-c2e33.firebaseapp.com",
+    projectId: "cytruszek84-c2e33",
+    storageBucket: "cytruszek84-c2e33.firebasestorage.app",
+    messagingSenderId: "89741680278",
+    appId: "1:89741680278:web:1f032fb3cf28ee73d02cb7",
+    measurementId: "G-83HTNWWCL"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+try {
+    firebase.analytics();
+} catch (error) {
+    console.warn("Firebase Analytics niedostępne.");
+}
+
+const db = firebase.firestore();
+
+/* =========================================================
+   VISIT COUNTER
+========================================================= */
+
+function updateAndGetVisits() {
+
+    const counterRef =
+        db.collection("stats").doc("visits");
+
+    db.runTransaction(async transaction => {
+
+        const doc =
+            await transaction.get(counterRef);
+
+        let count = 1;
+
+        if (doc.exists) {
+            count =
+                Number(doc.data().count || 0) + 1;
+        }
+
+        transaction.set(
+            counterRef,
+            {
+                count: count
+            },
+            {
+                merge: true
+            }
+        );
+
+        return count;
+
+    })
+    .then(count => {
+
+        document.getElementById(
+            "visit-counter"
+        ).textContent = count;
+
+    })
+    .catch(error => {
+
+        console.error(
+            "Błąd licznika:",
+            error
+        );
+
+        document.getElementById(
+            "visit-counter"
+        ).textContent = "—";
+
+    });
+}
+
+updateAndGetVisits();
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+const photosPerFolder = 10;
+
+let totalPhotos = 245;
+
+let currentLanguage = "pl";
+
+let currentOpenFolder = null;
+
+let currentGalleryImages = [];
+
+let currentPhotoIndex = 0;
+
+/* =========================================================
+   TRANSLATIONS
+========================================================= */
+
+const translations = {
+
+pl: {
+
+intro: `
+<p><strong>Cześć! Jestem Piotr (Cytruszek84).</strong></p>
+
+<p>
+Aparat zabieram wszędzie. Serio.
+Czasem mam wrażenie, że częściej patrzę przez obiektyw
+niż przez własne okulary.
+</p>
+
+<p>
+Urodziłem się w czerwcowym słońcu 1984 roku w Kielcach,
+a od tamtej pory kolekcjonuję nie rzeczy, lecz chwile.
+Wschody słońca, mgły o świcie, opuszczone miejsca,
+górskie szlaki, miasta, które zasypiają dopiero nad ranem…
+To właśnie tam powstają moje fotografie.
+</p>
+
+<p>
+Mówią, że jedno zdjęcie jest warte tysiąca słów.
+Ja uważam, że najlepsze zdjęcia są bezcenne —
+bo potrafią każdego dnia wywołać ten sam zachwyt,
+co w chwili ich wykonania.
+</p>
+
+<p>
+Nie sprzedaję fotografii.<br>
+Sprzedaję spokój poranka zamknięty w ramie.
+Zachód słońca, który nigdy nie gaśnie.
+Miejsce, do którego można wrócić,
+nie ruszając się z fotela.
+</p>
+
+<p>
+Każdy kadr w tej galerii to efekt godzin czekania
+na idealne światło, setek przejechanych kilometrów
+i przekonania, że najpiękniejsze historie pisze natura.
+</p>
+
+<p>
+Rozejrzyj się. Nie spiesz się.<br>
+Może właśnie tutaj znajdziesz fotografię,
+która nie tylko ozdobi Twoją ścianę,
+ale każdego dnia będzie przypominać,
+że świat wciąż potrafi zachwycać.
+</p>
+`,
+
+portfolio: "Portfolio",
+collection: "Kolekcje fotografii",
+photos: "Zdjęć",
+collectionLabel: "Kolekcja",
+folderPrefix: "Folder",
+back: "← Powrót do folderów",
+
+footerSubtitle:
+"© FotoCytruszek84 – Amatorska fotografia hobbystyczna",
+
+copyright:
+"Wszystkie zdjęcia są moją wyłączną własnością. Kopiowanie i rozpowszechnianie bez zgody jest całkowicie zabronione.",
+
+visits:
+"Liczba odwiedzin:"
+
+},
+
+en: {
+
+intro: `
+<p><strong>Hi! I am Piotr (Cytruszek84).</strong></p>
+
+<p>
+I take my camera everywhere. Seriously.
+Sometimes I feel like I look through the lens
+more often than through my own glasses.
+</p>
+
+<p>
+I was born under the June sun of 1984 in Kielce,
+and ever since then I collect moments, not things.
+Sunrises, morning mist, abandoned places,
+mountain trails and cities that only fall asleep at dawn.
+</p>
+
+<p>
+They say a picture is worth a thousand words.
+I believe the best photographs are priceless,
+because they can bring back the same sense of wonder
+every time you look at them.
+</p>
+
+<p>
+I don't sell photography.<br>
+I sell the calm of a morning captured in a frame.
+A sunset that never fades.
+A place you can return to without leaving your chair.
+</p>
+
+<p>
+Every photograph is the result of hours waiting
+for perfect light, hundreds of kilometers driven,
+and the belief that nature writes the most beautiful stories.
+</p>
+`,
+
+portfolio: "Portfolio",
+collection: "Photography Collections",
+photos: "Photos",
+collectionLabel: "Collection",
+folderPrefix: "Folder",
+back: "← Back to folders",
+
+footerSubtitle:
+"© FotoCytruszek84 – Hobby Photography",
+
+copyright:
+"All photos are my exclusive property. Copying and distribution without permission is strictly prohibited.",
+
+visits:
+"Total visits:"
+
+},
+
+de: {
+
+intro: `
+<p><strong>Hallo! Ich bin Piotr (Cytruszek84).</strong></p>
+
+<p>
+Ich nehme meine Kamera überallhin mit.
+Manchmal habe ich das Gefühl,
+dass ich öfter durch das Objektiv schaue
+als durch meine eigene Brille.
+</p>
+
+<p>
+Ich wurde im Juni 1984 in Kielce geboren
+und seitdem sammle ich keine Dinge,
+sondern Momente.
+Sonnenaufgänge, Morgennebel, verlassene Orte,
+Bergpfade und Städte, die erst am Morgen einschlafen.
+</p>
+
+<p>
+Man sagt, ein Bild sagt mehr als tausend Worte.
+Ich glaube, die besten Fotos sind unbezahlbar,
+denn sie können jeden Tag aufs Neue begeistern.
+</p>
+
+<p>
+Ich verkaufe keine Fotografien.<br>
+Ich verkaufe die Ruhe des Morgens,
+eingefangen in einem Rahmen.
+Einen Sonnenuntergang, der niemals verblasst.
+</p>
+`,
+
+portfolio: "Portfolio",
+collection: "Fotografiesammlungen",
+photos: "Fotos",
+collectionLabel: "Sammlung",
+folderPrefix: "Ordner",
+back: "← Zurück zu den Ordnern",
+
+footerSubtitle:
+"© FotoCytruszek84 – Hobbyfotografie",
+
+copyright:
+"Alle Fotos sind mein ausschließliches Eigentum. Kopieren und Verbreitung ohne Genehmigung ist strengstens untersagt.",
+
+visits:
+"Besucheranzahl:"
+
+}
+
+};
+
+/* =========================================================
+   LOAD PHOTOS.JSON
+========================================================= */
+
+fetch("photos.json", {
+    cache: "no-store"
+})
+.then(response => {
+
+    if (!response.ok) {
+        throw new Error(
+            "Nie znaleziono photos.json"
+        );
+    }
+
+    return response.json();
+
+})
+.then(data => {
+
+    if (
+        data &&
+        Number(data.count) > 0
+    ) {
+
+        totalPhotos =
+            Number(data.count);
+
+    }
+
+    document.getElementById(
+        "total-photo-count"
+    ).textContent =
+        totalPhotos;
+
+    renderFolders();
+
+})
+.catch(error => {
+
+    console.warn(error);
+
+    document.getElementById(
+        "total-photo-count"
+    ).textContent =
+        totalPhotos;
+
+    renderFolders();
+
+});
+
+/* =========================================================
+   RENDER FOLDERS
+========================================================= */
+
+function renderFolders() {
+
+    const grid =
+        document.getElementById(
+            "folders-grid"
+        );
+
+    grid.innerHTML = "";
+
+    const totalFolders =
+        Math.ceil(
+            totalPhotos /
+            photosPerFolder
+        );
+
+    for (
+        let folder = totalFolders;
+        folder >= 1;
+        folder--
+    ) {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "folder-card";
+
+        const previewNumber =
+            Math.min(
+                folder * photosPerFolder,
+                totalPhotos
+            );
+
+        const preview =
+            document.createElement("div");
+
+        preview.className =
+            "folder-preview";
+
+        preview.style.backgroundImage =
+            `url("${previewNumber}.jpg")`;
+
+        const previewFallback =
+            new Image();
+
+        previewFallback.onload = () => {
+
+            preview.style.backgroundImage =
+                `url("${previewNumber}.jpg")`;
+
         };
 
-        // Inicjalizacja Firebase & Analytics
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-        const db = firebase.firestore();
+        previewFallback.onerror = () => {
 
-        // Licznik odwiedzin z bazy danych
-        function updateAndGetVisits() {
-            const counterRef = db.collection('stats').doc('visits');
-            db.runTransaction((transaction) => {
-                return transaction.get(counterRef).then((doc) => {
-                    let newCount = 1;
-                    if (doc.exists) {
-                        newCount = (doc.data().count || 0) + 1;
-                    }
-                    transaction.set(counterRef, { count: newCount }, { merge: true });
-                    return newCount;
-                });
-            }).then((count) => {
-                document.getElementById('visit-counter').textContent = count;
-            }).catch((err) => {
-                console.error("Błąd licznika:", err);
-                document.getElementById('visit-counter').textContent = "278";
-            });
-        }
+            preview.style.backgroundImage =
+                `url("${previewNumber}.JPG")`;
 
-        updateAndGetVisits();
-
-        const photosPerFolder = 10;
-        let totalPhotos = 245;
-        let currentLanguage = 'pl';
-        let currentOpenFolder = null;
-
-        const translations = {
-            pl: {
-                intro: `
-                    <p><strong>Cześć! Jestem Piotr (Cytruszek84).</strong></p>
-                    <p>Aparat zabieram wszędzie. Serio. Czasem mam wrażenie, że częściej patrzę przez obiektyw niż przez własne okulary.</p>
-                    <p>Urodziłem się w czerwcowym słońcu 1984 roku w Kielcach, a od tamtej pory kolekcjonuję nie rzeczy, lecz chwile. Wschody słońca, mgły o świcie, opuszczone miejsca, górskie szlaki, miasta, które zasypiają dopiero nad ranem… To właśnie tam powstają moje fotografie.</p>
-                    <p>Mówią, że jedno zdjęcie jest warte tysiąca słów. Ja uważam, że najlepsze zdjęcia są bezcenne – bo potrafią każdego dnia wywołać ten sam zachwyt, co w chwili ich wykonania.</p>
-                    <p>Nie sprzedaję fotografii.<br>
-                    Sprzedaję spokój poranka zamknięty w ramie. Zachód słońca, który nigdy nie gaśnie. Miejsce, do którego można wrócić, nie ruszając się z fotela. I ten moment, kiedy goście przerywają rozmowę, żeby zapytać: <em>„Wow… gdzie zostało zrobione to zdjęcie?”</em></p>
-                    <p>Każdy kadr w tej galerii to efekt godzin czekania na idealne światło, setek przejechanych kilometrów i przekonania, że najpiękniejsze historie pisze natura.</p>
-                    <p>Rozejrzyj się. Nie spiesz się.<br>
-                    Może właśnie tutaj znajdziesz fotografię, która nie tylko ozdobi Twoją ścianę, ale każdego dnia będzie przypominać, że świat wciąż potrafi zachwycać.<br>
-                    A jeśli jedno ze zdjęć sprawi, że na chwilę się zatrzymasz… jest spora szansa, że będzie chciało zamieszkać właśnie u Ciebie.</p>
-                `,
-                folderPrefix: "Folder",
-                backBtn: "← Powrót do folderów",
-                footerSubtitle: "© FotoCytruszek84 – Amatorska fotografia hobbystyczna",
-                footerCopyright: "Wszystkie zdjęcia są moją wyłączną własnością. Kopiowanie i rozpowszechnianie bez zgody jest całkowicie zabronione.",
-                footerVisits: "Liczba odwiedzin:"
-            },
-            en: {
-                intro: `
-                    <p><strong>Hi! I am Piotr (Cytruszek84).</strong></p>
-                    <p>I take my camera everywhere. Seriously. Sometimes I feel like I look through the lens more often than through my own glasses.</p>
-                    <p>I was born under the June sun of 1984 in Kielce, and ever since then, I collect moments, not things. Sunrises, morning mist, abandoned places, mountain trails, cities that only fall asleep at dawn… That's where my photographs are born.</p>
-                    <p>They say a picture is worth a thousand words. I believe the best photos are priceless – because every single day they can evoke the exact same wonder as the moment they were taken.</p>
-                    <p>I don't sell photography.<br>
-                    I sell the morning serenity framed on your wall. A sunset that never fades. A place you can return to without leaving your armchair. And that moment when guests pause their conversation to ask: <em>"Wow… where was this photo taken?"</em></p>
-                    <p>Every frame in this gallery is the result of hours waiting for the perfect light, hundreds of kilometers driven, and the firm belief that nature writes the most beautiful stories.</p>
-                    <p>Take a look around. Take your time.<br>
-                    Maybe right here you will find a photograph that will not only decorate your wall, but remind you every day that the world can still amaze.<br>
-                    And if one of the photos makes you pause for a moment… there's a good chance it will want to live with you.</p>
-                `,
-                folderPrefix: "Folder",
-                backBtn: "← Back to folders",
-                footerSubtitle: "© FotoCytruszek84 – Hobby Photography",
-                footerCopyright: "All photos are my exclusive property. Copying and distribution without permission is strictly prohibited.",
-                footerVisits: "Total visits:"
-            },
-            de: {
-                intro: `
-                    <p><strong>Hallo! Ich bin Piotr (Cytruszek84).</strong></p>
-                    <p>Ich nehme meine Kamera überallhin mit. Im Ernst. Manchmal habe ich das Gefühl, dass ich öfter durch das Objektiv schaue als durch meine eigene Brille.</p>
-                    <p>Ich wurde im Juni-Sonnenschein von 1984 in Kielce geboren und seitdem sammle ich keine Dinge, sondern Momente. Sonnenaufgänge, Morgennebel, verlassene Orte, Bergpfade, Städte, die erst am Morgen einschlafen… Genau dort entstehen meine Fotografien.</p>
-                    <p>Man sagt, ein Bild sagt mehr als tausend Worte. Ich glaube, die besten Fotos sind unbezahlbar – denn sie können jeden Tag aufs Neue dieselbe Begeisterung hervorrufen wie in dem Moment, als sie aufgenommen wurden.</p>
-                    <p>Ich verkaufe keine Fotografien.<br>
-                    Ich verkaufe die Ruhe des Morgens, eingerahmt an deiner Wand. Einen Sonnenuntergang, der niemals verblasst. Einen Ort, an den du zurückkehren kannst, ohne deinen Sessel zu verlassen. Und diesen Moment, wenn Gäste ihr Gespräch unterbrechen, um zu fragen: <em>„Wow… wo wurde dieses Foto gemacht?“</em></p>
-                    <p>Jedes Bild in dieser Galerie ist das Ergebnis stundenlangen Wartens auf das perfekte Licht, hunderter gefahrener Kilometer und der Überzeugung, dass die Natur die schönsten Geschichten schreibt.</p>
-                    <p>Schau dich um. Nimm dir Zeit.<br>
-                    Vielleicht findest du genau hier ein Foto, das nicht nur deine Wand dekoriert, sondern dich jeden Tag daran erinnert, wie wunderschön die Welt ist.<br>
-                    Und wenn dich eines der Bilder für einen Moment innehalten lässt… besteht eine gute Chance, dass es bei dir einziehen möchte.</p>
-                `,
-                folderPrefix: "Ordner",
-                backBtn: "← Zurück zu den Ordnern",
-                footerSubtitle: "© FotoCytruszek84 – Hobbyfotografie",
-                footerCopyright: "Alle Fotos sind mein ausschließliches Eigentum. Kopieren und Verbreitung ohne Genehmigung ist strengstens untersagt.",
-                footerVisits: "Besucheranzahl:"
-            }
         };
 
-        fetch('photos.json')
-            .then(res => res.json())
-            .then(data => {
-                if (data && data.count) {
-                    totalPhotos = data.count;
-                    renderFolders();
-                }
-            })
-            .catch(() => {
-                renderFolders();
-            });
+        previewFallback.src =
+            `${previewNumber}.jpg`;
 
-        function renderFolders() {
-            const foldersGrid = document.getElementById('folders-grid');
-            foldersGrid.innerHTML = '';
-            const totalFolders = Math.ceil(totalPhotos / photosPerFolder);
+        const info =
+            document.createElement("div");
 
-            for (let i = totalFolders; i >= 1; i--) {
-                const card = document.createElement('div');
-                card.className = 'folder-card';
-                card.onclick = () => openFolder(i);
+        info.className =
+            "folder-info";
 
-                card.innerHTML = `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px;">
-                        <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="#0066FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2v3M7.5 4.5l1.8 2.4M16.5 4.5l-1.8 2.4M3 9h3M18 9h3" stroke="#ffca28" stroke-width="2"/>
-                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                            <circle cx="12" cy="13" r="4"/>
-                        </svg>
-                        <div class="folder-title">${translations[currentLanguage].folderPrefix} ${i}</div>
-                    </div>
-                `;
-                foldersGrid.appendChild(card);
+        info.innerHTML = `
+
+            <div class="folder-number">
+                ${translations[currentLanguage].folderPrefix}
+            </div>
+
+            <div class="folder-title">
+                ${folder}
+            </div>
+
+        `;
+
+        const arrow =
+            document.createElement("div");
+
+        arrow.className =
+            "folder-arrow";
+
+        arrow.textContent = "→";
+
+        card.appendChild(preview);
+        card.appendChild(info);
+        card.appendChild(arrow);
+
+        card.addEventListener(
+            "click",
+            () => openFolder(folder)
+        );
+
+        grid.appendChild(card);
+    }
+}
+
+/* =========================================================
+   OPEN FOLDER
+========================================================= */
+
+function openFolder(folderNum) {
+
+    currentOpenFolder =
+        folderNum;
+
+    document.getElementById(
+        "home-section"
+    ).style.display = "none";
+
+    document.getElementById(
+        "folder-header"
+    ).style.display = "flex";
+
+    document.getElementById(
+        "gallery"
+    ).style.display = "grid";
+
+    document.getElementById(
+        "folder-title-display"
+    ).textContent =
+        `${translations[currentLanguage].folderPrefix} ${folderNum}`;
+
+    const gallery =
+        document.getElementById(
+            "gallery"
+        );
+
+    gallery.innerHTML = "";
+
+    currentGalleryImages = [];
+
+    const start =
+        (folderNum - 1) *
+        photosPerFolder + 1;
+
+    const end =
+        Math.min(
+            folderNum * photosPerFolder,
+            totalPhotos
+        );
+
+    for (
+        let i = end;
+        i >= start;
+        i--
+    ) {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "photo-card";
+
+        const img =
+            document.createElement("img");
+
+        img.loading = "lazy";
+
+        img.decoding = "async";
+
+        img.draggable = false;
+
+        img.alt =
+            `Fotografia ${i}`;
+
+        img.src =
+            `${i}.jpg`;
+
+        img.onerror = function() {
+
+            if (!this.dataset.fallback) {
+
+                this.dataset.fallback =
+                    "true";
+
+                this.src =
+                    `${i}.JPG`;
+
             }
-        }
 
-        function openFolder(folderNum) {
-            currentOpenFolder = folderNum;
-            document.getElementById('folders-grid').style.display = 'none';
-            document.getElementById('folder-header').style.display = 'flex';
-            document.getElementById('gallery').style.display = 'flex';
-            document.getElementById('folder-title-display').textContent = `${translations[currentLanguage].folderPrefix} ${folderNum}`;
+        };
 
-            const gallery = document.getElementById('gallery');
-            gallery.innerHTML = '';
+        const overlay =
+            document.createElement("div");
 
-            const start = (folderNum - 1) * photosPerFolder + 1;
-            const end = Math.min(folderNum * photosPerFolder, totalPhotos);
+        overlay.className =
+            "photo-overlay";
 
-            for (let i = end; i >= start; i--) {
-                const img = document.createElement('img');
-                const fileName = `${i}.jpg`;
-                img.src = fileName;
+        overlay.innerHTML = `
+            <span class="photo-number">
+                #${i}
+            </span>
+        `;
 
-                img.onerror = function() {
-                    if (!this.getAttribute('data-tried-capital')) {
-                        this.setAttribute('data-tried-capital', 'true');
-                        this.src = `${i}.JPG`;
-                    }
-                };
+        card.appendChild(img);
+        card.appendChild(overlay);
 
-                img.alt = `Fotografia ${i}`;
-                img.ondragstart = function() { return false; };
-                img.addEventListener('click', function() {
-                    openLightbox(this.src);
-                });
-                gallery.appendChild(img);
+        const index =
+            currentGalleryImages.length;
+
+        currentGalleryImages.push(
+            () => img.src
+        );
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                currentPhotoIndex =
+                    index;
+
+                openLightbox(index);
+
             }
+        );
+
+        gallery.appendChild(card);
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+/* =========================================================
+   BACK TO FOLDERS
+========================================================= */
+
+function showFolders() {
+
+    currentOpenFolder =
+        null;
+
+    document.getElementById(
+        "home-section"
+    ).style.display = "block";
+
+    document.getElementById(
+        "folder-header"
+    ).style.display = "none";
+
+    document.getElementById(
+        "gallery"
+    ).style.display = "none";
+
+    document.getElementById(
+        "gallery"
+    ).innerHTML = "";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+/* =========================================================
+   LIGHTBOX
+========================================================= */
+
+function openLightbox(index) {
+
+    if (
+        !currentGalleryImages.length
+    ) {
+        return;
+    }
+
+    currentPhotoIndex =
+        index;
+
+    updateLightbox();
+
+    document.getElementById(
+        "lightbox"
+    ).style.display = "flex";
+
+    document.body.style.overflow =
+        "hidden";
+}
+
+function updateLightbox() {
+
+    const image =
+        document.getElementById(
+            "lightbox-img"
+        );
+
+    const src =
+        currentGalleryImages[
+            currentPhotoIndex
+        ]();
+
+    image.src = src;
+
+    document.getElementById(
+        "lightbox-counter"
+    ).textContent =
+        `${currentPhotoIndex + 1} / ${currentGalleryImages.length}`;
+}
+
+function closeLightbox() {
+
+    document.getElementById(
+        "lightbox"
+    ).style.display = "none";
+
+    document.body.style.overflow =
+        "";
+}
+
+function nextPhoto() {
+
+    if (
+        !currentGalleryImages.length
+    ) return;
+
+    currentPhotoIndex++;
+
+    if (
+        currentPhotoIndex >=
+        currentGalleryImages.length
+    ) {
+        currentPhotoIndex = 0;
+    }
+
+    updateLightbox();
+}
+
+function previousPhoto() {
+
+    if (
+        !currentGalleryImages.length
+    ) return;
+
+    currentPhotoIndex--;
+
+    if (currentPhotoIndex < 0) {
+
+        currentPhotoIndex =
+            currentGalleryImages.length - 1;
+
+    }
+
+    updateLightbox();
+}
+
+/* =========================================================
+   LIGHTBOX BUTTONS
+========================================================= */
+
+document.getElementById(
+    "lightbox-close"
+).addEventListener(
+    "click",
+    closeLightbox
+);
+
+document.getElementById(
+    "lightbox-next"
+).addEventListener(
+    "click",
+    nextPhoto
+);
+
+document.getElementById(
+    "lightbox-prev"
+).addEventListener(
+    "click",
+    previousPhoto
+);
+
+document.getElementById(
+    "back-btn-text"
+).addEventListener(
+    "click",
+    showFolders
+);
+
+/* =========================================================
+   CLOSE LIGHTBOX BACKGROUND
+========================================================= */
+
+document.getElementById(
+    "lightbox"
+).addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === this
+        ) {
+
+            closeLightbox();
+
         }
 
-        function showFolders() {
-            currentOpenFolder = null;
-            document.getElementById('folders-grid').style.display = 'grid';
-            document.getElementById('folder-header').style.display = 'none';
-            document.getElementById('gallery').style.display = 'none';
+    }
+);
+
+/* =========================================================
+   KEYBOARD NAVIGATION
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        const lightbox =
+            document.getElementById(
+                "lightbox"
+            );
+
+        if (
+            lightbox.style.display !== "flex"
+        ) {
+            return;
         }
 
-        function openLightbox(src) {
-            document.getElementById('lightbox-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeLightbox();
+
         }
 
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
+        if (
+            event.key === "ArrowRight"
+        ) {
+
+            nextPhoto();
+
         }
 
-        function setLanguage(lang) {
-            currentLanguage = lang;
-            
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
+        if (
+            event.key === "ArrowLeft"
+        ) {
 
-            const t = translations[lang];
-            document.getElementById('intro-desc').innerHTML = t.intro;
-            document.getElementById('back-btn-text').textContent = t.backBtn;
-            document.getElementById('footer-subtitle').textContent = t.footerSubtitle;
-            document.getElementById('footer-copyright').textContent = t.footerCopyright;
-            document.getElementById('footer-visits').textContent = t.footerVisits;
+            previousPhoto();
 
-            renderFolders();
-
-            if (currentOpenFolder !== null) {
-                document.getElementById('folder-title-display').textContent = `${t.folderPrefix} ${currentOpenFolder}`;
-            }
         }
 
-        renderFolders();
-    </script>
+    }
+);
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+document
+.querySelectorAll(".lang-btn")
+.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            setLanguage(
+                button.dataset.lang
+            );
+
+        }
+    );
+
+});
+
+function setLanguage(lang) {
+
+    currentLanguage =
+        lang;
+
+    document
+    .querySelectorAll(".lang-btn")
+    .forEach(button => {
+
+        button.classList.toggle(
+            "active",
+            button.dataset.lang === lang
+        );
+
+    });
+
+    const t =
+        translations[lang];
+
+    document.getElementById(
+        "intro-desc"
+    ).innerHTML =
+        t.intro;
+
+    document.getElementById(
+        "portfolio-label"
+    ).textContent =
+        t.portfolio;
+
+    document.getElementById(
+        "collection-title"
+    ).textContent =
+        t.collection;
+
+    document.getElementById(
+        "photo-count-label"
+    ).textContent =
+        t.photos;
+
+    document.getElementById(
+        "folder-kicker"
+    ).textContent =
+        t.collectionLabel;
+
+    document.getElementById(
+        "back-btn-text"
+    ).textContent =
+        t.back;
+
+    document.getElementById(
+        "footer-subtitle"
+    ).textContent =
+        t.footerSubtitle;
+
+    document.getElementById(
+        "footer-copyright"
+    ).textContent =
+        t.copyright;
+
+    document.getElementById(
+        "footer-visits"
+    ).textContent =
+        t.visits;
+
+    renderFolders();
+
+    if (
+        currentOpenFolder !== null
+    ) {
+
+        document.getElementById(
+            "folder-title-display"
+        ).textContent =
+            `${t.folderPrefix} ${currentOpenFolder}`;
+
+    }
+}
+
+/* =========================================================
+   TOUCH / SWIPE
+========================================================= */
+
+let touchStartX = 0;
+
+document.getElementById(
+    "lightbox"
+).addEventListener(
+    "touchstart",
+    function(event) {
+
+        touchStartX =
+            event.changedTouches[0].screenX;
+
+    },
+    {
+        passive: true
+    }
+);
+
+document.getElementById(
+    "lightbox"
+).addEventListener(
+    "touchend",
+    function(event) {
+
+        const touchEndX =
+            event.changedTouches[0].screenX;
+
+        const distance =
+            touchStartX - touchEndX;
+
+        if (
+            Math.abs(distance) < 50
+        ) {
+            return;
+        }
+
+        if (distance > 0) {
+
+            nextPhoto();
+
+        } else {
+
+            previousPhoto();
+
+        }
+
+    },
+    {
+        passive: true
+    }
+);
+
+/* =========================================================
+   COPY / DOWNLOAD PROTECTION
+========================================================= */
+
+/*
+    To nie jest ochrona kryptograficzna.
+    JavaScript może utrudnić kopiowanie,
+    ale nie może całkowicie uniemożliwić
+    pobrania obrazu z publicznej strony.
+*/
+
+/* Prawy przycisk */
+document.addEventListener(
+    "contextmenu",
+    function(event) {
+
+        event.preventDefault();
+
+    }
+);
+
+/* Drag & Drop */
+document.addEventListener(
+    "dragstart",
+    function(event) {
+
+        if (
+            event.target.tagName === "IMG"
+        ) {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+/* Kopiowanie */
+document.addEventListener(
+    "copy",
+    function(event) {
+
+        if (
+            event.target.tagName === "IMG" ||
+            event.target.closest(".photo-card") ||
+            event.target.closest("#lightbox")
+        ) {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+/* Skróty klawiaturowe */
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        const key =
+            event.key.toLowerCase();
+
+        /*
+            Ctrl/Cmd + S
+            Ctrl/Cmd + U
+            Ctrl/Cmd + C
+            Ctrl/Cmd + P
+        */
+
+        if (
+            (event.ctrlKey || event.metaKey) &&
+            ["s","u","c","p"].includes(key)
+        ) {
+
+            event.preventDefault();
+
+        }
+
+        /*
+            F12
+            Ctrl+Shift+I
+            Ctrl+Shift+J
+            Ctrl+Shift+C
+        */
+
+        if (
+            event.key === "F12" ||
+            (
+                (event.ctrlKey || event.metaKey) &&
+                event.shiftKey &&
+                ["i","j","c"].includes(key)
+            )
+        ) {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+setLanguage("pl");
+
+</script>
+
 </body>
 </html>
