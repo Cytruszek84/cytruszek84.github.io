@@ -440,37 +440,14 @@
             font-size: .8rem;
         }
 
-        .art-1 {
-            background: linear-gradient(135deg, #dfe9ed, #9fb9bf);
-        }
-
-        .art-2 {
-            background: linear-gradient(135deg, #d9d6ce, #b99f83);
-        }
-
-        .art-3 {
-            background: linear-gradient(135deg, #dce7df, #9db5a4);
-        }
-
-        .art-4 {
-            background: linear-gradient(135deg, #ded9d3, #aa9990);
-        }
-
-        .art-5 {
-            background: linear-gradient(135deg, #e8dfce, #c89d66);
-        }
-
-        .art-6 {
-            background: linear-gradient(135deg, #dedee8, #8e95a9);
-        }
-
-        .art-7 {
-            background: linear-gradient(135deg, #e4dfd4, #b8aa83);
-        }
-
-        .art-8 {
-            background: linear-gradient(135deg, #dce2e8, #91a1b1);
-        }
+        .art-1 { background: linear-gradient(135deg, #dfe9ed, #9fb9bf); }
+        .art-2 { background: linear-gradient(135deg, #d9d6ce, #b99f83); }
+        .art-3 { background: linear-gradient(135deg, #dce7df, #9db5a4); }
+        .art-4 { background: linear-gradient(135deg, #ded9d3, #aa9990); }
+        .art-5 { background: linear-gradient(135deg, #e8dfce, #c89d66); }
+        .art-6 { background: linear-gradient(135deg, #dedee8, #8e95a9); }
+        .art-7 { background: linear-gradient(135deg, #e4dfd4, #b8aa83); }
+        .art-8 { background: linear-gradient(135deg, #dce2e8, #91a1b1); }
 
         /* =========================
            VIEWS
@@ -1160,7 +1137,6 @@
 
         <div class="about-photo">
 
-            <!-- TWOJE ZDJĘCIE PROFILOWE -->
             <img
                 src="./omnie.jpg"
                 alt="Piotr – Cytruszek84"
@@ -1192,41 +1168,7 @@
             </h2>
 
             <div id="about-text">
-
-                <p>
-                    Mam na imię Piotr, a w świecie fotografii
-                    możecie znaleźć mnie jako
-                    <strong>Cytruszek84</strong>.
-                </p>
-
-                <p>
-                    Aparat towarzyszy mi od lat. Zabieram go ze sobą
-                    w podróże, na górskie szlaki, do miast, nad jeziora
-                    i wszędzie tam, gdzie pojawia się światło,
-                    którego nie można przegapić.
-                </p>
-
-                <p>
-                    Najbardziej interesują mnie momenty,
-                    których nie da się powtórzyć — pierwszy promień
-                    słońca, poranna mgła, pusty szlak, światło
-                    zachodzącego słońca czy zwykła ulica,
-                    która przez kilka sekund wygląda zupełnie inaczej.
-                </p>
-
-                <p>
-                    Nie zależy mi na tym, żeby zrobić po prostu
-                    kolejne zdjęcie. Chcę stworzyć kadr,
-                    który wywoła emocję i sprawi,
-                    że zatrzymasz się na chwilę.
-                </p>
-
-                <p>
-                    Zapraszam Cię do mojego fotograficznego świata.
-                    Mam nadzieję, że znajdziesz tutaj coś,
-                    co zostanie z Tobą na dłużej.
-                </p>
-
+                <!-- Treść ładuje się dynamicznie z pliku JS -->
             </div>
 
             <div class="about-signature">
@@ -1461,6 +1403,8 @@ const folderNames = {
 const translations = {
 
     pl: {
+        navGallery: "Galeria",
+        navAbout: "O mnie",
 
         heroLabel: "Fotografia",
 
@@ -1496,6 +1440,14 @@ const translations = {
         aboutPhoto:
             "Piotr · Cytruszek84",
 
+        aboutText: `
+            <p>Mam na imię Piotr, a w świecie fotografii możecie znaleźć mnie jako <strong>Cytruszek84</strong>.</p>
+            <p>Aparat towarzyszy mi od lat. Zabieram go ze sobą w podróże, na górskie szlaki, do miast, nad jeziora i wszędzie tam, gdzie pojawia się światło, którego nie można przegapić.</p>
+            <p>Najbardziej interesują mnie momenty, których nie da się powtórzyć — pierwszy promień słońca, poranna mgła, pusty szlak, światło zachodzącego słońca czy zwykła ulica, która przez kilka sekund wygląda zupełnie inaczej.</p>
+            <p>Nie zależy mi na tym, żeby zrobić po prostu kolejne zdjęcie. Chcę stworzyć kadr, który wywoła emocję i sprawi, że zatrzymasz się na chwilę.</p>
+            <p>Zapraszam Cię do mojego fotograficznego świata. Mam nadzieję, że znajdziesz tutaj coś, co zostanie z Tobą na dłużej.</p>
+        `,
+
         socialTitle:
             "Zobacz więcej moich kadrów",
 
@@ -1516,6 +1468,8 @@ const translations = {
     },
 
     en: {
+        navGallery: "Gallery",
+        navAbout: "About Me",
 
         heroLabel: "Photography",
 
@@ -1555,6 +1509,14 @@ const translations = {
         aboutPhoto:
             "Piotr · Cytruszek84",
 
+        aboutText: `
+            <p>My name is Piotr, and in the world of photography you can find me as <strong>Cytruszek84</strong>.</p>
+            <p>I have been carrying a camera with me for years. I take it on trips, mountain trails, into cities, to lakes, and anywhere light creates a moment that shouldn't be missed.</p>
+            <p>I am most drawn to unrepeatable moments — the first ray of sunlight, morning mist, an empty trail, the glow of sunset, or a simple street that looks completely transformed for just a few seconds.</p>
+            <p>My goal isn't just to take another photo. I want to capture a frame that evokes emotion and makes you pause for a moment.</p>
+            <p>Welcome to my photographic world. I hope you find something here that stays with you.</p>
+        `,
+
         socialTitle:
             "Discover more of my photography",
 
@@ -1575,6 +1537,8 @@ const translations = {
     },
 
     de: {
+        navGallery: "Galerie",
+        navAbout: "Über mich",
 
         heroLabel: "Fotografie",
 
@@ -1613,6 +1577,14 @@ const translations = {
 
         aboutPhoto:
             "Piotr · Cytruszek84",
+
+        aboutText: `
+            <p>Mein Name ist Piotr, und in der Welt der Fotografie bin ich als <strong>Cytruszek84</strong> bekannt.</p>
+            <p>Die Kamera begleitet mich seit Jahren. Ich nehme sie mit auf Reisen, auf Bergpfade, in Städte, an Seen und überall dorthin, wo Licht Momente schafft, die man nicht verpassen darf.</p>
+            <p>Am meisten faszinieren mich unwiederholbare Augenblicke — der erste Sonnenstrahl, Morgennebel, ein einsamer Pfad, das Licht des Sonnenuntergangs oder eine einfache Straße, die für wenige Sekunden völlig anders aussieht.</p>
+            <p>Es geht mir nicht darum, einfach nur ein weiteres Foto zu machen. Ich möchte ein Bild schaffen, das Emotionen weckt und zum Innehalten anregt.</p>
+            <p>Willkommen in meiner fotografischen Welt. Ich hoffe, Sie finden hier etwas, das Ihnen in Erinnerung bleibt.</p>
+        `,
 
         socialTitle:
             "Mehr von meiner Fotografie entdecken",
@@ -1952,7 +1924,7 @@ function closeLightbox() {
 
 
 /* =========================================================
-   JĘZYK
+   JĘZYK I AUTOMATYCZNA DETEKCJA
 ========================================================= */
 
 function setLanguage(lang) {
@@ -1962,102 +1934,63 @@ function setLanguage(lang) {
     }
 
     currentLanguage = lang;
+    localStorage.setItem("userLanguage", lang);
 
-    const t =
-        translations[lang];
+    const t = translations[lang];
 
-    document
-        .querySelectorAll(".lang-btn")
-        .forEach(button => {
+    document.querySelectorAll(".lang-btn").forEach(button => {
+        button.classList.toggle("active", button.dataset.lang === lang);
+    });
 
-            button.classList.toggle(
-                "active",
-                button.dataset.lang === lang
-            );
+    document.getElementById("nav-gallery").textContent = t.navGallery;
+    document.getElementById("nav-about").textContent = t.navAbout;
 
-        });
+    document.getElementById("hero-label").textContent = t.heroLabel;
+    document.getElementById("hero-title").innerHTML = t.heroTitle;
+    document.getElementById("hero-text").textContent = t.heroText;
+    document.getElementById("hero-gallery-btn").textContent = t.heroGallery;
+    document.getElementById("hero-about-btn").textContent = t.heroAbout;
+    document.getElementById("hero-badge-title").textContent = t.heroBadgeTitle;
+    document.getElementById("hero-badge-text").textContent = t.heroBadgeText;
 
-    document.getElementById(
-        "hero-label"
-    ).textContent = t.heroLabel;
+    document.getElementById("gallery-label").textContent = t.galleryLabel;
+    document.getElementById("gallery-title").textContent = t.galleryTitle;
+    document.getElementById("gallery-description").textContent = t.galleryDescription;
 
-    document.getElementById(
-        "hero-title"
-    ).innerHTML = t.heroTitle;
+    document.getElementById("about-label").textContent = t.aboutLabel;
+    document.getElementById("about-title").textContent = t.aboutTitle;
+    document.getElementById("about-photo-label").textContent = t.aboutPhoto;
+    document.getElementById("about-text").innerHTML = t.aboutText;
 
-    document.getElementById(
-        "hero-text"
-    ).textContent = t.heroText;
+    document.getElementById("social-title").textContent = t.socialTitle;
+    document.getElementById("social-description").textContent = t.socialDescription;
 
-    document.getElementById(
-        "hero-gallery-btn"
-    ).textContent = t.heroGallery;
-
-    document.getElementById(
-        "hero-about-btn"
-    ).textContent = t.heroAbout;
-
-    document.getElementById(
-        "hero-badge-title"
-    ).textContent = t.heroBadgeTitle;
-
-    document.getElementById(
-        "hero-badge-text"
-    ).textContent = t.heroBadgeText;
-
-    document.getElementById(
-        "gallery-label"
-    ).textContent = t.galleryLabel;
-
-    document.getElementById(
-        "gallery-title"
-    ).textContent = t.galleryTitle;
-
-    document.getElementById(
-        "gallery-description"
-    ).textContent = t.galleryDescription;
-
-    document.getElementById(
-        "about-label"
-    ).textContent = t.aboutLabel;
-
-    document.getElementById(
-        "about-title"
-    ).textContent = t.aboutTitle;
-
-    document.getElementById(
-        "about-photo-label"
-    ).textContent = t.aboutPhoto;
-
-    document.getElementById(
-        "social-title"
-    ).textContent = t.socialTitle;
-
-    document.getElementById(
-        "social-description"
-    ).textContent = t.socialDescription;
-
-    document.getElementById(
-        "back-btn"
-    ).textContent = t.back;
-
-    document.getElementById(
-        "footer-visits"
-    ).textContent = t.visits;
-
-    document.getElementById(
-        "footer-copyright"
-    ).textContent = t.copyright;
+    document.getElementById("back-btn").textContent = t.back;
+    document.getElementById("footer-visits").textContent = t.visits;
+    document.getElementById("footer-copyright").textContent = t.copyright;
 
     renderFolders();
 
     if (currentOpenFolder !== null) {
-
-        document.getElementById(
-            "folder-title-display"
-        ).textContent =
-            getFolderName(currentOpenFolder);
+        document.getElementById("folder-title-display").textContent = getFolderName(currentOpenFolder);
     }
+}
+
+function detectInitialLanguage() {
+    const savedLang = localStorage.getItem("userLanguage");
+    if (savedLang && translations[savedLang]) {
+        return savedLang;
+    }
+
+    const userLang = (navigator.language || navigator.userLanguage || "pl").toLowerCase();
+    
+    if (userLang.startsWith("de")) {
+        return "de";
+    } else if (userLang.startsWith("en")) {
+        return "en";
+    }
+
+    return "pl";
 }
 
 
@@ -2198,7 +2131,8 @@ document.addEventListener(
    START
 ========================================================= */
 
-renderFolders();
+const initialLang = detectInitialLanguage();
+setLanguage(initialLang);
 
 updateVisitCounter();
 
