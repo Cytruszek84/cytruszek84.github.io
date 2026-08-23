@@ -1,1451 +1,1632 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cytruszek84 | Fotografia</title>
+    <title>Piotr | Photography</title>
 
-<meta
-    name="description"
-    content="Cytruszek84 — fotografia natury, gór, miast, opuszczonych miejsc i chwil, do których chce się wracać."
->
+    <meta name="description"
+          content="Fotografia Piotra — krajobrazy, natura, światło, miasta, podróże i chwile, które warto zatrzymać.">
 
-<meta name="theme-color" content="#f4f1eb">
+    <meta name="theme-color" content="#f4efe7">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
 
-<link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
-    rel="stylesheet"
->
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+    <style>
 
-<style>
+        /* =========================================================
+           RESET
+        ========================================================= */
 
-/* =========================================================
-   ZMIENNE
-========================================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-:root {
+        html {
+            scroll-behavior: smooth;
+        }
 
-    --bg: #f5f2ec;
-    --bg-light: #fbfaf7;
-    --white: #ffffff;
+        body {
+            background: #f5f1ea;
+            color: #18232d;
+            font-family: "DM Sans", sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-    --text: #252525;
-    --text-soft: #626262;
-    --text-light: #8a8a8a;
+        body.lightbox-open {
+            overflow: hidden;
+        }
 
-    --gold: #b08a45;
-    --gold-light: #d5bb86;
+        img {
+            max-width: 100%;
+        }
 
-    --dark: #242424;
+        button {
+            font-family: inherit;
+        }
 
-    --border: #e5e0d7;
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    --shadow:
-        0 18px 60px rgba(50, 42, 30, .10);
+        /* =========================================================
+           VARIABLES
+        ========================================================= */
 
-    --shadow-hover:
-        0 28px 80px rgba(50, 42, 30, .17);
-}
+        :root {
+            --cream: #f5f1ea;
+            --cream-dark: #e9e1d5;
+            --white: #ffffff;
 
+            --dark: #18232d;
+            --dark-soft: #33404b;
 
-/* =========================================================
-   RESET
-========================================================= */
+            --accent: #c86d4a;
+            --accent-dark: #a95336;
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+            --gold: #bd9349;
+            --sage: #728276;
 
-html {
-    scroll-behavior: smooth;
-}
+            --border: rgba(24, 35, 45, .12);
 
-body {
+            --shadow:
+                0 18px 50px rgba(31, 41, 51, .10);
 
-    background:
-        linear-gradient(
-            180deg,
-            #fbfaf7 0%,
-            #f5f2ec 50%,
-            #fbfaf7 100%
-        );
+            --shadow-hover:
+                0 25px 70px rgba(31, 41, 51, .18);
+        }
 
-    color: var(--text);
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
 
-    font-family:
-        "DM Sans",
-        Arial,
-        sans-serif;
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 500;
 
-    line-height: 1.7;
+            width: 100%;
 
-    overflow-x: hidden;
-}
+            background: rgba(245, 241, 234, .88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
 
-img {
-    max-width: 100%;
-}
+            border-bottom: 1px solid var(--border);
+        }
 
+        .nav {
+            max-width: 1280px;
+            margin: auto;
 
-/* =========================================================
-   NAWIGACJA
-========================================================= */
+            min-height: 78px;
 
-.navbar {
+            padding: 0 25px;
 
-    position: sticky;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
 
-    top: 0;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
 
-    z-index: 500;
+            cursor: pointer;
+        }
 
-    height: 78px;
+        .brand-mark {
+            width: 42px;
+            height: 42px;
 
-    background:
-        rgba(251,250,247,.92);
+            display: grid;
+            place-items: center;
 
-    backdrop-filter:
-        blur(18px);
+            border-radius: 50%;
 
-    border-bottom:
-        1px solid var(--border);
+            background:
+                linear-gradient(135deg, var(--dark), #40505c);
 
-    display: flex;
+            color: white;
 
-    align-items: center;
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
 
-    justify-content: space-between;
+            box-shadow: 0 8px 20px rgba(24, 35, 45, .18);
+        }
 
-    padding:
-        0 max(25px, calc((100% - 1250px) / 2));
+        .brand-text strong {
+            display: block;
 
-}
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
+            letter-spacing: .02em;
+        }
 
-.logo {
+        .brand-text span {
+            display: block;
 
-    color: var(--text);
+            font-size: 10px;
+            letter-spacing: .22em;
+            text-transform: uppercase;
 
-    text-decoration: none;
+            color: #7c858b;
+        }
 
-    font-family:
-        "Playfair Display",
-        serif;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
 
-    font-size: 1.55rem;
+        .nav-link {
+            border: 0;
+            background: transparent;
 
-    font-weight: 700;
+            padding: 10px 14px;
 
-    letter-spacing: -.02em;
-}
+            border-radius: 30px;
 
-.logo span {
+            color: #4b5861;
 
-    color: var(--gold);
-}
+            cursor: pointer;
 
-.nav-links {
+            font-weight: 600;
+            font-size: 14px;
 
-    display: flex;
+            transition: .25s ease;
+        }
 
-    gap: 8px;
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: var(--dark);
+        }
 
-    align-items: center;
-}
+        .languages {
+            display: flex;
+            gap: 4px;
 
-.nav-link {
+            padding: 4px;
 
-    border: 0;
+            background: rgba(255,255,255,.7);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+        }
 
-    background: transparent;
+        .lang-btn {
+            border: 0;
+            background: transparent;
 
-    color: var(--text-soft);
+            padding: 7px 10px;
 
-    padding: 9px 15px;
+            border-radius: 20px;
 
-    border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
 
-    font: inherit;
+            color: #657078;
 
-    font-size: .9rem;
+            cursor: pointer;
 
-    font-weight: 600;
+            transition: .2s ease;
+        }
 
-    cursor: pointer;
+        .lang-btn:hover,
+        .lang-btn.active {
+            background: var(--accent);
+            color: white;
+        }
 
-    transition: .25s;
-}
+        /* =========================================================
+           HERO
+        ========================================================= */
 
-.nav-link:hover,
-.nav-link.active {
+        .hero {
+            position: relative;
 
-    background: #ece7dd;
+            max-width: 1280px;
+            min-height: 610px;
 
-    color: var(--text);
-}
+            margin: 0 auto;
+            padding: 90px 25px 75px;
 
-.nav-link.active {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
 
-    color: var(--gold);
-}
+            align-items: center;
+            gap: 60px;
+        }
 
+        .hero::before {
+            content: "";
 
-/* =========================================================
-   HERO
-========================================================= */
+            position: absolute;
 
-.hero {
+            width: 500px;
+            height: 500px;
 
-    min-height: 690px;
+            top: -120px;
+            left: -180px;
 
-    position: relative;
+            background: rgba(200,109,74,.12);
 
-    display: flex;
+            border-radius: 50%;
 
-    align-items: center;
+            filter: blur(5px);
 
-    overflow: hidden;
+            pointer-events: none;
+        }
 
-    background:
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
 
-        radial-gradient(
-            circle at 80% 20%,
-            rgba(176,138,69,.12),
-            transparent 32%
-        ),
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
 
-        linear-gradient(
-            120deg,
-            #fbfaf7,
-            #f2eee6
-        );
-}
+            margin-bottom: 22px;
 
-.hero::after {
+            color: var(--accent);
 
-    content: "";
+            font-size: 12px;
+            font-weight: 800;
 
-    position: absolute;
+            text-transform: uppercase;
+            letter-spacing: .2em;
+        }
 
-    width: 550px;
-    height: 550px;
+        .eyebrow::before {
+            content: "";
 
-    right: -180px;
-    top: -150px;
+            width: 30px;
+            height: 1px;
 
-    border-radius: 50%;
+            background: var(--accent);
+        }
 
-    border:
-        1px solid rgba(176,138,69,.18);
+        .hero h1 {
+            max-width: 780px;
 
-    box-shadow:
-        0 0 0 80px rgba(176,138,69,.025),
-        0 0 0 160px rgba(176,138,69,.02);
-}
+            font-family: "Playfair Display", serif;
 
-.hero-content {
+            font-size: clamp(48px, 6vw, 82px);
 
-    width: min(
-        1250px,
-        calc(100% - 40px)
-    );
+            line-height: .98;
 
-    margin: auto;
+            letter-spacing: -.035em;
 
-    position: relative;
+            color: var(--dark);
 
-    z-index: 2;
+            margin-bottom: 28px;
+        }
 
-    padding: 80px 0;
-}
+        .hero h1 span {
+            color: var(--accent);
+        }
 
-.hero-kicker {
+        .hero-description {
+            max-width: 610px;
 
-    color: var(--gold);
+            color: #657078;
 
-    font-size: .72rem;
+            font-size: 18px;
+            line-height: 1.8;
 
-    letter-spacing: .28em;
+            margin-bottom: 35px;
+        }
 
-    text-transform: uppercase;
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
 
-    font-weight: 700;
+        .primary-btn,
+        .secondary-btn {
+            border: 0;
 
-    margin-bottom: 22px;
-}
+            padding: 14px 23px;
 
-.hero h1 {
+            border-radius: 40px;
 
-    font-family:
-        "Playfair Display",
-        serif;
+            cursor: pointer;
 
-    font-size:
-        clamp(4.2rem, 10vw, 8rem);
+            font-size: 14px;
+            font-weight: 700;
 
-    line-height: .88;
+            transition: .3s ease;
+        }
 
-    letter-spacing: -.055em;
+        .primary-btn {
+            background: var(--dark);
+            color: white;
 
-    font-weight: 600;
+            box-shadow: 0 12px 30px rgba(24,35,45,.18);
+        }
 
-    max-width: 850px;
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            background: var(--accent);
 
-    margin-bottom: 35px;
-}
+            box-shadow: 0 16px 35px rgba(200,109,74,.28);
+        }
 
-.hero h1 span {
+        .secondary-btn {
+            background: rgba(255,255,255,.7);
 
-    color: var(--gold);
-}
+            color: var(--dark);
 
-.hero-description {
+            border: 1px solid var(--border);
+        }
 
-    max-width: 650px;
+        .secondary-btn:hover {
+            transform: translateY(-3px);
 
-    color: var(--text-soft);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
 
-    font-size: 1.1rem;
+        /* =========================================================
+           HERO PHOTO
+        ========================================================= */
 
-    line-height: 1.9;
+        .hero-photo {
+            position: relative;
 
-    margin-bottom: 35px;
-}
+            height: 500px;
 
-.hero-buttons {
+            border-radius: 28px;
 
-    display: flex;
+            overflow: hidden;
 
-    flex-wrap: wrap;
+            box-shadow: var(--shadow-hover);
 
-    gap: 12px;
-}
+            background: #d9d3ca;
+        }
 
-.btn {
+        .hero-photo::after {
+            content: "";
 
-    display: inline-flex;
+            position: absolute;
 
-    align-items: center;
+            inset: 0;
 
-    justify-content: center;
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(15,25,32,.48),
+                    transparent 45%
+                );
 
-    border: 0;
+            pointer-events: none;
+        }
 
-    cursor: pointer;
+        .hero-photo img {
+            width: 100%;
+            height: 100%;
 
-    text-decoration: none;
+            object-fit: cover;
 
-    padding: 14px 23px;
+            object-position: center;
 
-    border-radius: 999px;
+            transition: transform 1s ease;
+        }
 
-    font: inherit;
+        .hero-photo:hover img {
+            transform: scale(1.035);
+        }
 
-    font-weight: 700;
+        .hero-photo-caption {
+            position: absolute;
 
-    transition: .3s;
-}
+            z-index: 2;
 
-.btn-primary {
+            left: 28px;
+            right: 28px;
+            bottom: 25px;
 
-    color: white;
+            color: white;
+        }
 
-    background:
-        linear-gradient(
-            135deg,
-            #b08a45,
-            #947036
-        );
+        .hero-photo-caption strong {
+            font-family: "Playfair Display", serif;
+            font-size: 27px;
+        }
 
-    box-shadow:
-        0 12px 30px rgba(176,138,69,.22);
-}
+        .hero-photo-caption span {
+            display: block;
 
-.btn-primary:hover {
+            margin-top: 5px;
 
-    transform: translateY(-3px);
+            font-size: 12px;
 
-    box-shadow:
-        0 18px 40px rgba(176,138,69,.30);
-}
+            opacity: .82;
 
-.btn-secondary {
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
 
-    color: var(--text);
+        /* =========================================================
+           MAIN CONTAINER
+        ========================================================= */
 
-    background: white;
+        .container {
+            max-width: 1280px;
 
-    border:
-        1px solid var(--border);
-}
+            margin: auto;
 
-.btn-secondary:hover {
+            padding: 35px 25px 90px;
+        }
 
-    transform: translateY(-3px);
+        .section-heading {
+            margin-bottom: 35px;
+        }
 
-    border-color: var(--gold-light);
-}
+        .section-heading .eyebrow {
+            margin-bottom: 10px;
+        }
 
+        .section-heading h2 {
+            font-family: "Playfair Display", serif;
 
-/* =========================================================
-   HERO QUOTE
-========================================================= */
+            font-size: clamp(34px, 4vw, 52px);
 
-.hero-quote {
+            line-height: 1.05;
 
-    position: absolute;
+            margin-bottom: 12px;
+        }
 
-    right: max(
-        30px,
-        calc((100% - 1250px) / 2)
-    );
+        .section-heading p {
+            max-width: 700px;
 
-    bottom: 65px;
+            color: #69747b;
 
-    width: 300px;
+            line-height: 1.75;
+        }
 
-    color: var(--text-light);
+        /* =========================================================
+           FOLDERS
+        ========================================================= */
 
-    font-family:
-        "Playfair Display",
-        serif;
+        .folders-grid {
+            display: grid;
 
-    font-style: italic;
+            grid-template-columns:
+                repeat(auto-fill, minmax(270px, 1fr));
 
-    font-size: 1rem;
+            gap: 24px;
+        }
 
-    text-align: right;
-}
+        .folder-card {
+            position: relative;
 
+            min-height: 270px;
 
-/* =========================================================
-   SEKCJE
-========================================================= */
+            overflow: hidden;
 
-.section {
+            border-radius: 22px;
 
-    width: min(
-        1250px,
-        calc(100% - 40px)
-    );
+            background: #d9d3ca;
 
-    margin: auto;
+            cursor: pointer;
 
-    padding:
-        105px 0;
-}
+            box-shadow: 0 12px 35px rgba(30,40,50,.09);
 
-.section-small {
+            border: 1px solid rgba(255,255,255,.7);
 
-    padding-top: 70px;
-}
+            transition:
+                transform .35s ease,
+                box-shadow .35s ease;
+        }
 
-.section-heading {
+        .folder-card:hover {
+            transform: translateY(-8px);
 
-    max-width: 760px;
+            box-shadow: var(--shadow-hover);
+        }
 
-    margin-bottom: 50px;
-}
+        .folder-bg {
+            position: absolute;
+            inset: 0;
 
-.eyebrow {
+            background-size: cover;
+            background-position: center;
 
-    color: var(--gold);
+            transition: transform .8s ease;
+        }
 
-    font-size: .7rem;
+        .folder-card:hover .folder-bg {
+            transform: scale(1.06);
+        }
 
-    text-transform: uppercase;
+        .folder-overlay {
+            position: absolute;
+            inset: 0;
 
-    letter-spacing: .25em;
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(14,24,31,.82),
+                    rgba(14,24,31,.08) 70%
+                );
+        }
 
-    font-weight: 700;
+        .folder-number {
+            position: absolute;
 
-    margin-bottom: 10px;
-}
+            top: 18px;
+            right: 18px;
 
-.section-heading h2 {
+            width: 38px;
+            height: 38px;
 
-    font-family:
-        "Playfair Display",
-        serif;
+            display: grid;
+            place-items: center;
 
-    font-size:
-        clamp(2.5rem, 5vw, 4rem);
+            border-radius: 50%;
 
-    line-height: 1.05;
+            background: rgba(255,255,255,.88);
 
-    font-weight: 600;
+            color: var(--dark);
 
-    margin-bottom: 20px;
-}
+            font-size: 12px;
+            font-weight: 800;
+        }
 
-.section-heading p {
+        .folder-info {
+            position: absolute;
 
-    color: var(--text-soft);
+            left: 23px;
+            right: 23px;
+            bottom: 21px;
 
-    font-size: 1rem;
+            color: white;
+        }
 
-    line-height: 1.85;
-}
+        .folder-info h3 {
+            font-family: "Playfair Display", serif;
 
+            font-size: 25px;
 
-/* =========================================================
-   KOLEKCJE
-========================================================= */
+            line-height: 1.05;
 
-.collections-grid {
+            margin-bottom: 6px;
+        }
 
-    display: grid;
+        .folder-info span {
+            font-size: 12px;
 
-    grid-template-columns:
-        repeat(3, 1fr);
+            opacity: .8;
 
-    gap: 25px;
-}
+            text-transform: uppercase;
+            letter-spacing: .13em;
+        }
 
-.collection-card {
+        /* =========================================================
+           GALLERY
+        ========================================================= */
 
-    position: relative;
+        #gallery {
+            display: none;
 
-    min-height: 350px;
+            grid-template-columns:
+                repeat(auto-fill, minmax(260px, 1fr));
 
-    overflow: hidden;
+            gap: 20px;
+        }
 
-    background: #ded9cf;
+        .gallery-photo {
+            position: relative;
 
-    border-radius: 4px;
+            aspect-ratio: 4 / 3;
 
-    cursor: pointer;
+            overflow: hidden;
 
-    box-shadow: var(--shadow);
+            border-radius: 18px;
 
-    transition:
-        transform .45s ease,
-        box-shadow .45s ease;
-}
+            background: #ddd7ce;
 
-.collection-card:nth-child(3n + 2) {
+            cursor: pointer;
 
-    transform:
-        translateY(35px);
-}
+            box-shadow: 0 8px 25px rgba(30,40,50,.08);
 
-.collection-card:hover {
+            transition: .35s ease;
+        }
 
-    transform:
-        translateY(-7px);
+        .gallery-photo:hover {
+            transform: translateY(-5px);
 
-    box-shadow:
-        var(--shadow-hover);
-}
+            box-shadow: var(--shadow-hover);
+        }
 
-.collection-card:nth-child(3n + 2):hover {
+        .gallery-photo img {
+            width: 100%;
+            height: 100%;
 
-    transform:
-        translateY(28px);
-}
+            object-fit: cover;
 
-.collection-image {
+            display: block;
 
-    position: absolute;
+            user-select: none;
+            -webkit-user-drag: none;
 
-    inset: 0;
+            transition: transform .6s ease;
+        }
 
-    background-size: cover;
+        .gallery-photo:hover img {
+            transform: scale(1.04);
+        }
 
-    background-position: center;
+        .gallery-photo::after {
+            content: "ZOBACZ";
 
-    transition:
-        transform .8s ease;
-}
+            position: absolute;
 
-.collection-card:hover
-.collection-image {
+            left: 50%;
+            top: 50%;
 
-    transform: scale(1.07);
-}
+            transform: translate(-50%, -50%) scale(.9);
 
-.collection-overlay {
+            opacity: 0;
 
-    position: absolute;
+            padding: 9px 14px;
 
-    inset: 0;
+            border-radius: 30px;
 
-    background:
-        linear-gradient(
-            to top,
-            rgba(20,20,20,.88),
-            rgba(20,20,20,.03) 65%
-        );
-}
+            background: rgba(255,255,255,.92);
 
-.collection-content {
+            color: var(--dark);
 
-    position: absolute;
+            font-size: 11px;
+            font-weight: 800;
 
-    left: 25px;
+            letter-spacing: .12em;
 
-    right: 25px;
+            transition: .3s ease;
 
-    bottom: 25px;
+            pointer-events: none;
+        }
 
-    z-index: 2;
+        .gallery-photo:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
 
-    color: white;
-}
+        .folder-header {
+            display: none;
 
-.collection-number {
+            align-items: center;
+            justify-content: space-between;
 
-    color:
-        var(--gold-light);
+            gap: 20px;
 
-    font-size: .7rem;
+            margin-bottom: 30px;
+        }
 
-    text-transform: uppercase;
+        .folder-header h2 {
+            font-family: "Playfair Display", serif;
 
-    letter-spacing: .2em;
+            font-size: clamp(30px, 4vw, 46px);
+        }
 
-    font-weight: 700;
+        .back-btn {
+            border: 0;
 
-    margin-bottom: 5px;
-}
+            background: white;
 
-.collection-name {
+            color: var(--dark);
 
-    font-family:
-        "Playfair Display",
-        serif;
+            border: 1px solid var(--border);
 
-    font-size: 1.8rem;
+            padding: 11px 18px;
 
-    line-height: 1.1;
+            border-radius: 30px;
 
-    margin-bottom: 6px;
-}
+            cursor: pointer;
 
-.collection-description {
+            font-weight: 700;
 
-    color: rgba(255,255,255,.78);
+            transition: .25s ease;
+        }
 
-    font-size: .82rem;
+        .back-btn:hover {
+            background: var(--dark);
+            color: white;
 
-    line-height: 1.5;
+            transform: translateX(-3px);
+        }
 
-    max-width: 280px;
-}
+        /* =========================================================
+           ABOUT
+        ========================================================= */
 
-.collection-arrow {
+        #about {
+            display: none;
 
-    position: absolute;
+            padding-top: 15px;
+        }
 
-    right: 22px;
+        .about-grid {
+            display: grid;
 
-    bottom: 25px;
+            grid-template-columns: .8fr 1.2fr;
 
-    width: 42px;
+            gap: 65px;
 
-    height: 42px;
+            align-items: center;
+        }
 
-    display: grid;
+        .about-photo {
+            position: relative;
 
-    place-items: center;
+            border-radius: 26px;
 
-    border-radius: 50%;
+            overflow: hidden;
 
-    background:
-        rgba(255,255,255,.15);
+            background: #ddd6cc;
 
-    backdrop-filter:
-        blur(10px);
+            box-shadow: var(--shadow-hover);
 
-    transition: .3s;
-}
+            transform: rotate(-1.2deg);
+        }
 
-.collection-card:hover
-.collection-arrow {
+        .about-photo img {
+            display: block;
 
-    background: var(--gold);
+            width: 100%;
+            aspect-ratio: 4 / 5;
 
-    transform:
-        translateX(4px);
-}
+            object-fit: cover;
 
+            object-position: center top;
+        }
 
-/* =========================================================
-   O MNIE
-========================================================= */
+        .about-photo::before {
+            content: "";
 
-.about-section {
+            position: absolute;
 
-    background:
-        #eee9e0;
-}
+            inset: 12px;
 
-.about-inner {
+            border: 1px solid rgba(255,255,255,.55);
 
-    width: min(
-        1250px,
-        calc(100% - 40px)
-    );
+            border-radius: 18px;
 
-    margin: auto;
+            z-index: 2;
 
-    padding: 110px 0;
+            pointer-events: none;
+        }
 
-    display: grid;
+        .about-text h2 {
+            font-family: "Playfair Display", serif;
 
-    grid-template-columns:
-        .8fr 1.2fr;
+            font-size: clamp(40px, 5vw, 62px);
 
-    gap: 90px;
+            line-height: 1;
 
-    align-items: center;
-}
+            margin-bottom: 25px;
+        }
 
-.about-photo {
+        .about-text h2 span {
+            color: var(--accent);
+        }
 
-    position: relative;
+        .about-text p {
+            color: #606c73;
 
-    max-width: 470px;
+            font-size: 17px;
 
-    margin: auto;
-}
+            line-height: 1.9;
 
-.about-photo::before {
+            margin-bottom: 17px;
+        }
 
-    content: "";
+        .about-signature {
+            margin-top: 30px;
 
-    position: absolute;
+            font-family: "Playfair Display", serif;
 
-    left: -18px;
+            font-size: 27px;
 
-    bottom: -18px;
+            color: var(--dark);
+        }
 
-    width: 100%;
+        .about-meta {
+            display: grid;
 
-    height: 100%;
+            grid-template-columns: repeat(3, 1fr);
 
-    border:
-        1px solid var(--gold-light);
+            gap: 12px;
 
-    z-index: 0;
-}
+            margin-top: 30px;
+        }
 
-.about-photo img {
+        .meta-box {
+            background: white;
 
-    position: relative;
+            border: 1px solid var(--border);
 
-    z-index: 2;
+            padding: 18px;
 
-    display: block;
+            border-radius: 16px;
+        }
 
-    width: 100%;
+        .meta-box strong {
+            display: block;
 
-    aspect-ratio: 4 / 5;
+            color: var(--accent);
 
-    object-fit: cover;
+            font-size: 22px;
 
-    object-position: center;
+            margin-bottom: 4px;
+        }
 
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.14);
-}
+        .meta-box span {
+            color: #7b858b;
 
-.about-text h2 {
+            font-size: 11px;
 
-    font-family:
-        "Playfair Display",
-        serif;
+            text-transform: uppercase;
 
-    font-size:
-        clamp(2.6rem, 5vw, 4rem);
+            letter-spacing: .09em;
+        }
 
-    line-height: 1;
+        /* =========================================================
+           SOCIAL
+        ========================================================= */
 
-    margin-bottom: 25px;
-}
+        .social-section {
+            margin-top: 80px;
 
-.about-text h2 span {
+            padding: 55px 35px;
 
-    color: var(--gold);
-}
+            border-radius: 28px;
 
-.about-text p {
+            background:
+                linear-gradient(
+                    135deg,
+                    #192832,
+                    #30424d
+                );
 
-    color: var(--text-soft);
+            color: white;
 
-    margin-bottom: 18px;
+            text-align: center;
 
-    line-height: 1.9;
-}
+            box-shadow: var(--shadow);
+        }
 
-.about-signature {
+        .social-section h2 {
+            font-family: "Playfair Display", serif;
 
-    font-family:
-        "Playfair Display",
-        serif;
+            font-size: 42px;
 
-    font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
 
-    color: var(--text);
+        .social-section p {
+            color: rgba(255,255,255,.72);
 
-    margin-top: 30px;
-}
+            max-width: 600px;
 
+            margin: 0 auto 28px;
 
-/* =========================================================
-   QUOTE
-========================================================= */
+            line-height: 1.7;
+        }
 
-.quote-section {
+        .social-buttons {
+            display: flex;
 
-    text-align: center;
+            justify-content: center;
 
-    background:
-        #282723;
+            flex-wrap: wrap;
 
-    color: white;
+            gap: 12px;
+        }
 
-    padding: 110px 20px;
-}
+        .social-btn {
+            display: inline-flex;
 
-.quote-section blockquote {
+            align-items: center;
 
-    width: min(
-        850px,
-        100%
-    );
+            gap: 9px;
 
-    margin: auto;
+            padding: 13px 21px;
 
-    font-family:
-        "Playfair Display",
-        serif;
+            border-radius: 30px;
 
-    font-size:
-        clamp(2rem, 5vw, 3.6rem);
+            background: rgba(255,255,255,.1);
 
-    line-height: 1.25;
+            border: 1px solid rgba(255,255,255,.16);
 
-    font-style: italic;
-}
+            color: white;
 
-.quote-section cite {
+            font-size: 14px;
 
-    display: block;
+            font-weight: 700;
 
-    margin-top: 25px;
+            transition: .25s ease;
+        }
 
-    color: var(--gold-light);
+        .social-btn:hover {
+            background: var(--accent);
 
-    font-size: .8rem;
+            transform: translateY(-3px);
+        }
 
-    font-family:
-        "DM Sans",
-        sans-serif;
+        /* =========================================================
+           LIGHTBOX
+        ========================================================= */
 
-    font-style: normal;
+        #lightbox {
+            display: none;
 
-    letter-spacing: .2em;
+            position: fixed;
 
-    text-transform: uppercase;
-}
+            inset: 0;
 
+            z-index: 2000;
 
-/* =========================================================
-   LIGHTBOX
-========================================================= */
+            background: rgba(10,16,20,.96);
 
-#lightbox {
+            align-items: center;
+            justify-content: center;
+        }
 
-    display: none;
+        .lightbox-content {
+            position: relative;
 
-    position: fixed;
+            width: 100%;
+            height: 100%;
 
-    inset: 0;
+            display: flex;
 
-    z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
 
-    background:
-        rgba(20,20,18,.96);
+        #lightbox-img {
+            max-width: 88vw;
+            max-height: 86vh;
 
-    align-items: center;
+            object-fit: contain;
 
-    justify-content: center;
+            border-radius: 8px;
 
-    padding: 30px;
-}
+            box-shadow: 0 30px 100px rgba(0,0,0,.5);
 
-#lightbox-img {
+            user-select: none;
+            -webkit-user-drag: none;
+        }
 
-    max-width: 92vw;
+        .lightbox-close,
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
 
-    max-height: 87vh;
+            border: 0;
 
-    object-fit: contain;
+            width: 48px;
+            height: 48px;
 
-    user-select: none;
+            display: grid;
+            place-items: center;
 
-    -webkit-user-drag: none;
-}
+            border-radius: 50%;
 
-.lightbox-button {
+            background: rgba(255,255,255,.1);
 
-    position: absolute;
+            color: white;
 
-    width: 50px;
+            font-size: 25px;
 
-    height: 50px;
+            cursor: pointer;
 
-    border-radius: 50%;
+            transition: .25s ease;
 
-    border:
-        1px solid rgba(255,255,255,.18);
+            z-index: 3;
+        }
 
-    background:
-        rgba(255,255,255,.08);
+        .lightbox-close {
+            top: 25px;
+            right: 25px;
+        }
 
-    color: white;
+        .lightbox-prev {
+            left: 25px;
+            top: 50%;
 
-    font-size: 1.7rem;
+            transform: translateY(-50%);
+        }
 
-    cursor: pointer;
+        .lightbox-next {
+            right: 25px;
+            top: 50%;
 
-    display: grid;
+            transform: translateY(-50%);
+        }
 
-    place-items: center;
+        .lightbox-close:hover,
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: var(--accent);
+        }
 
-    transition: .25s;
-}
+        .lightbox-counter {
+            position: absolute;
 
-.lightbox-button:hover {
+            bottom: 24px;
+            left: 50%;
 
-    background: var(--gold);
+            transform: translateX(-50%);
 
-    border-color: var(--gold);
-}
+            color: rgba(255,255,255,.7);
 
-#lightbox-close {
+            font-size: 12px;
 
-    top: 25px;
+            letter-spacing: .1em;
+        }
 
-    right: 25px;
-}
+        /* =========================================================
+           FOOTER
+        ========================================================= */
 
-#lightbox-prev {
+        footer {
+            background: #17232c;
 
-    left: 25px;
-}
+            color: rgba(255,255,255,.65);
 
-#lightbox-next {
+            padding: 45px 25px;
 
-    right: 25px;
-}
+            text-align: center;
+        }
 
-#lightbox-counter {
+        .footer-brand {
+            font-family: "Playfair Display", serif;
 
-    position: absolute;
+            color: white;
 
-    bottom: 25px;
+            font-size: 28px;
 
-    left: 50%;
+            margin-bottom: 8px;
+        }
 
-    transform:
-        translateX(-50%);
+        .footer-copy {
+            font-size: 12px;
 
-    color: white;
+            margin-bottom: 12px;
+        }
 
-    font-size: .8rem;
+        .copyright-notice {
+            max-width: 700px;
 
-    padding: 7px 14px;
+            margin: 15px auto;
 
-    border-radius: 999px;
+            color: #e9a08a;
 
-    background:
-        rgba(0,0,0,.5);
-}
+            font-size: 12px;
 
-.watermark {
+            line-height: 1.6;
+        }
 
-    position: absolute;
+        .visits {
+            margin-top: 20px;
 
-    left: 50%;
+            font-size: 12px;
+        }
 
-    top: 50%;
+        .counter-badge {
+            display: inline-block;
 
-    transform:
-        translate(-50%,-50%)
-        rotate(-25deg);
+            margin-left: 5px;
 
-    color:
-        rgba(255,255,255,.10);
+            padding: 4px 10px;
 
-    font-size:
-        clamp(2rem, 7vw, 6rem);
+            border-radius: 20px;
 
-    font-weight: 700;
+            background: var(--accent);
 
-    letter-spacing: .15em;
+            color: white;
 
-    pointer-events: none;
+            font-weight: 800;
+        }
 
-    user-select: none;
-}
+        /* =========================================================
+           MOBILE
+        ========================================================= */
 
+        @media (max-width: 900px) {
 
-/* =========================================================
-   STOPKA
-========================================================= */
+            .nav {
+                min-height: auto;
 
-footer {
+                padding: 15px 18px;
 
-    background: #1f1e1b;
+                flex-wrap: wrap;
+            }
 
-    color: #aaa;
+            .nav-links {
+                order: 3;
 
-    text-align: center;
+                width: 100%;
 
-    padding: 65px 20px;
-}
+                justify-content: center;
 
-.footer-logo {
+                overflow-x: auto;
+            }
 
-    color: white;
+            .hero {
+                grid-template-columns: 1fr;
 
-    font-family:
-        "Playfair Display",
-        serif;
+                padding-top: 55px;
 
-    font-size: 1.8rem;
+                gap: 35px;
+            }
 
-    margin-bottom: 10px;
-}
+            .hero-photo {
+                height: 430px;
 
-.footer-copyright {
+                order: -1;
+            }
 
-    max-width: 750px;
+            .about-grid {
+                grid-template-columns: 1fr;
 
-    margin:
-        18px auto;
+                gap: 40px;
+            }
 
-    color: #e28b8b;
+            .about-photo {
+                max-width: 500px;
 
-    font-size: .82rem;
-}
+                margin: auto;
+            }
+        }
 
-.visit-line {
+        @media (max-width: 600px) {
 
-    margin-top: 25px;
+            .brand-text span {
+                display: none;
+            }
 
-    font-size: .82rem;
-}
+            .languages {
+                margin-left: auto;
+            }
 
-.counter {
+            .nav-links {
+                justify-content: flex-start;
+            }
 
-    color: var(--gold-light);
+            .hero {
+                padding: 40px 18px 60px;
+            }
 
-    font-weight: 700;
+            .hero h1 {
+                font-size: 48px;
+            }
 
-    margin-left: 5px;
-}
+            .hero-description {
+                font-size: 16px;
+            }
 
+            .hero-photo {
+                height: 390px;
+            }
 
-/* =========================================================
-   RESPONSYWNOŚĆ
-========================================================= */
+            .container {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
 
-@media(max-width: 950px) {
+            .folders-grid {
+                grid-template-columns: 1fr;
+            }
 
-    .collections-grid {
+            #gallery {
+                grid-template-columns: 1fr;
+            }
 
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
+            .folder-header {
+                align-items: flex-start;
 
-    .collection-card:nth-child(3n + 2) {
+                flex-direction: column;
+            }
 
-        transform: none;
-    }
+            .about-meta {
+                grid-template-columns: 1fr;
+            }
 
-    .collection-card:nth-child(3n + 2):hover {
+            .social-section {
+                padding: 40px 20px;
+            }
 
-        transform:
-            translateY(-7px);
-    }
+            .social-section h2 {
+                font-size: 34px;
+            }
 
-    .about-inner {
+            .lightbox-prev {
+                left: 10px;
+            }
 
-        grid-template-columns: 1fr;
+            .lightbox-next {
+                right: 10px;
+            }
 
-        gap: 55px;
-    }
+            #lightbox-img {
+                max-width: 94vw;
+            }
+        }
 
-    .about-photo {
+        /* =========================================================
+           ANIMATIONS
+        ========================================================= */
 
-        max-width: 430px;
-    }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
 
-    .hero-quote {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        display: none;
-    }
-}
+        .animate {
+            animation: fadeUp .7s ease both;
+        }
 
-
-@media(max-width: 650px) {
-
-    .navbar {
-
-        height: auto;
-
-        min-height: 70px;
-
-        padding: 12px 18px;
-
-        gap: 10px;
-    }
-
-    .nav-links {
-
-        gap: 0;
-    }
-
-    .nav-link {
-
-        padding:
-            7px 9px;
-
-        font-size: .75rem;
-    }
-
-    .hero {
-
-        min-height: 600px;
-    }
-
-    .hero-content {
-
-        width:
-            calc(100% - 30px);
-    }
-
-    .hero h1 {
-
-        font-size:
-            clamp(3.8rem, 18vw, 6rem);
-    }
-
-    .hero-description {
-
-        font-size: .95rem;
-    }
-
-    .section {
-
-        width:
-            calc(100% - 30px);
-
-        padding:
-            75px 0;
-    }
-
-    .collections-grid {
-
-        grid-template-columns: 1fr;
-
-        gap: 16px;
-    }
-
-    .collection-card {
-
-        min-height: 300px;
-    }
-
-    .collection-card:nth-child(3n + 2) {
-
-        transform: none;
-    }
-
-    .about-inner {
-
-        width:
-            calc(100% - 30px);
-
-        padding:
-            75px 0;
-    }
-
-    #lightbox-prev,
-    #lightbox-next {
-
-        top: auto;
-
-        bottom: 25px;
-    }
-
-    #lightbox-prev {
-
-        left: 25%;
-    }
-
-    #lightbox-next {
-
-        right: 25%;
-    }
-}
-
-</style>
+    </style>
 </head>
 
+<body>
 
-<body
-    oncontextmenu="return false"
-    ondragstart="return false"
-    onselectstart="return false"
->
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
 
+<header class="topbar">
 
-<!-- =====================================================
-     NAWIGACJA
-===================================================== -->
+    <nav class="nav">
 
-<nav class="navbar">
+        <div class="brand" onclick="goHome()">
 
-    <a
-        href="#start"
-        class="logo"
-    >
-        Cytruszek<span>84</span>
-    </a>
+            <div class="brand-mark">
+                P
+            </div>
 
-    <div class="nav-links">
+            <div class="brand-text">
+                <strong>Piotr</strong>
+                <span>Photography</span>
+            </div>
 
-        <button
-            class="nav-link active"
-            data-section="start"
-        >
-            Start
-        </button>
-
-        <button
-            class="nav-link"
-            data-section="galerie"
-        >
-            Galerie
-        </button>
-
-        <button
-            class="nav-link"
-            data-section="o-mnie"
-        >
-            O mnie
-        </button>
-
-    </div>
-
-</nav>
-
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
-<header
-    class="hero"
-    id="start"
->
-
-    <div class="hero-content">
-
-        <div class="hero-kicker">
-            Fotografia • Światło • Chwile
         </div>
 
-        <h1>
-            Zatrzymuję
-            <span>chwile.</span>
-        </h1>
+        <div class="nav-links">
 
-        <p class="hero-description">
-
-            Nie kolekcjonuję rzeczy.
-            Kolekcjonuję momenty — światło o świcie,
-            mgłę nad górami, ciszę opuszczonych miejsc
-            i miasta, które po zmroku opowiadają zupełnie
-            inne historie.
-
-        </p>
-
-        <div class="hero-buttons">
-
-            <button
-                class="btn btn-primary"
-                id="hero-gallery-btn"
-            >
-                Zobacz galerie →
+            <button class="nav-link active"
+                    id="nav-home"
+                    onclick="goHome()">
+                Start
             </button>
 
-            <button
-                class="btn btn-secondary"
-                id="hero-about-btn"
-            >
-                Poznaj mnie
+            <button class="nav-link"
+                    id="nav-gallery"
+                    onclick="showGallerySection()">
+                Galerie
+            </button>
+
+            <button class="nav-link"
+                    id="nav-about"
+                    onclick="showAbout()">
+                O mnie
             </button>
 
         </div>
 
-    </div>
+        <div class="languages">
 
-    <div class="hero-quote">
+            <button class="lang-btn active"
+                    onclick="setLanguage('pl')">
+                PL
+            </button>
 
-        „Najpiękniejsze chwile nie proszą się
-        o uwagę. Trzeba tylko być tam,
-        kiedy się wydarzą.”
+            <button class="lang-btn"
+                    onclick="setLanguage('en')">
+                EN
+            </button>
 
-    </div>
+            <button class="lang-btn"
+                    onclick="setLanguage('de')">
+                DE
+            </button>
+
+        </div>
+
+    </nav>
 
 </header>
 
 
-<!-- =====================================================
-     GALERIE
-===================================================== -->
+<!-- =========================================================
+     HERO
+========================================================= -->
 
-<section
-    class="section"
-    id="galerie"
->
+<section id="home-section">
 
-    <div class="section-heading">
+    <div class="hero">
 
-        <div class="eyebrow">
-            Moje fotografie
+        <div class="hero-content animate">
+
+            <div class="eyebrow"
+                 data-i18n="eyebrow">
+                Fotografia • Światło • Chwile
+            </div>
+
+            <h1 data-i18n="heroTitle">
+                Zatrzymuję
+                <span>chwile</span>,
+                które warto pamiętać.
+            </h1>
+
+            <p class="hero-description"
+               data-i18n="heroDescription">
+
+                Fotografuję świat takim, jakim chcę go zapamiętać —
+                pełnym światła, przestrzeni, emocji i niezwykłych chwil.
+
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="primary-btn"
+                        onclick="showGallerySection()"
+                        data-i18n="viewGallery">
+                    Zobacz galerię
+                </button>
+
+                <button class="secondary-btn"
+                        onclick="showAbout()"
+                        data-i18n="aboutMe">
+                    Poznaj mnie
+                </button>
+
+            </div>
+
         </div>
 
-        <h2>
-            Historie zapisane światłem.
-        </h2>
 
-        <p>
+        <div class="hero-photo animate">
 
-            Każda kolekcja to inny fragment świata,
-            który udało mi się zatrzymać w kadrze.
-            Rozejrzyj się spokojnie.
-            Niektóre zdjęcia potrzebują chwili,
-            żeby naprawdę je zobaczyć.
+            <img src="piotr.jpg"
+                 alt="Piotr — fotograf"
+                 draggable="false">
 
-        </p>
+            <div class="hero-photo-caption">
+
+                <strong>Piotr</strong>
+
+                <span data-i18n="photographer">
+                    Fotograf • Podróżnik • Pasjonat
+                </span>
+
+            </div>
+
+        </div>
 
     </div>
 
 
-    <div
-        class="collections-grid"
-        id="collections-grid"
-    ></div>
+    <!-- INTRO -->
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div class="eyebrow"
+                 data-i18n="galleryEyebrow">
+                Moja fotografia
+            </div>
+
+            <h2 data-i18n="galleryTitle">
+                Historie zapisane światłem.
+            </h2>
+
+            <p data-i18n="galleryDescription">
+                Każde zdjęcie jest fragmentem podróży —
+                chwilą światła, miejscem, do którego można wrócić,
+                nawet siedząc w domu.
+            </p>
+
+        </div>
+
+        <div id="folders-grid"
+             class="folders-grid">
+        </div>
+
+    </div>
 
 </section>
 
 
-<!-- =====================================================
-     O MNIE
-===================================================== -->
+<!-- =========================================================
+     GALLERY
+========================================================= -->
 
-<section
-    class="about-section"
-    id="o-mnie"
->
+<section class="container"
+         id="gallery-section"
+         style="display:none;">
 
-    <div class="about-inner">
+    <div class="folder-header"
+         id="folder-header">
+
+        <button class="back-btn"
+                onclick="showGallerySection()"
+                id="back-btn">
+            ← Wszystkie galerie
+        </button>
+
+        <h2 id="folder-title-display">
+        </h2>
+
+    </div>
+
+    <div id="gallery"></div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<section class="container"
+         id="about">
+
+    <div class="about-grid">
 
         <div class="about-photo">
 
-            <!--
-                UMIEŚĆ SWOJE ZDJĘCIE JAKO:
-
-                omnie.jpg
-
-                w tym samym katalogu co index.html
-            -->
-
-            <img
-                src="omnie.jpg"
-                alt="Piotr — Cytruszek84"
-                draggable="false"
-                onerror="
-                    this.style.display='none';
-                    this.parentElement.classList.add('photo-missing');
-                "
-            >
+            <img src="piotr.jpg"
+                 alt="Piotr — fotografia"
+                 draggable="false">
 
         </div>
 
 
         <div class="about-text">
 
-            <div class="eyebrow">
+            <div class="eyebrow"
+                 data-i18n="aboutEyebrow">
                 O mnie
             </div>
 
-            <h2>
-                Jestem Piotr.
-                <span>Cytruszek84.</span>
+            <h2 data-i18n="aboutTitle">
+                Nie fotografuję
+                <span>miejsc.</span>
+                Fotografuję emocje.
             </h2>
 
-            <p>
+            <p data-i18n="aboutP1">
 
-                Fotografia pojawiła się w moim życiu
-                jako sposób na zatrzymywanie chwil,
-                do których chciałem móc wracać.
-                Z czasem aparat stał się czymś więcej —
-                zacząłem patrzeć na świat trochę inaczej.
-
-            </p>
-
-            <p>
-
-                Zamiast tylko przechodzić obok,
-                zaczynam szukać światła.
-                Zamiast tylko widzieć miejsce,
-                próbuję znaleźć jego charakter.
-                Czasem oznacza to pobudkę przed świtem,
-                długą drogę, godziny oczekiwania
-                albo powrót w to samo miejsce
-                wiele razy.
+                Mam na imię Piotr. Fotografia od lat jest dla mnie
+                sposobem patrzenia na świat. Aparat zabieram ze sobą
+                wszędzie — podczas podróży, spacerów, górskich wypraw
+                i zwykłych dni.
 
             </p>
 
-            <p>
+            <p data-i18n="aboutP2">
 
-                Najbardziej fascynują mnie krajobrazy,
-                góry, mgły, opuszczone miejsca,
-                natura oraz momenty, w których zwykłe
-                miejsce nagle staje się niezwykłe.
+                Najbardziej interesują mnie momenty, których nie da się
+                zaplanować. Pierwsze światło o poranku, mgła unosząca się
+                nad krajobrazem, cisza opuszczonego miejsca czy miasto,
+                które wygląda zupełnie inaczej po zmroku.
 
             </p>
 
-            <p>
+            <p data-i18n="aboutP3">
 
-                Nie tworzę zdjęć po to, żeby były
-                kolejnym obrazkiem w galerii.
-                Chcę, żeby zatrzymały Cię choć na chwilę
-                i wywołały emocję podobną do tej,
-                którą miałem naciskając spust migawki.
+                Nie szukam idealnego świata. Szukam prawdziwych chwil.
+                Chcę, aby moje fotografie zatrzymywały emocje i pozwalały
+                wracać do miejsc, które zrobiły na mnie wrażenie.
 
             </p>
 
             <div class="about-signature">
-                Piotr / Cytruszek84
+                Piotr
             </div>
+
+            <div class="about-meta">
+
+                <div class="meta-box">
+
+                    <strong>1984</strong>
+
+                    <span data-i18n="born">
+                        Rok urodzenia
+                    </span>
+
+                </div>
+
+                <div class="meta-box">
+
+                    <strong>Kielce</strong>
+
+                    <span data-i18n="origin">
+                        Początek historii
+                    </span>
+
+                </div>
+
+                <div class="meta-box">
+
+                    <strong>∞</strong>
+
+                    <span data-i18n="moments">
+                        Niezliczone chwile
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SOCIAL -->
+
+    <div class="social-section">
+
+        <h2 data-i18n="socialTitle">
+            Zostańmy w kontakcie.
+        </h2>
+
+        <p data-i18n="socialText">
+            Jeśli lubisz fotografię, podróże i historie opowiadane
+            obrazem — znajdziesz mnie również w mediach społecznościowych.
+        </p>
+
+        <div class="social-buttons">
+
+            <a class="social-btn"
+               href="https://www.instagram.com/cytruszek84?igsi=ZjZjN20yc3JiaWhy"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                ◎ Instagram
+
+            </a>
+
+            <a class="social-btn"
+               href="https://www.tiktok.com/@cytruszek84?_r=1&_t=ZG-997pBuyrpOi"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                ♪ TikTok
+
+            </a>
 
         </div>
 
@@ -1454,106 +1635,77 @@ footer {
 </section>
 
 
-<!-- =====================================================
-     CYTAT
-===================================================== -->
-
-<section class="quote-section">
-
-    <blockquote>
-
-        Nie sprzedaję fotografii.
-        Sprzedaję moment,
-        do którego można wrócić.
-
-    </blockquote>
-
-    <cite>
-        Cytruszek84
-    </cite>
-
-</section>
-
-
-<!-- =====================================================
+<!-- =========================================================
      LIGHTBOX
-===================================================== -->
+========================================================= -->
 
-<div id="lightbox">
+<div id="lightbox"
+     onclick="closeLightbox(event)">
 
-    <button
-        class="lightbox-button"
-        id="lightbox-close"
-        aria-label="Zamknij"
-    >
-        ×
-    </button>
+    <div class="lightbox-content"
+         onclick="event.stopPropagation()">
 
-    <button
-        class="lightbox-button"
-        id="lightbox-prev"
-        aria-label="Poprzednie zdjęcie"
-    >
-        ‹
-    </button>
+        <button class="lightbox-close"
+                onclick="closeLightbox()">
+            ×
+        </button>
 
-    <img
-        id="lightbox-img"
-        src=""
-        alt="Powiększona fotografia"
-        draggable="false"
-    >
+        <button class="lightbox-prev"
+                onclick="previousPhoto()">
+            ‹
+        </button>
 
-    <div class="watermark">
-        CYTRUSZEK84
-    </div>
+        <img id="lightbox-img"
+             src=""
+             alt="Powiększona fotografia"
+             draggable="false">
 
-    <button
-        class="lightbox-button"
-        id="lightbox-next"
-        aria-label="Następne zdjęcie"
-    >
-        ›
-    </button>
+        <button class="lightbox-next"
+                onclick="nextPhoto()">
+            ›
+        </button>
 
-    <div id="lightbox-counter">
-        1 / 1
+        <div class="lightbox-counter"
+             id="lightbox-counter">
+        </div>
+
     </div>
 
 </div>
 
 
-<!-- =====================================================
-     STOPKA
-===================================================== -->
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
 <footer>
 
-    <div class="footer-logo">
-        Cytruszek84
+    <div class="footer-brand">
+        Piotr Photography
     </div>
 
-    <p id="footer-subtitle">
-        Fotografia chwil, do których chce się wracać.
+    <p class="footer-copy"
+       data-i18n="footerSubtitle">
+        Fotografia z pasji
     </p>
 
-    <p class="footer-copyright">
+    <p class="copyright-notice"
+       data-i18n="footerCopyright">
 
-        © Cytruszek84.
         Wszystkie fotografie są chronione prawem autorskim.
-        Kopiowanie, publikowanie i wykorzystywanie zdjęć
+        Kopiowanie, pobieranie, publikowanie i wykorzystywanie
         bez zgody autora jest zabronione.
 
     </p>
 
-    <p class="visit-line">
+    <p class="visits">
 
-        Liczba odwiedzin:
+        <span data-i18n="visits">
+            Odwiedzin:
+        </span>
 
-        <span
-            class="counter"
-            id="visit-counter"
-        >
+        <span class="counter-badge"
+              id="visit-counter">
             ...
         </span>
 
@@ -1564,877 +1716,1352 @@ footer {
 
 <script>
 
-/* =========================================================
-   FIREBASE
-========================================================= */
+    /* =========================================================
+       FIREBASE
+    ========================================================= */
 
-const firebaseConfig = {
+    const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyDv2QED1ZHbd3xDWIBhcLQJd7Zd7Rz-tWw",
+        apiKey: "AIzaSyDv2QED1ZHbd3xDWIBhcLQJd7Zd7Rz-tWw",
 
-    authDomain:
-        "cytruszek84-c2e33.firebaseapp.com",
+        authDomain:
+            "cytruszek84-c2e33.firebaseapp.com",
 
-    projectId:
-        "cytruszek84-c2e33",
+        projectId:
+            "cytruszek84-c2e33",
 
-    storageBucket:
-        "cytruszek84-c2e33.firebasestorage.app",
+        storageBucket:
+            "cytruszek84-c2e33.firebasestorage.app",
 
-    messagingSenderId:
-        "89741680278",
+        messagingSenderId:
+            "89741680278",
 
-    appId:
-        "1:89741680278:web:1f032fb3cf28ee73d02cb7",
+        appId:
+            "1:89741680278:web:1f032fb3cf28ee73d02cb7",
 
-    measurementId:
-        "G-83HTNWWCL"
-
-};
-
-try {
-
-    firebase.initializeApp(
-        firebaseConfig
-    );
-
-    try {
-        firebase.analytics();
-    } catch(e) {}
-
-} catch(e) {
-
-    console.warn(
-        "Firebase nie został uruchomiony.",
-        e
-    );
-
-}
+        measurementId:
+            "G-83HTNWWCL"
+    };
 
 
-/* =========================================================
-   LICZNIK
-========================================================= */
+    firebase.initializeApp(firebaseConfig);
 
-function updateVisits() {
-
-    if (
-        typeof firebase === "undefined"
-    ) {
-        return;
-    }
+    let db = null;
 
     try {
 
-        const db =
-            firebase.firestore();
+        db = firebase.firestore();
 
-        const ref =
-            db
-            .collection("stats")
-            .doc("visits");
-
-        db.runTransaction(
-            async transaction => {
-
-                const doc =
-                    await transaction.get(ref);
-
-                let count = 1;
-
-                if (doc.exists) {
-
-                    count =
-                        Number(
-                            doc.data().count || 0
-                        ) + 1;
-
-                }
-
-                transaction.set(
-                    ref,
-                    {
-                        count: count
-                    },
-                    {
-                        merge: true
-                    }
-                );
-
-                return count;
-
-            }
-        )
-        .then(count => {
-
-            document.getElementById(
-                "visit-counter"
-            ).textContent = count;
-
-        })
-        .catch(error => {
-
-            console.warn(
-                "Licznik odwiedzin:",
-                error
-            );
-
-            document.getElementById(
-                "visit-counter"
-            ).textContent = "—";
-
-        });
-
-    } catch(e) {
-
-        console.warn(e);
-
-    }
-
-}
-
-updateVisits();
-
-
-/* =========================================================
-   KOLEKCJE
-========================================================= */
-
-const collections = [
-
-    {
-        name: "Góry i szlaki",
-        description: "Tam, gdzie kończy się droga, zaczyna się przygoda.",
-        photo: 1
-    },
-
-    {
-        name: "Mgły o świcie",
-        description: "Chwile, które czasem trwają tylko kilka minut.",
-        photo: 11
-    },
-
-    {
-        name: "Wschody słońca",
-        description: "Każdy poranek opowiada inną historię.",
-        photo: 21
-    },
-
-    {
-        name: "Zachody słońca",
-        description: "Światło, które zatrzymuje czas.",
-        photo: 31
-    },
-
-    {
-        name: "Opuszczone miejsca",
-        description: "Ślady historii, która dawno ucichła.",
-        photo: 41
-    },
-
-    {
-        name: "Natura",
-        description: "Najpiękniejsze historie pisze natura.",
-        photo: 51
-    },
-
-    {
-        name: "Lasy",
-        description: "Światło pomiędzy drzewami.",
-        photo: 61
-    },
-
-    {
-        name: "Jeziora i rzeki",
-        description: "Woda, odbicia i cisza.",
-        photo: 71
-    },
-
-    {
-        name: "Morze",
-        description: "Horyzont, który nie ma końca.",
-        photo: 81
-    },
-
-    {
-        name: "Niebo",
-        description: "Czasem wystarczy spojrzeć w górę.",
-        photo: 91
-    },
-
-    {
-        name: "Jesień",
-        description: "Kolory, których nie da się powtórzyć.",
-        photo: 101
-    },
-
-    {
-        name: "Zima",
-        description: "Cisza przykryta śniegiem.",
-        photo: 111
-    },
-
-    {
-        name: "Wiosna",
-        description: "Świat budzi się do życia.",
-        photo: 121
-    },
-
-    {
-        name: "Lato",
-        description: "Światło, ciepło i długie wieczory.",
-        photo: 131
-    },
-
-    {
-        name: "Kielce",
-        description: "Moje miasto widziane przez obiektyw.",
-        photo: 141
-    },
-
-    {
-        name: "Polskie miasta",
-        description: "Znane miejsca z innej perspektywy.",
-        photo: 151
-    },
-
-    {
-        name: "Miasta nocą",
-        description: "Kiedy miasto zaczyna żyć własnym rytmem.",
-        photo: 161
-    },
-
-    {
-        name: "Architektura",
-        description: "Linie, światło i geometria.",
-        photo: 171
-    },
-
-    {
-        name: "Drogi i podróże",
-        description: "Najciekawsze historie zaczynają się po drodze.",
-        photo: 181
-    },
-
-    {
-        name: "Chwile",
-        description: "Małe momenty, które zostają na długo.",
-        photo: 191
-    },
-
-    {
-        name: "Światło",
-        description: "Bo fotografia zaczyna się od światła.",
-        photo: 201
-    },
-
-    {
-        name: "Cisza",
-        description: "Kadry, przy których można się zatrzymać.",
-        photo: 211
-    },
-
-    {
-        name: "Minimalizm",
-        description: "Mniej znaczy więcej.",
-        photo: 221
-    },
-
-    {
-        name: "Nocne niebo",
-        description: "Tam, gdzie kończy się światło miasta.",
-        photo: 231
-    },
-
-    {
-        name: "Najlepsze kadry",
-        description: "Fotografie, do których sam najczęściej wracam.",
-        photo: 241
-    }
-
-];
-
-
-/* =========================================================
-   GENEROWANIE KOLEKCJI
-========================================================= */
-
-const collectionsGrid =
-    document.getElementById(
-        "collections-grid"
-    );
-
-collections.forEach(
-    (collection, index) => {
-
-        const card =
-            document.createElement("article");
-
-        card.className =
-            "collection-card";
-
-        const image =
-            document.createElement("div");
-
-        image.className =
-            "collection-image";
-
-        image.style.backgroundImage =
-            `url("${collection.photo}.jpg")`;
-
-        const fallback =
-            new Image();
-
-        fallback.onerror =
-            function() {
-
-                image.style.backgroundImage =
-                    `url("${collection.photo}.JPG")`;
-
-            };
-
-        fallback.src =
-            `${collection.photo}.jpg`;
-
-        const overlay =
-            document.createElement("div");
-
-        overlay.className =
-            "collection-overlay";
-
-        const content =
-            document.createElement("div");
-
-        content.className =
-            "collection-content";
-
-        content.innerHTML = `
-
-            <div class="collection-number">
-                Kolekcja ${String(index + 1).padStart(2,"0")}
-            </div>
-
-            <div class="collection-name">
-                ${collection.name}
-            </div>
-
-            <div class="collection-description">
-                ${collection.description}
-            </div>
-
-        `;
-
-        const arrow =
-            document.createElement("div");
-
-        arrow.className =
-            "collection-arrow";
-
-        arrow.textContent =
-            "→";
-
-        card.appendChild(image);
-        card.appendChild(overlay);
-        card.appendChild(content);
-        card.appendChild(arrow);
-
-        card.addEventListener(
-            "click",
-            () => {
-
-                openCollection(
-                    index
-                );
-
-            }
-        );
-
-        collectionsGrid.appendChild(
-            card
-        );
-
-    }
-);
-
-
-/* =========================================================
-   OTWIERANIE KOLEKCJI
-========================================================= */
-
-let galleryImages = [];
-
-let galleryIndex = 0;
-
-
-/*
-    Każda kolekcja zawiera 10 zdjęć.
-*/
-
-function openCollection(index) {
-
-    const start =
-        index * 10 + 1;
-
-    const end =
-        Math.min(
-            start + 9,
-            245
-        );
-
-    galleryImages = [];
-
-    for (
-        let i = start;
-        i <= end;
-        i++
-    ) {
-
-        galleryImages.push(
-            `${i}.jpg`
-        );
-
-    }
-
-    galleryIndex = 0;
-
-    showLightbox();
-
-}
-
-
-/* =========================================================
-   LIGHTBOX
-========================================================= */
-
-function showLightbox() {
-
-    if (
-        !galleryImages.length
-    ) {
-        return;
-    }
-
-    const lightbox =
-        document.getElementById(
-            "lightbox"
-        );
-
-    const img =
-        document.getElementById(
-            "lightbox-img"
-        );
-
-    img.src =
-        galleryImages[
-            galleryIndex
-        ];
-
-    img.onerror =
-        function() {
-
-            const current =
-                galleryImages[
-                    galleryIndex
-                ];
-
-            if (
-                current.endsWith(".jpg")
-            ) {
-
-                img.src =
-                    current.replace(
-                        ".jpg",
-                        ".JPG"
-                    );
-
-            }
-
-        };
-
-    document.getElementById(
-        "lightbox-counter"
-    ).textContent =
-        `${galleryIndex + 1} / ${galleryImages.length}`;
-
-    lightbox.style.display =
-        "flex";
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-function closeLightbox() {
-
-    document.getElementById(
-        "lightbox"
-    ).style.display =
-        "none";
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-function nextPhoto() {
-
-    galleryIndex++;
-
-    if (
-        galleryIndex >=
-        galleryImages.length
-    ) {
-
-        galleryIndex = 0;
-
-    }
-
-    showLightbox();
-
-}
-
-
-function previousPhoto() {
-
-    galleryIndex--;
-
-    if (
-        galleryIndex < 0
-    ) {
-
-        galleryIndex =
-            galleryImages.length - 1;
-
-    }
-
-    showLightbox();
-
-}
-
-
-/* =========================================================
-   LIGHTBOX EVENTS
-========================================================= */
-
-document.getElementById(
-    "lightbox-close"
-).onclick =
-    closeLightbox;
-
-document.getElementById(
-    "lightbox-next"
-).onclick =
-    nextPhoto;
-
-document.getElementById(
-    "lightbox-prev"
-).onclick =
-    previousPhoto;
-
-
-document.getElementById(
-    "lightbox"
-).addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            event.target === this
-        ) {
-
-            closeLightbox();
-
+        if (firebase.analytics) {
+            firebase.analytics();
         }
 
+    } catch (error) {
+
+        console.error(
+            "Firebase initialization error:",
+            error
+        );
+
     }
-);
 
 
-/* =========================================================
-   KLAWIATURA
-========================================================= */
+    /* =========================================================
+       VISIT COUNTER
+    ========================================================= */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+    async function updateVisitCounter() {
 
-        const lightbox =
-            document.getElementById(
-                "lightbox"
-            );
+        const counterElement =
+            document.getElementById("visit-counter");
 
-        if (
-            lightbox.style.display !==
-            "flex"
-        ) {
+        if (!db) {
+
+            counterElement.textContent = "—";
+
             return;
         }
 
-        if (
-            event.key === "Escape"
-        ) {
+        const counterRef =
+            db.collection("stats").doc("visits");
 
-            closeLightbox();
+        try {
 
-        }
+            const newCount =
+                await db.runTransaction(
+                    async transaction => {
 
-        if (
-            event.key === "ArrowRight"
-        ) {
+                        const snapshot =
+                            await transaction.get(counterRef);
 
-            nextPhoto();
+                        let count = 0;
 
-        }
+                        if (snapshot.exists) {
 
-        if (
-            event.key === "ArrowLeft"
-        ) {
+                            const data =
+                                snapshot.data();
 
-            previousPhoto();
+                            count =
+                                Number(data.count || 0);
 
-        }
+                        }
 
-    }
-);
+                        count++;
 
-
-/* =========================================================
-   NAWIGACJA
-========================================================= */
-
-function goToSection(id) {
-
-    const element =
-        document.getElementById(id);
-
-    if (!element) {
-        return;
-    }
-
-    element.scrollIntoView({
-        behavior: "smooth"
-    });
-
-}
-
-
-document
-.querySelectorAll(".nav-link")
-.forEach(button => {
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            goToSection(
-                button.dataset.section
-            );
-
-        }
-    );
-
-});
-
-
-document.getElementById(
-    "hero-gallery-btn"
-).onclick =
-    () => {
-
-        goToSection(
-            "galerie"
-        );
-
-    };
-
-
-document.getElementById(
-    "hero-about-btn"
-).onclick =
-    () => {
-
-        goToSection(
-            "o-mnie"
-        );
-
-    };
-
-
-/* =========================================================
-   AKTYWNA ZAKŁADKA
-========================================================= */
-
-const observer =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(
-                entry => {
-
-                    if (
-                        entry.isIntersecting
-                    ) {
-
-                        document
-                        .querySelectorAll(
-                            ".nav-link"
-                        )
-                        .forEach(
-                            button => {
-
-                                button.classList.toggle(
-                                    "active",
-                                    button.dataset.section ===
-                                    entry.target.id
-                                );
-
+                        transaction.set(
+                            counterRef,
+                            {
+                                count: count,
+                                updatedAt:
+                                    firebase.firestore.FieldValue.serverTimestamp()
+                            },
+                            {
+                                merge: true
                             }
                         );
 
+                        return count;
+                    }
+                );
+
+            counterElement.textContent =
+                newCount.toLocaleString(
+                    currentLanguage === "pl"
+                        ? "pl-PL"
+                        : currentLanguage === "de"
+                            ? "de-DE"
+                            : "en-US"
+                );
+
+        } catch (error) {
+
+            console.error(
+                "Błąd licznika odwiedzin:",
+                error
+            );
+
+            counterElement.textContent =
+                "—";
+        }
+    }
+
+
+    /* =========================================================
+       CONFIG
+    ========================================================= */
+
+    const photosPerFolder = 10;
+
+    let totalPhotos = 245;
+
+    let currentLanguage = "pl";
+
+    let currentOpenFolder = null;
+
+    let currentPhotoIndex = 0;
+
+    let currentPhotos = [];
+
+
+    /* =========================================================
+       NAZWY GALERII
+    ========================================================= */
+
+    const folderNames = [
+
+        {
+            pl: "Światło o świcie",
+            en: "Morning Light",
+            de: "Morgenlicht"
+        },
+
+        {
+            pl: "Mgła i cisza",
+            en: "Mist & Silence",
+            de: "Nebel & Stille"
+        },
+
+        {
+            pl: "Górskie drogi",
+            en: "Mountain Roads",
+            de: "Bergwege"
+        },
+
+        {
+            pl: "Dzika natura",
+            en: "Wild Nature",
+            de: "Wilde Natur"
+        },
+
+        {
+            pl: "Opuszczone miejsca",
+            en: "Forgotten Places",
+            de: "Vergessene Orte"
+        },
+
+        {
+            pl: "Miasto po zmroku",
+            en: "City After Dark",
+            de: "Stadt bei Nacht"
+        },
+
+        {
+            pl: "Zachody słońca",
+            en: "Sunsets",
+            de: "Sonnenuntergänge"
+        },
+
+        {
+            pl: "W stronę horyzontu",
+            en: "Towards the Horizon",
+            de: "Zum Horizont"
+        },
+
+        {
+            pl: "Leśne historie",
+            en: "Forest Stories",
+            de: "Waldgeschichten"
+        },
+
+        {
+            pl: "Droga przed siebie",
+            en: "The Road Ahead",
+            de: "Der Weg nach vorn"
+        },
+
+        {
+            pl: "Architektura",
+            en: "Architecture",
+            de: "Architektur"
+        },
+
+        {
+            pl: "Woda",
+            en: "Water",
+            de: "Wasser"
+        },
+
+        {
+            pl: "Niebo",
+            en: "Sky",
+            de: "Himmel"
+        },
+
+        {
+            pl: "Cztery pory roku",
+            en: "Four Seasons",
+            de: "Vier Jahreszeiten"
+        },
+
+        {
+            pl: "Podróże",
+            en: "Journeys",
+            de: "Reisen"
+        },
+
+        {
+            pl: "Małe szczegóły",
+            en: "Small Details",
+            de: "Kleine Details"
+        },
+
+        {
+            pl: "Samotne miejsca",
+            en: "Solitary Places",
+            de: "Einsame Orte"
+        },
+
+        {
+            pl: "Światło i cień",
+            en: "Light & Shadow",
+            de: "Licht & Schatten"
+        },
+
+        {
+            pl: "Chwile bez planu",
+            en: "Unplanned Moments",
+            de: "Ungeplante Momente"
+        },
+
+        {
+            pl: "Polska",
+            en: "Poland",
+            de: "Polen"
+        },
+
+        {
+            pl: "Europa",
+            en: "Europe",
+            de: "Europa"
+        },
+
+        {
+            pl: "Moje ulubione",
+            en: "My Favorites",
+            de: "Meine Favoriten"
+        },
+
+        {
+            pl: "Najlepsze kadry",
+            en: "Best Frames",
+            de: "Beste Aufnahmen"
+        },
+
+        {
+            pl: "Ostatnie światło",
+            en: "Last Light",
+            de: "Letztes Licht"
+        },
+
+        {
+            pl: "Wybrane fotografie",
+            en: "Selected Works",
+            de: "Ausgewählte Werke"
+        }
+
+    ];
+
+
+    /* =========================================================
+       TRANSLATIONS
+    ========================================================= */
+
+    const translations = {
+
+        pl: {
+
+            eyebrow:
+                "Fotografia • Światło • Chwile",
+
+            heroTitle:
+                'Zatrzymuję <span>chwile</span>, które warto pamiętać.',
+
+            heroDescription:
+                "Fotografuję świat takim, jakim chcę go zapamiętać — pełnym światła, przestrzeni, emocji i niezwykłych chwil.",
+
+            viewGallery:
+                "Zobacz galerię",
+
+            aboutMe:
+                "Poznaj mnie",
+
+            photographer:
+                "Fotograf • Podróżnik • Pasjonat",
+
+            galleryEyebrow:
+                "Moja fotografia",
+
+            galleryTitle:
+                "Historie zapisane światłem.",
+
+            galleryDescription:
+                "Każde zdjęcie jest fragmentem podróży — chwilą światła, miejscem, do którego można wrócić, nawet siedząc w domu.",
+
+            aboutEyebrow:
+                "O mnie",
+
+            aboutTitle:
+                'Nie fotografuję <span>miejsc.</span> Fotografuję emocje.',
+
+            aboutP1:
+                "Mam na imię Piotr. Fotografia od lat jest dla mnie sposobem patrzenia na świat. Aparat zabieram ze sobą wszędzie — podczas podróży, spacerów, górskich wypraw i zwykłych dni.",
+
+            aboutP2:
+                "Najbardziej interesują mnie momenty, których nie da się zaplanować. Pierwsze światło o poranku, mgła unosząca się nad krajobrazem, cisza opuszczonego miejsca czy miasto, które wygląda zupełnie inaczej po zmroku.",
+
+            aboutP3:
+                "Nie szukam idealnego świata. Szukam prawdziwych chwil. Chcę, aby moje fotografie zatrzymywały emocje i pozwalały wracać do miejsc, które zrobiły na mnie wrażenie.",
+
+            born:
+                "Rok urodzenia",
+
+            origin:
+                "Początek historii",
+
+            moments:
+                "Niezliczone chwile",
+
+            socialTitle:
+                "Zostańmy w kontakcie.",
+
+            socialText:
+                "Jeśli lubisz fotografię, podróże i historie opowiadane obrazem — znajdziesz mnie również w mediach społecznościowych.",
+
+            footerSubtitle:
+                "Fotografia z pasji",
+
+            footerCopyright:
+                "Wszystkie fotografie są chronione prawem autorskim. Kopiowanie, pobieranie, publikowanie i wykorzystywanie bez zgody autora jest zabronione.",
+
+            visits:
+                "Odwiedzin:",
+
+            back:
+                "← Wszystkie galerie"
+
+        },
+
+
+        en: {
+
+            eyebrow:
+                "Photography • Light • Moments",
+
+            heroTitle:
+                'I capture <span>moments</span> worth remembering.',
+
+            heroDescription:
+                "I photograph the world the way I want to remember it — full of light, space, emotion and extraordinary moments.",
+
+            viewGallery:
+                "View gallery",
+
+            aboutMe:
+                "About me",
+
+            photographer:
+                "Photographer • Traveller • Enthusiast",
+
+            galleryEyebrow:
+                "My photography",
+
+            galleryTitle:
+                "Stories written with light.",
+
+            galleryDescription:
+                "Every photograph is a fragment of a journey — a moment of light and a place you can return to, even from home.",
+
+            aboutEyebrow:
+                "About me",
+
+            aboutTitle:
+                'I don't photograph <span>places.</span> I photograph emotions.',
+
+            aboutP1:
+                "My name is Piotr. Photography has been my way of looking at the world for years. I take my camera everywhere — on journeys, walks, mountain trips and ordinary days.",
+
+            aboutP2:
+                "I am especially drawn to moments that cannot be planned. The first morning light, mist floating over a landscape, the silence of an abandoned place or a city that looks completely different after dark.",
+
+            aboutP3:
+                "I am not looking for a perfect world. I am looking for real moments. I want my photographs to preserve emotions and allow people to return to places that made an impression.",
+
+            born:
+                "Year of birth",
+
+            origin:
+                "Where it began",
+
+            moments:
+                "Endless moments",
+
+            socialTitle:
+                "Let's stay connected.",
+
+            socialText:
+                "If you enjoy photography, travel and stories told through images — you can also find me on social media.",
+
+            footerSubtitle:
+                "Photography from passion",
+
+            footerCopyright:
+                "All photographs are protected by copyright. Copying, downloading, publishing or using them without the author's permission is prohibited.",
+
+            visits:
+                "Visits:",
+
+            back:
+                "← All galleries"
+
+        },
+
+
+        de: {
+
+            eyebrow:
+                "Fotografie • Licht • Momente",
+
+            heroTitle:
+                'Ich halte <span>Momente</span> fest, die bleiben.',
+
+            heroDescription:
+                "Ich fotografiere die Welt so, wie ich sie in Erinnerung behalten möchte — voller Licht, Weite, Emotionen und besonderer Momente.",
+
+            viewGallery:
+                "Galerie ansehen",
+
+            aboutMe:
+                "Über mich",
+
+            photographer:
+                "Fotograf • Reisender • Enthusiast",
+
+            galleryEyebrow:
+                "Meine Fotografie",
+
+            galleryTitle:
+                "Geschichten aus Licht.",
+
+            galleryDescription:
+                "Jedes Foto ist ein Fragment einer Reise — ein Moment voller Licht und ein Ort, zu dem man jederzeit zurückkehren kann.",
+
+            aboutEyebrow:
+                "Über mich",
+
+            aboutTitle:
+                'Ich fotografiere keine <span>Orte.</span> Ich fotografiere Emotionen.',
+
+            aboutP1:
+                "Ich heiße Piotr. Fotografie ist seit Jahren meine Art, die Welt zu betrachten. Meine Kamera begleitet mich überall — auf Reisen, Spaziergängen, Bergtouren und im Alltag.",
+
+            aboutP2:
+                "Besonders faszinieren mich Momente, die man nicht planen kann. Das erste Licht am Morgen, Nebel über der Landschaft, die Stille verlassener Orte oder eine Stadt, die nach Einbruch der Dunkelheit völlig anders aussieht.",
+
+            aboutP3:
+                "Ich suche keine perfekte Welt. Ich suche echte Momente. Meine Fotografien sollen Emotionen bewahren und die Möglichkeit geben, an Orte zurückzukehren, die einen besonderen Eindruck hinterlassen haben.",
+
+            born:
+                "Geburtsjahr",
+
+            origin:
+                "Der Anfang",
+
+            moments:
+                "Unzählige Momente",
+
+            socialTitle:
+                "Bleiben wir in Kontakt.",
+
+            socialText:
+                "Wenn du Fotografie, Reisen und Geschichten durch Bilder magst — findest du mich auch in den sozialen Medien.",
+
+            footerSubtitle:
+                "Fotografie aus Leidenschaft",
+
+            footerCopyright:
+                "Alle Fotografien sind urheberrechtlich geschützt. Kopieren, Herunterladen, Veröffentlichen oder Verwenden ohne Zustimmung des Autors ist untersagt.",
+
+            visits:
+                "Besuche:",
+
+            back:
+                "← Alle Galerien"
+
+        }
+
+    };
+
+
+    /* =========================================================
+       GET FOLDER NAME
+    ========================================================= */
+
+    function getFolderName(folderNumber) {
+
+        const index =
+            folderNumber - 1;
+
+        if (folderNames[index]) {
+
+            return folderNames[index][currentLanguage];
+
+        }
+
+        return `${currentLanguage === "pl"
+            ? "Galeria"
+            : currentLanguage === "de"
+                ? "Galerie"
+                : "Gallery"} ${folderNumber}`;
+
+    }
+
+
+    /* =========================================================
+       RENDER FOLDERS
+    ========================================================= */
+
+    function renderFolders() {
+
+        const grid =
+            document.getElementById(
+                "folders-grid"
+            );
+
+        grid.innerHTML = "";
+
+        const totalFolders =
+            Math.ceil(
+                totalPhotos /
+                photosPerFolder
+            );
+
+
+        for (
+            let folder = totalFolders;
+            folder >= 1;
+            folder--
+        ) {
+
+            const start =
+                (folder - 1) *
+                photosPerFolder +
+                1;
+
+            const end =
+                Math.min(
+                    folder *
+                    photosPerFolder,
+                    totalPhotos
+                );
+
+            const card =
+                document.createElement("article");
+
+            card.className =
+                "folder-card animate";
+
+
+            card.onclick =
+                () => openFolder(folder);
+
+
+            /*
+             * Pierwsze zdjęcie folderu
+             * jest jego okładką.
+             */
+
+            const cover =
+                `${start}.jpg`;
+
+
+            card.innerHTML = `
+
+                <div class="folder-bg"
+                     style="
+                        background-image:
+                        url('${cover}');
+                     ">
+                </div>
+
+                <div class="folder-overlay"></div>
+
+                <div class="folder-number">
+                    ${String(folder).padStart(2, "0")}
+                </div>
+
+                <div class="folder-info">
+
+                    <h3>
+                        ${getFolderName(folder)}
+                    </h3>
+
+                    <span>
+                        ${start} — ${end}
+                    </span>
+
+                </div>
+
+            `;
+
+
+            const background =
+                card.querySelector(".folder-bg");
+
+
+            background.onerror =
+                function() {
+
+                    this.style.backgroundImage =
+                        "linear-gradient(135deg,#34454f,#b86b4d)";
+
+                };
+
+
+            grid.appendChild(card);
+
+        }
+
+    }
+
+
+    /* =========================================================
+       OPEN FOLDER
+    ========================================================= */
+
+    function openFolder(folderNumber) {
+
+        currentOpenFolder =
+            folderNumber;
+
+
+        const start =
+            (folderNumber - 1) *
+            photosPerFolder +
+            1;
+
+        const end =
+            Math.min(
+                folderNumber *
+                photosPerFolder,
+                totalPhotos
+            );
+
+
+        currentPhotos = [];
+
+        for (
+            let i = end;
+            i >= start;
+            i--
+        ) {
+
+            currentPhotos.push(
+                `${i}.jpg`
+            );
+
+        }
+
+
+        document.getElementById(
+            "home-section"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "about"
+        ).style.display = "none";
+
+
+        const section =
+            document.getElementById(
+                "gallery-section"
+            );
+
+        section.style.display =
+            "block";
+
+
+        document.getElementById(
+            "folder-header"
+        ).style.display =
+            "flex";
+
+
+        document.getElementById(
+            "folder-title-display"
+        ).textContent =
+            getFolderName(folderNumber);
+
+
+        renderGallery();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================================================
+       RENDER GALLERY
+    ========================================================= */
+
+    function renderGallery() {
+
+        const gallery =
+            document.getElementById(
+                "gallery"
+            );
+
+        gallery.innerHTML = "";
+
+
+        currentPhotos.forEach(
+            (src, index) => {
+
+                const wrapper =
+                    document.createElement("div");
+
+                wrapper.className =
+                    "gallery-photo animate";
+
+
+                const img =
+                    document.createElement("img");
+
+                img.src = src;
+
+                img.alt =
+                    `${getFolderName(currentOpenFolder)} — fotografia`;
+
+                img.loading = "lazy";
+
+                img.draggable = false;
+
+
+                img.onerror =
+                    function() {
+
+                        wrapper.style.display =
+                            "none";
+
+                    };
+
+
+                wrapper.appendChild(img);
+
+
+                wrapper.addEventListener(
+                    "click",
+                    () => {
+
+                        openLightbox(index);
+
+                    }
+                );
+
+
+                gallery.appendChild(wrapper);
+
+            }
+        );
+
+    }
+
+
+    /* =========================================================
+       SHOW GALLERY SECTION
+    ========================================================= */
+
+    function showGallerySection() {
+
+        document.getElementById(
+            "home-section"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "gallery-section"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "about"
+        ).style.display = "none";
+
+
+        currentOpenFolder = null;
+
+
+        setActiveNav("nav-gallery");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================================================
+       HOME
+    ========================================================= */
+
+    function goHome() {
+
+        document.getElementById(
+            "home-section"
+        ).style.display = "block";
+
+
+        document.getElementById(
+            "gallery-section"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "about"
+        ).style.display = "none";
+
+
+        currentOpenFolder = null;
+
+
+        setActiveNav("nav-home");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================================================
+       ABOUT
+    ========================================================= */
+
+    function showAbout() {
+
+        document.getElementById(
+            "home-section"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "gallery-section"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "about"
+        ).style.display = "block";
+
+
+        setActiveNav("nav-about");
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================================================
+       NAV ACTIVE
+    ========================================================= */
+
+    function setActiveNav(id) {
+
+        document
+            .querySelectorAll(".nav-link")
+            .forEach(
+                button =>
+                    button.classList.remove("active")
+            );
+
+
+        document
+            .getElementById(id)
+            .classList.add("active");
+
+    }
+
+
+    /* =========================================================
+       LIGHTBOX
+    ========================================================= */
+
+    function openLightbox(index) {
+
+        currentPhotoIndex =
+            index;
+
+
+        updateLightbox();
+
+
+        document.getElementById(
+            "lightbox"
+        ).style.display =
+            "flex";
+
+
+        document.body.classList.add(
+            "lightbox-open"
+        );
+
+    }
+
+
+    function updateLightbox() {
+
+        const img =
+            document.getElementById(
+                "lightbox-img"
+            );
+
+
+        img.src =
+            currentPhotos[
+                currentPhotoIndex
+            ];
+
+
+        document.getElementById(
+            "lightbox-counter"
+        ).textContent =
+
+            `${currentPhotoIndex + 1} / ${currentPhotos.length}`;
+
+    }
+
+
+    function closeLightbox(event) {
+
+        if (
+            event &&
+            event.target.id !==
+            "lightbox"
+        ) {
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "lightbox"
+        ).style.display =
+            "none";
+
+
+        document.body.classList.remove(
+            "lightbox-open"
+        );
+
+    }
+
+
+    function nextPhoto() {
+
+        if (!currentPhotos.length)
+            return;
+
+
+        currentPhotoIndex =
+            (
+                currentPhotoIndex + 1
+            ) %
+            currentPhotos.length;
+
+
+        updateLightbox();
+
+    }
+
+
+    function previousPhoto() {
+
+        if (!currentPhotos.length)
+            return;
+
+
+        currentPhotoIndex =
+            (
+                currentPhotoIndex - 1 +
+                currentPhotos.length
+            ) %
+            currentPhotos.length;
+
+
+        updateLightbox();
+
+    }
+
+
+    /* =========================================================
+       KEYBOARD LIGHTBOX
+    ========================================================= */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            const lightbox =
+                document.getElementById(
+                    "lightbox"
+                );
+
+
+            if (
+                lightbox.style.display !==
+                "flex"
+            ) {
+                return;
+            }
+
+
+            if (event.key === "Escape") {
+
+                closeLightbox();
+
+            }
+
+
+            if (event.key === "ArrowRight") {
+
+                nextPhoto();
+
+            }
+
+
+            if (event.key === "ArrowLeft") {
+
+                previousPhoto();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       LANGUAGE
+    ========================================================= */
+
+    function setLanguage(lang) {
+
+        currentLanguage =
+            lang;
+
+
+        const t =
+            translations[lang];
+
+
+        document
+            .querySelectorAll(
+                "[data-i18n]"
+            )
+            .forEach(
+                element => {
+
+                    const key =
+                        element.dataset.i18n;
+
+
+                    if (t[key]) {
+
+                        element.innerHTML =
+                            t[key];
+
                     }
 
                 }
             );
 
-        },
-        {
-            threshold: .35
+
+        document
+            .querySelectorAll(
+                ".lang-btn"
+            )
+            .forEach(
+                button => {
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+        document
+            .querySelector(
+                `.lang-btn[onclick="setLanguage('${lang}')"]`
+            )
+            ?.classList.add("active");
+
+
+        document.getElementById(
+            "back-btn"
+        ).textContent =
+            t.back;
+
+
+        renderFolders();
+
+
+        if (
+            currentOpenFolder !== null
+        ) {
+
+            document.getElementById(
+                "folder-title-display"
+            ).textContent =
+                getFolderName(
+                    currentOpenFolder
+                );
+
+        }
+
+
+        /*
+         * Aktualizujemy również format
+         * licznika po zmianie języka.
+         */
+
+        updateVisitCounter();
+
+    }
+
+
+    /* =========================================================
+       PHOTOS.JSON
+    ========================================================= */
+
+    fetch("photos.json")
+
+        .then(
+            response => {
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "photos.json unavailable"
+                    );
+
+                }
+
+                return response.json();
+
+            }
+        )
+
+        .then(
+            data => {
+
+                if (
+                    data &&
+                    Number(data.count) > 0
+                ) {
+
+                    totalPhotos =
+                        Number(data.count);
+
+                }
+
+
+                renderFolders();
+
+            }
+        )
+
+        .catch(
+            error => {
+
+                console.warn(
+                    "photos.json:",
+                    error
+                );
+
+                renderFolders();
+
+            }
+        );
+
+
+    /* =========================================================
+       PROTECTION
+    ========================================================= */
+
+    /*
+     * Blokada prawego przycisku.
+     */
+
+    document.addEventListener(
+        "contextmenu",
+        function(event) {
+
+            event.preventDefault();
+
         }
     );
 
 
-observer.observe(
-    document.getElementById("start")
-);
+    /*
+     * Blokada przeciągania obrazów.
+     */
 
-observer.observe(
-    document.getElementById("galerie")
-);
+    document.addEventListener(
+        "dragstart",
+        function(event) {
 
-observer.observe(
-    document.getElementById("o-mnie")
-);
+            if (
+                event.target.tagName ===
+                "IMG"
+            ) {
 
+                event.preventDefault();
 
-/* =========================================================
-   OCHRONA PRZED PODSTAWOWYM KOPIOWANIEM
-========================================================= */
-
-document.addEventListener(
-    "contextmenu",
-    function(event) {
-
-        event.preventDefault();
-
-    }
-);
-
-
-document.addEventListener(
-    "dragstart",
-    function(event) {
-
-        if (
-            event.target.tagName === "IMG"
-        ) {
-
-            event.preventDefault();
+            }
 
         }
-
-    }
-);
+    );
 
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+    /*
+     * Blokowanie popularnych skrótów
+     * związanych z kopiowaniem obrazu.
+     */
 
-        const key =
-            event.key.toLowerCase();
+    document.addEventListener(
+        "keydown",
+        function(event) {
 
-        /*
-            Podstawowe skróty:
-            Ctrl/Cmd + S
-            Ctrl/Cmd + C
-            Ctrl/Cmd + P
-        */
-
-        if (
-            (event.ctrlKey ||
-             event.metaKey) &&
-            ["s","c","p"].includes(key)
-        ) {
-
-            event.preventDefault();
-
-        }
-
-    }
-);
+            const key =
+                event.key.toLowerCase();
 
 
-/* =========================================================
-   SWIPE NA TELEFONIE
-========================================================= */
+            if (
+                (event.ctrlKey || event.metaKey) &&
+                ["s", "u", "c"].includes(key)
+            ) {
 
-let touchStartX = 0;
+                event.preventDefault();
 
-document.getElementById(
-    "lightbox"
-).addEventListener(
-    "touchstart",
-    function(event) {
-
-        touchStartX =
-            event.changedTouches[0].screenX;
-
-    },
-    {
-        passive: true
-    }
-);
+            }
 
 
-document.getElementById(
-    "lightbox"
-).addEventListener(
-    "touchend",
-    function(event) {
+            if (
+                event.ctrlKey &&
+                event.shiftKey &&
+                ["i", "j", "c"].includes(key)
+            ) {
 
-        const touchEndX =
-            event.changedTouches[0].screenX;
+                event.preventDefault();
 
-        const difference =
-            touchStartX -
-            touchEndX;
-
-        if (
-            Math.abs(difference) < 50
-        ) {
-            return;
-        }
-
-        if (
-            difference > 0
-        ) {
-
-            nextPhoto();
-
-        } else {
-
-            previousPhoto();
+            }
 
         }
+    );
 
-    },
-    {
-        passive: true
-    }
-);
+
+    /*
+     * Ochrona przed zaznaczaniem zdjęć.
+     */
+
+    document.addEventListener(
+        "selectstart",
+        function(event) {
+
+            if (
+                event.target.tagName ===
+                "IMG"
+            ) {
+
+                event.preventDefault();
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       START
+    ========================================================= */
+
+    renderFolders();
+
+    updateVisitCounter();
 
 </script>
 
