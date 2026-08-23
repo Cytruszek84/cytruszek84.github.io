@@ -1163,12 +1163,11 @@
             </div>
 
             <h2 id="about-title">
-                Nie tylko robię zdjęcia.
-                Zbieram chwile.
+                Nie tylko robię zdjęcia. Zbieram chwile.
             </h2>
 
             <div id="about-text">
-                <!-- Treść ładuje się dynamicznie z pliku JS -->
+                <!-- Treść jest wstawiana dynamicznie przez skrypt JS -->
             </div>
 
             <div class="about-signature">
@@ -1469,7 +1468,7 @@ const translations = {
 
     en: {
         navGallery: "Gallery",
-        navAbout: "About Me",
+        navAbout: "About me",
 
         heroLabel: "Photography",
 
