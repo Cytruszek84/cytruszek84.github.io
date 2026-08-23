@@ -1976,7 +1976,7 @@ function setLanguage(lang) {
 }
 
 function detectInitialLanguage() {
-    const savedLang = localStorage.getItem("userLanguage");
+    const savedLang = localStorage.setItem("userLanguage");
     if (savedLang && translations[savedLang]) {
         return savedLang;
     }
