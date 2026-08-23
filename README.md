@@ -1,11 +1,24 @@
-\<!DOCTYPE html>
-\<html lang="pl">
-\<head>
-&#x20;   \<meta charset="UTF-8">
-&#x20;   \<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+&#x20;   <meta charset="UTF-8">
+&#x20;   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Bez Kadru | Fotografia</title>
+
+<title>BEZ KADRU | Fotografia</title>
+
+<meta name="description"
+      content="BEZ KADRU – fotografia wolności, natury, podróży, światła i chwil poza schematem.">
+
+<link rel="canonical" href="https://cytruszek84.github.io/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cytruszek84.github.io/">
+<meta property="og:title" content="BEZ KADRU | Fotografia">
+<meta property="og:description"
+      content="Fotografia wolności, natury, podróży, światła i chwil poza schematem.">
+<meta name="twitter:card" content="summary_large_image">
+
 
 <meta name="description"
       content="Bez Kadru Photography – fotografia krajobrazowa, natura, góry, miasta, mgły, światło i wyjątkowe chwile.">
@@ -16,6 +29,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-83HTNWWCL"></script>
 
 <script>
+    const SITE_URL = "https://cytruszek84.github.io/";
     window.dataLayer = window.dataLayer || [];
 
     function gtag() {
@@ -1247,20 +1261,20 @@
     }
 
 </style>
-```
 
-\</head>
-\<body
+
+</head>
+<body
 &#x20;   oncontextmenu="return false;"
 &#x20;   ondragstart="return false;"
 &#x20;   onselectstart="return false;"
 \>
-\<!-- =========================================================
+<!-- =========================================================
 &#x20;    HEADER
 \========================================================= -->
-\<header>
+<header>
 
-```
+
 <div class="nav">
 
     <button
@@ -1328,15 +1342,15 @@
     </div>
 
 </div>
-```
 
-\</header>
-\<!-- =========================================================
+
+</header>
+<!-- =========================================================
 &#x20;    HOME
 \========================================================= -->
-\<main id="home-view">
+<main id="home-view">
 
-```
+
 <!-- HERO -->
 
 <section class="hero">
@@ -1510,18 +1524,18 @@
     </div>
 
 </section>
-```
 
-\</main>
-\<!-- =========================================================
+
+</main>
+<!-- =========================================================
 &#x20;    GALLERY VIEW
 \========================================================= -->
-\<section
+<section
 &#x20;   id="gallery-view"
 &#x20;   class="section"
 \>
 
-```
+
 <div class="gallery-header">
 
     <button
@@ -1546,18 +1560,18 @@
     class="photo-grid"
 >
 </div>
-```
 
-\</section>
-\<!-- =========================================================
+
+</section>
+<!-- =========================================================
 &#x20;    ABOUT
 \========================================================= -->
-\<section
+<section
 &#x20;   id="about-view"
 &#x20;   class="section"
 \>
 
-```
+
 <div class="about-layout">
 
 
@@ -1653,18 +1667,18 @@
     </div>
 
 </div>
-```
 
-\</section>
-\<!-- =========================================================
+
+</section>
+<!-- =========================================================
 &#x20;    LIGHTBOX
 \========================================================= -->
-\<div
+<div
 &#x20;   id="lightbox"
 &#x20;   onclick="closeLightbox()"
 \>
 
-```
+
 <button
     class="lightbox-close"
     onclick="closeLightbox()"
@@ -1680,15 +1694,15 @@
     alt="Powiększona fotografia"
     draggable="false"
 >
-```
 
-\</div>
-\<!-- =========================================================
+
+</div>
+<!-- =========================================================
 &#x20;    FOOTER
 \========================================================= -->
-\<footer>
+<footer>
 
-```
+
 <div class="footer-brand">
     BEZ KADRU
 </div>
@@ -1723,14 +1737,14 @@
     </span>
 
 </div>
-```
 
-\</footer>
-\<script>
 
-/\* =========================================================
+</footer>
+<script>
+
+/* =========================================================
 &#x20;  FIREBASE
-\========================================================= \*/
+\========================================================= */
 
 const firebaseConfig = {
 
@@ -1749,7 +1763,7 @@ const firebaseConfig = {
 &#x20;       "89741680278",
 
 &#x20;   appId:
-&#x20;       "1:89741680278\:web:1f032fb3cf28ee73d02cb7",
+&#x20;       "1:89741680278:web:1f032fb3cf28ee73d02cb7",
 
 &#x20;   measurementId:
 &#x20;       "G-83HTNWWCL"
@@ -1759,7 +1773,7 @@ const firebaseConfig = {
 let db = null;
 
 
-/\* INIT FIREBASE \*/
+/* INIT FIREBASE */
 
 try {
 
@@ -1782,9 +1796,9 @@ try {
 }
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  VISIT COUNTER
-\========================================================= \*/
+\========================================================= */
 
 function updateVisitCounter() {
 
@@ -1859,9 +1873,9 @@ function updateVisitCounter() {
 updateVisitCounter();
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  SETTINGS
-\========================================================= \*/
+\========================================================= */
 
 const photosPerFolder = 10;
 
@@ -1872,9 +1886,9 @@ let currentLanguage = "pl";
 let currentOpenFolder = null;
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  NAZWY FOLDERÓW
-\========================================================= \*/
+\========================================================= */
 
 const folderNames = {
 
@@ -1913,9 +1927,9 @@ const folderNames = {
 };
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  TRANSLATIONS
-\========================================================= \*/
+\========================================================= */
 
 const translations = {
 
@@ -1925,7 +1939,7 @@ const translations = {
 &#x20;           "Fotografia",
 
 &#x20;       heroTitle:
-&#x20;           "Świat zapisany\<br>\<span>w kadrze.\</span>",
+&#x20;           "Świat zapisany<br><span>w kadrze.</span>",
 
 &#x20;       heroText:
 &#x20;           "Fotografia to dla mnie sposób zatrzymywania chwil, do których można wrócić nawet po wielu latach. Światło, natura, przestrzeń i emocje — właśnie tego szukam za każdym razem, kiedy biorę aparat do ręki.",
@@ -1987,7 +2001,7 @@ const translations = {
 &#x20;           "Photography",
 
 &#x20;       heroTitle:
-&#x20;           "The world captured\<br>\<span>in a frame.\</span>",
+&#x20;           "The world captured<br><span>in a frame.</span>",
 
 &#x20;       heroText:
 &#x20;           "Photography is my way of preserving moments that can be revisited years later. Light, nature, space and emotion — these are the things I look for every time I pick up my camera.",
@@ -2049,7 +2063,7 @@ const translations = {
 &#x20;           "Fotografie",
 
 &#x20;       heroTitle:
-&#x20;           "Die Welt eingefangen\<br>\<span>in einem Bild.\</span>",
+&#x20;           "Die Welt eingefangen<br><span>in einem Bild.</span>",
 
 &#x20;       heroText:
 &#x20;           "Fotografie bedeutet für mich, Momente festzuhalten, zu denen man auch Jahre später zurückkehren kann. Licht, Natur, Raum und Emotionen — danach suche ich jedes Mal, wenn ich meine Kamera in die Hand nehme.",
@@ -2107,9 +2121,9 @@ const translations = {
 };
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  FOLDER RENDER
-\========================================================= \*/
+\========================================================= */
 
 function getFolderName(folderNumber) {
 
@@ -2160,13 +2174,13 @@ function renderFolders() {
 
 
 &#x20;       const start =
-&#x20;           ((i - 1) \*
+&#x20;           ((i - 1) *
 &#x20;               photosPerFolder) + 1;
 
 
 &#x20;       const end =
 &#x20;           Math.min(
-&#x20;               i \* photosPerFolder,
+&#x20;               i * photosPerFolder,
 &#x20;               totalPhotos
 &#x20;           );
 
@@ -2175,28 +2189,28 @@ function renderFolders() {
 &#x20;           end - start + 1;
 
 
-&#x20;       card.innerHTML = \`
+&#x20;       card.innerHTML = `
 
-&#x20;           \<div class="folder-art ${artClass}">
-&#x20;           \</div>
+&#x20;           <div class="folder-art ${artClass}">
+&#x20;           </div>
 
-&#x20;           \<div class="folder-number">
+&#x20;           <div class="folder-number">
 &#x20;               ${String(i).padStart(2, "0")}
-&#x20;           \</div>
+&#x20;           </div>
 
-&#x20;           \<div class="folder-info">
+&#x20;           <div class="folder-info">
 
-&#x20;               \<div class="folder-title">
+&#x20;               <div class="folder-title">
 &#x20;                   ${getFolderName(i)}
-&#x20;               \</div>
+&#x20;               </div>
 
-&#x20;               \<div class="folder-count">
+&#x20;               <div class="folder-count">
 &#x20;                   ${count}
 &#x20;                   ${translations[currentLanguage].photoCount}
-&#x20;               \</div>
+&#x20;               </div>
 
-&#x20;           \</div>
-&#x20;       \`;
+&#x20;           </div>
+&#x20;       `;
 
 
 &#x20;       card.addEventListener(
@@ -2210,9 +2224,9 @@ function renderFolders() {
 }
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  OPEN FOLDER
-\========================================================= \*/
+\========================================================= */
 
 function openFolder(folderNumber) {
 
@@ -2261,19 +2275,19 @@ function openFolder(folderNumber) {
 
 
 &#x20;   const start =
-&#x20;       ((folderNumber - 1) \*
+&#x20;       ((folderNumber - 1) *
 &#x20;           photosPerFolder) + 1;
 
 
 &#x20;   const end =
 &#x20;       Math.min(
-&#x20;           folderNumber \*
+&#x20;           folderNumber *
 &#x20;               photosPerFolder,
 &#x20;           totalPhotos
 &#x20;       );
 
 
-&#x20;   /\* Najnowsze zdjęcia pierwsze \*/
+&#x20;   /* Najnowsze zdjęcia pierwsze */
 
 &#x20;   for (
 &#x20;       let i = end;
@@ -2294,11 +2308,11 @@ function openFolder(folderNumber) {
 
 
 &#x20;       img.src =
-&#x20;           \`${i}.jpg\`;
+&#x20;           `${i}.jpg`;
 
 
 &#x20;       img.alt =
-&#x20;           \`Bez Kadru Photography ${i}\`;
+&#x20;           `Bez Kadru Photography ${i}`;
 
 
 &#x20;       img.draggable = false;
@@ -2315,7 +2329,7 @@ function openFolder(folderNumber) {
 &#x20;                       "1";
 
 &#x20;                   this.src =
-&#x20;                       \`${i}.JPG\`;
+&#x20;                       `${i}.JPG`;
 
 &#x20;               } else {
 
@@ -2362,9 +2376,9 @@ function openFolder(folderNumber) {
 }
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  HOME
-\========================================================= \*/
+\========================================================= */
 
 function showHome() {
 
@@ -2403,9 +2417,9 @@ function showHome() {
 }
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  ABOUT
-\========================================================= \*/
+\========================================================= */
 
 function showAbout() {
 
@@ -2441,9 +2455,9 @@ function showAbout() {
 }
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  SCROLL TO GALLERY
-\========================================================= \*/
+\========================================================= */
 
 function scrollToGallery() {
 
@@ -2462,9 +2476,9 @@ function scrollToGallery() {
 }
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  LIGHTBOX
-\========================================================= \*/
+\========================================================= */
 
 function openLightbox(src) {
 
@@ -2520,9 +2534,9 @@ document
 &#x20;   );
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  LANGUAGE
-\========================================================= \*/
+\========================================================= */
 
 function setLanguage(lang) {
 
@@ -2538,7 +2552,7 @@ function setLanguage(lang) {
 &#x20;       translations[lang];
 
 
-&#x20;   /\* buttons \*/
+&#x20;   /* buttons */
 
 &#x20;   document
 &#x20;       .querySelectorAll(".lang-btn")
@@ -2552,7 +2566,7 @@ function setLanguage(lang) {
 &#x20;       });
 
 
-&#x20;   /\* HERO \*/
+&#x20;   /* HERO */
 
 &#x20;   document.getElementById(
 &#x20;       "hero-label"
@@ -2596,7 +2610,7 @@ function setLanguage(lang) {
 &#x20;       t.heroBadgeText;
 
 
-&#x20;   /\* GALLERY \*/
+&#x20;   /* GALLERY */
 
 &#x20;   document.getElementById(
 &#x20;       "gallery-label"
@@ -2616,7 +2630,7 @@ function setLanguage(lang) {
 &#x20;       t.galleryDescription;
 
 
-&#x20;   /\* ABOUT \*/
+&#x20;   /* ABOUT */
 
 &#x20;   document.getElementById(
 &#x20;       "about-label"
@@ -2636,7 +2650,7 @@ function setLanguage(lang) {
 &#x20;       t.aboutPhoto;
 
 
-&#x20;   /\* SOCIAL \*/
+&#x20;   /* SOCIAL */
 
 &#x20;   document.getElementById(
 &#x20;       "social-title"
@@ -2650,7 +2664,7 @@ function setLanguage(lang) {
 &#x20;       t.socialDescription;
 
 
-&#x20;   /\* FOOTER \*/
+&#x20;   /* FOOTER */
 
 &#x20;   document.getElementById(
 &#x20;       "back-btn"
@@ -2670,12 +2684,12 @@ function setLanguage(lang) {
 &#x20;       t.copyright;
 
 
-&#x20;   /\* FOLDERS \*/
+&#x20;   /* FOLDERS */
 
 &#x20;   renderFolders();
 
 
-&#x20;   /\* OPEN FOLDER \*/
+&#x20;   /* OPEN FOLDER */
 
 &#x20;   if (
 &#x20;       currentOpenFolder !== null
@@ -2691,9 +2705,9 @@ function setLanguage(lang) {
 }
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  LOAD PHOTOS COUNT
-\========================================================= \*/
+\========================================================= */
 
 fetch("photos.json", {
 &#x20;   cache: "no-cache"
@@ -2734,15 +2748,15 @@ fetch("photos.json", {
 });
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  KEYBOARD PROTECTION
-\========================================================= \*/
+\========================================================= */
 
 document.addEventListener(
 &#x20;   "keydown",
 &#x20;   function(event) {
 
-&#x20;       /\* ESC \*/
+&#x20;       /* ESC */
 
 &#x20;       if (
 &#x20;           event.key === "Escape"
@@ -2753,14 +2767,14 @@ document.addEventListener(
 &#x20;       }
 
 
-&#x20;       /\*
-&#x20;        \* Ctrl+S
-&#x20;        \* Ctrl+U
-&#x20;        \* Ctrl+C
-&#x20;        \* Ctrl+Shift+I
-&#x20;        \* Ctrl+Shift+J
-&#x20;        \* F12
-&#x20;        \*/
+&#x20;       /*
+&#x20;        * Ctrl+S
+&#x20;        * Ctrl+U
+&#x20;        * Ctrl+C
+&#x20;        * Ctrl+Shift+I
+&#x20;        * Ctrl+Shift+J
+&#x20;        * F12
+&#x20;        */
 
 &#x20;       const blocked =
 &#x20;           event.ctrlKey ||
@@ -2808,12 +2822,12 @@ document.addEventListener(
 );
 
 
-/\* =========================================================
+/* =========================================================
 &#x20;  INIT
-\========================================================= \*/
+\========================================================= */
 
 renderFolders();
 
-\</script>
-\</body>
-\</html>
+</script>
+</body>
+</html>
