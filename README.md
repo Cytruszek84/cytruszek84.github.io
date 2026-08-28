@@ -3,26 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Cytruszek84 | Photography</title>
 
-    <meta
-        name="description"
-        content="Cytruszek84 Photography – fotografia krajobrazowa, natura, góry, miasta, mgły, światło i wyjątkowe chwile."
-    >
-
+    <meta name="description" content="Cytruszek84 Photography – fotografia krajobrazowa, natura, góry, miasta, mgły, światło i wyjątkowe chwile.">
     <meta name="theme-color" content="#f7f5f0">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-83HTNWWCL"></script>
-
     <script>
         window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
+        function gtag() { dataLayer.push(arguments); }
         gtag("js", new Date());
         gtag("config", "G-83HTNWWCL");
     </script>
@@ -51,8 +41,7 @@
             overflow-x: hidden;
         }
 
-        button,
-        a {
+        button, a {
             font-family: inherit;
         }
 
@@ -74,10 +63,7 @@
             --radius: 20px;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
-
+        /* HEADER */
         header {
             position: sticky;
             top: 0;
@@ -173,10 +159,7 @@
             color: white;
         }
 
-        /* =========================
-           HERO
-        ========================= */
-
+        /* HERO */
         .hero {
             max-width: 1250px;
             margin: 0 auto;
@@ -234,8 +217,7 @@
             gap: 12px;
         }
 
-        .primary-btn,
-        .secondary-btn {
+        .primary-btn, .secondary-btn {
             border-radius: 50px;
             padding: 14px 24px;
             cursor: pointer;
@@ -290,11 +272,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                180deg,
-                transparent 55%,
-                rgba(0,0,0,.25)
-            );
+            background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.25));
             pointer-events: none;
         }
 
@@ -322,10 +300,7 @@
             font-size: .75rem;
         }
 
-        /* =========================
-           SECTIONS
-        ========================= */
-
+        /* SECTIONS & VIEWS */
         .section {
             max-width: 1250px;
             margin: 0 auto;
@@ -358,10 +333,6 @@
             color: var(--muted);
             line-height: 1.7;
         }
-
-        /* =========================
-           FOLDERS
-        ========================= */
 
         .folders-grid {
             display: grid;
@@ -396,11 +367,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                180deg,
-                transparent 25%,
-                rgba(255,255,255,.8)
-            );
+            background: linear-gradient(180deg, transparent 25%, rgba(255,255,255,.8));
         }
 
         .folder-number {
@@ -444,115 +411,17 @@
         .art-2 { background: linear-gradient(135deg, #d9d6ce, #b99f83); }
         .art-3 { background: linear-gradient(135deg, #dce7df, #9db5a4); }
         .art-4 { background: linear-gradient(135deg, #ded9d3, #aa9990); }
-        .art-5 { background: linear-gradient(135deg, #e8dfce, #c89d66); }
-        .art-6 { background: linear-gradient(135deg, #dedee8, #8e95a9); }
-        .art-7 { background: linear-gradient(135deg, #e4dfd4, #b8aa83); }
-        .art-8 { background: linear-gradient(135deg, #dce2e8, #91a1b1); }
 
-        /* =========================
-           VIEWS
-        ========================= */
+        /* VIEW SWITCHING */
+        .view-section {
+            display: block;
+        }
 
-        #gallery-view,
-        #about-view {
+        #gallery-view, #about-view {
             display: none;
         }
 
-        /* =========================
-           GALLERY
-        ========================= */
-
-        .gallery-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .back-btn {
-            border: 1px solid #d7d2c9;
-            background: white;
-            color: var(--dark);
-            padding: 11px 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: .25s;
-        }
-
-        .back-btn:hover {
-            background: var(--dark);
-            color: white;
-        }
-
-        .gallery-title {
-            font-family: Georgia, serif;
-            font-size: 2rem;
-            color: var(--dark);
-        }
-
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 18px;
-        }
-
-        .photo-card {
-            position: relative;
-            aspect-ratio: 4 / 3;
-            overflow: hidden;
-            border-radius: 15px;
-            background: #e5e1da;
-            cursor: pointer;
-            box-shadow: 0 7px 22px rgba(31,35,40,.07);
-            transition: transform .35s ease, box-shadow .35s ease;
-        }
-
-        .photo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform .6s ease;
-        }
-
-        .photo-card:hover img {
-            transform: scale(1.035);
-        }
-
-        .photo-card::after {
-            content: "© Cytruszek84";
-            position: absolute;
-            z-index: 4;
-            right: 12px;
-            bottom: 10px;
-            color: rgba(255,255,255,.8);
-            font-size: .65rem;
-            letter-spacing: .08em;
-            text-shadow: 0 1px 4px rgba(0,0,0,.7);
-            pointer-events: none;
-        }
-
-        .photo-error {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
-            color: var(--muted);
-            background: #e9e5de;
-        }
-
-        /* =========================
-           ABOUT
-        ========================= */
-
+        /* ABOUT SECTION STYLES */
         .about-layout {
             display: grid;
             grid-template-columns: minmax(300px, .8fr) minmax(0, 1.2fr);
@@ -606,16 +475,13 @@
         }
 
         .about-signature {
-            font-family: "Brush Script MT", cursive;
+            font-family: "Brush Script MT", cursive, sans-serif;
             font-size: 2rem;
             color: var(--gold);
             margin-top: 25px;
         }
 
-        /* =========================
-           SOCIAL
-        ========================= */
-
+        /* SOCIAL */
         .social-section {
             background: #ebe7df;
             border-top: 1px solid var(--border);
@@ -666,10 +532,7 @@
             transform: translateY(-3px);
         }
 
-        /* =========================
-           FOOTER
-        ========================= */
-
+        /* FOOTER */
         footer {
             background: #20252b;
             color: #aeb4b8;
@@ -695,66 +558,7 @@
             margin-top: 12px;
         }
 
-        .visit-box {
-            margin-top: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            border: 1px solid rgba(255,255,255,.12);
-            border-radius: 50px;
-        }
-
-        .visit-number {
-            color: white;
-            font-weight: 800;
-        }
-
-        /* =========================
-           LIGHTBOX
-        ========================= */
-
-        #lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            background: rgba(17,19,21,.96);
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-        }
-
-        #lightbox.show {
-            display: flex;
-        }
-
-        #lightbox-img {
-            max-width: 94vw;
-            max-height: 88vh;
-            object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 30px 100px rgba(0,0,0,.5);
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            width: 45px;
-            height: 45px;
-            border: none;
-            border-radius: 50%;
-            background: rgba(255,255,255,.12);
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             .hero {
                 grid-template-columns: 1fr;
@@ -822,16 +626,6 @@
                 padding: 45px 20px;
             }
 
-            .gallery-header {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .photo-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 10px;
-            }
-
             .social-links {
                 width: 100%;
                 flex-direction: column;
@@ -843,10 +637,6 @@
         }
 
         @media (max-width: 430px) {
-            .photo-grid {
-                grid-template-columns: 1fr;
-            }
-
             .folders-grid {
                 grid-template-columns: 1fr;
             }
@@ -861,1281 +651,215 @@
         }
     </style>
 </head>
-
 <body>
 
-<header>
-    <div class="nav">
-
-        <button
-            class="brand"
-            onclick="showHome()"
-            aria-label="Strona główna"
-        >
-            <span class="brand-name">CYTRUSZEK84</span>
-            <span class="brand-sub">Photography</span>
-        </button>
-
-        <nav class="main-menu">
-
-            <button
-                class="nav-btn active"
-                id="nav-gallery"
-                onclick="showHome()"
-            >
-                Galeria
+    <!-- HEADER / NAVIGATION -->
+    <header>
+        <div class="nav">
+            <button class="brand" onclick="showView('home')">
+                <span class="brand-name">CYTRUSZEK84</span>
+                <span class="brand-sub" data-pl="FOTOGRAFIA KRAJOBRAZOWA" data-en="LANDSCAPE PHOTOGRAPHY" data-de="LANDSCHAFTSFOTOGRAFIE">FOTOGRAFIA KRAJOBRAZOWA</span>
             </button>
 
-            <button
-                class="nav-btn"
-                id="nav-about"
-                onclick="showAbout()"
-            >
-                O mnie
-            </button>
+            <nav class="main-menu">
+                <button class="nav-btn active" id="nav-home" onclick="showView('home')" data-pl="Główna" data-en="Home" data-de="Startseite">Główna</button>
+                <button class="nav-btn" id="nav-portfolio" onclick="showView('home')" data-pl="Portfolio" data-en="Portfolio" data-de="Portfolio">Portfolio</button>
+                <button class="nav-btn" id="nav-about" onclick="showView('about')" data-pl="O mnie" data-en="About Me" data-de="Über mich">O mnie</button>
+            </nav>
 
-        </nav>
-
-        <div class="languages">
-
-            <button
-                class="lang-btn active"
-                data-lang="pl"
-                onclick="setLanguage('pl')"
-            >
-                PL
-            </button>
-
-            <button
-                class="lang-btn"
-                data-lang="en"
-                onclick="setLanguage('en')"
-            >
-                EN
-            </button>
-
-            <button
-                class="lang-btn"
-                data-lang="de"
-                onclick="setLanguage('de')"
-            >
-                DE
-            </button>
-
+            <div class="languages">
+                <button class="lang-btn active" id="lang-pl" onclick="changeLanguage('pl')">PL</button>
+                <button class="lang-btn" id="lang-en" onclick="changeLanguage('en')">EN</button>
+                <button class="lang-btn" id="lang-de" onclick="changeLanguage('de')">DE</button>
+            </div>
         </div>
+    </header>
 
-    </div>
-</header>
+    <!-- HOME VIEW -->
+    <main id="home-view" class="view-section">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-label" data-pl="Fotografia Krajobrazowa" data-en="Landscape Photography" data-de="Landschaftsfotografie">Fotografia Krajobrazowa</div>
+                <h1 data-pl="Chwytając <span>światło</span> i ulotne chwile." data-en="Capturing <span>light</span> and fleeting moments." data-de="Licht und <span>flüchtige</span> Momente einfangen.">Chwytając <span>światło</span> i ulotne chwile.</h1>
+                <p class="hero-text" data-pl="Odkrywaj naturę, poranne mgły, górskie szczyty i miejskie pejzaże uchwycone w wyjątkowych kadrach." data-en="Discover nature, morning mists, mountain peaks, and urban landscapes captured in unique frames." data-de="Entdecken Sie die Natur, Morgennebel, Berggipfel und Stadtlandschaften in einzigartigen Bildern.">Odkrywaj naturę, poranne mgły, górskie szczyty i miejskie pejzaże uchwycone w wyjątkowych kadrach.</p>
+                <div class="hero-actions">
+                    <button class="primary-btn" onclick="document.getElementById('portfolio-sec').scrollIntoView({behavior: 'smooth'})" data-pl="Zobacz Galerię" data-en="View Gallery" data-de="Galerie Ansehen">Zobacz Galerię</button>
+                    <button class="secondary-btn" onclick="showView('about')" data-pl="Poznaj Mnie" data-en="Meet Me" data-de="Über Mich">Poznaj Mnie</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-frame">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Landscape Photo">
+                </div>
+                <div class="hero-badge">
+                    <strong data-pl="Natura & Pasja" data-en="Nature & Passion" data-de="Natur & Leidenschaft">Natura & Pasja</strong>
+                    <span data-pl="Cytruszek84 Photography" data-en="Cytruszek84 Photography" data-de="Cytruszek84 Fotografie">Cytruszek84 Photography</span>
+                </div>
+            </div>
+        </section>
 
-<!-- =========================
-     HOME
-========================= -->
-
-<main id="home-view">
-
-    <section class="hero">
-
-        <div>
-
-            <div
-                class="hero-label"
-                id="hero-label"
-            >
-                Fotografia
+        <!-- PORTFOLIO CATEGORIES -->
+        <section id="portfolio-sec" class="section">
+            <div class="section-heading">
+                <div class="section-label" data-pl="Kategorie" data-en="Categories" data-de="Kategorien">Kategorie</div>
+                <h2 data-pl="Galeria Zdjęć" data-en="Photo Gallery" data-de="Fotogalerie">Galeria Zdjęć</h2>
+                <p data-pl="Wybierz kategorię, aby zobaczyć zebrane fotografie." data-en="Select a category to explore the collected photographs." data-de="Wählen Sie eine Kategorie, um die Fotosammlung zu erkunden.">Wybierz kategorię, aby zobaczyć zebrane fotografie.</p>
             </div>
 
-            <h1 id="hero-title">
-                Świat zapisany<br>
-                <span>w kadrze.</span>
-            </h1>
+            <div class="folders-grid">
+                <div class="folder-card" onclick="alert('Kategoria Krajobrazy')">
+                    <div class="folder-art art-1"></div>
+                    <div class="folder-number">01</div>
+                    <div class="folder-info">
+                        <div class="folder-title" data-pl="Krajobrazy" data-en="Landscapes" data-de="Landschaften">Krajobrazy</div>
+                        <div class="folder-count" data-pl="Natura, mgły i poranki" data-en="Nature, mists and mornings" data-de="Natur, Nebel und Morgenstunden">Natura, mgły i poranki</div>
+                    </div>
+                </div>
 
-            <p
-                class="hero-text"
-                id="hero-text"
-            >
-                Fotografia to dla mnie sposób zatrzymywania chwil,
-                do których można wrócić nawet po wielu latach.
-                Światło, natura, przestrzeń i emocje — właśnie tego
-                szukam za każdym razem, kiedy biorę aparat do ręki.
-            </p>
+                <div class="folder-card" onclick="alert('Kategoria Góry')">
+                    <div class="folder-art art-2"></div>
+                    <div class="folder-number">02</div>
+                    <div class="folder-info">
+                        <div class="folder-title" data-pl="Góry" data-en="Mountains" data-de="Berge">Góry</div>
+                        <div class="folder-count" data-pl="Szczyty i szlaki" data-en="Peaks and trails" data-de="Gipfel und Pfade">Szczyty i szlaki</div>
+                    </div>
+                </div>
 
-            <div class="hero-actions">
+                <div class="folder-card" onclick="alert('Kategoria Miasta')">
+                    <div class="folder-art art-3"></div>
+                    <div class="folder-number">03</div>
+                    <div class="folder-info">
+                        <div class="folder-title" data-pl="Miasta" data-en="Urban" data-de="Städte">Miasta</div>
+                        <div class="folder-count" data-pl="Architektura i światła nocą" data-en="Architecture & night lights" data-de="Architektur & Nachtlichter">Architektura i światła nocą</div>
+                    </div>
+                </div>
 
-                <button
-                    class="primary-btn"
-                    onclick="scrollToGallery()"
-                    id="hero-gallery-btn"
-                >
-                    Odkryj galerię
-                </button>
-
-                <button
-                    class="secondary-btn"
-                    onclick="showAbout()"
-                    id="hero-about-btn"
-                >
-                    Poznaj mnie
-                </button>
-
+                <div class="folder-card" onclick="alert('Kategoria Zmierzch & Noc')">
+                    <div class="folder-art art-4"></div>
+                    <div class="folder-number">04</div>
+                    <div class="folder-info">
+                        <div class="folder-title" data-pl="Zmierzch & Noc" data-en="Dusk & Night" data-de="Dämmerung & Nacht">Zmierzch & Noc</div>
+                        <div class="folder-count" data-pl="Gwiazdy i smugi światła" data-en="Stars and light trails" data-de="Sterne und Lichtspuren">Gwiazdy i smugi światła</div>
+                    </div>
+                </div>
             </div>
+        </section>
+    </main>
 
+    <!-- ABOUT VIEW -->
+    <section id="about-view" class="section view-section">
+        <div class="about-layout">
+            <div class="about-photo">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Piotr - Cytruszek84">
+                <div class="about-photo-label" 
+                     data-pl="Fotograf Krajobrazu" 
+                     data-en="Landscape Photographer" 
+                     data-de="Landschaftsfotograf">
+                     Fotograf Krajobrazu
+                </div>
+            </div>
+            
+            <div class="about-content">
+                <h2 data-pl="O mnie" 
+                    data-en="About Me" 
+                    data-de="Über mich">
+                    O mnie
+                </h2>
+                
+                <p data-pl="Witaj! Nazywam się Piotr. Fotografia to moja pasja, w której skupiam się na chwytaniu piękna natury, górskich krajobrazów, porannych mgieł, nocnego nieba oraz wyjątkowej gry światła."
+                   data-en="Welcome! My name is Piotr. Photography is my passion, where I focus on capturing the beauty of nature, mountain landscapes, morning mists, night skies, and the unique play of light."
+                   data-de="Willkommen! Mein Name ist Piotr. Fotografie ist meine Leidenschaft, bei der ich mich darauf konzentriere, die Schönheit der Natur, Berglandschaften, Morgennebel, den Nachthimmel und das besondere Spiel des Lichts einzufangen.">
+                   Witaj! Nazywam się Piotr. Fotografia to moja pasja, w której skupiam się na chwytaniu piękna natury, górskich krajobrazów, porannych mgieł, nocnego nieba oraz wyjątkowej gry światła.
+                </p>
+
+                <p data-pl="Pracuję z aparatem Sony DSC-HX400V, wyciągając z niego wszystko, co najlepsze – od malowniczych wschodów i zachodów słońca po eksperymenty z malowaniem światłem oraz długim czssem naświetlania."
+                   data-en="I shoot with a Sony DSC-HX400V camera, squeezing the best out of it – from picturesque sunrises and sunsets to light painting experiments and long exposure shots."
+                   data-de="Ich fotografiere mit einer Sony DSC-HX400V Kamera und hole das Beste aus ihr heraus – von malerischen Sonnenauf- und -untergängen bis hin zu Lichtmalerei-Experimenten und Langzeitbelichtungen.">
+                   Pracuję z aparatem Sony DSC-HX400V, wyciągając z niego wszystko, co najlepsze – od malowniczych wschodów i zachodów słońca po eksperymenty z malowaniem światłem oraz długim czasem naświetlania.
+                </p>
+                
+                <p data-pl="Kamera towarzyszy mi w podróżach i codziennych kadrach, pozwalając zatrzymać ulotne chwile i ukazać świat z perspektywy pełnej spokoju, magii oraz dopracowanych detali."
+                   data-en="My camera accompanies me on travels and everyday moments, allowing me to freeze fleeting memories and show the world through a perspective full of peace, magic, and refined details."
+                   data-de="Meine Kamera begleitet mich auf Reisen und im Alltag. Sie ermöglicht es mir, flüchtige Momente festzuhalten und die Welt aus einer Perspektive voller Ruhe, Magie und durchdachter Details zu zeigen.">
+                   Kamera towarzyszy mi w podróżach i codziennych kadrach, pozwalając zatrzymać ulotne chwile i ukazać świat z perspektywy pełnej spokoju, magii oraz dopracowanych detali.
+                </p>
+                
+                <div class="about-signature">Cytruszek84</div>
+            </div>
         </div>
-
-        <div class="hero-visual">
-
-            <div class="hero-frame">
-
-                <img
-                    src="./hero.jpg"
-                    alt="Fotografia Cytruszek84"
-                    draggable="false"
-                    onerror="this.style.display='none';"
-                >
-
-            </div>
-
-            <div class="hero-badge">
-
-                <strong id="hero-badge-title">
-                    Chwile. Światło. Emocje.
-                </strong>
-
-                <span id="hero-badge-text">
-                    Fotografia z pasją
-                </span>
-
-            </div>
-
-        </div>
-
     </section>
 
-    <section
-        class="section"
-        id="gallery-section"
-    >
-
-        <div class="section-heading">
-
-            <div
-                class="section-label"
-                id="gallery-label"
-            >
-                Portfolio
+    <!-- SOCIAL SECTION -->
+    <section class="social-section section">
+        <div class="social-box">
+            <div>
+                <h2 data-pl="Dołącz do społeczności" data-en="Join the Community" data-de="Treten Sie der Community bei">Dołącz do społeczności</h2>
+                <p data-pl="Śledź moje najnowsze kadry i projekty fotograficzne." data-en="Follow my latest shots and photography projects." data-de="Folgen Sie meinen neuesten Fotos und Fotoprojekten.">Śledź moje najnowsze kadry i projekty fotograficzne.</p>
             </div>
-
-            <h2 id="gallery-title">
-                Historie zatrzymane w czasie
-            </h2>
-
-            <p id="gallery-description">
-                Wybierz kolekcję i zobacz fotografie.
-                Każdy folder to inna historia, inne światło
-                i inne miejsce.
-            </p>
-
+            <div class="social-links">
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">GitHub</a>
+            </div>
         </div>
-
-        <div
-            id="folders-grid"
-            class="folders-grid"
-        ></div>
-
     </section>
 
-    <section class="social-section">
-
-        <div class="section">
-
-            <div class="social-box">
-
-                <div>
-
-                    <h2 id="social-title">
-                        Zobacz więcej moich kadrów
-                    </h2>
-
-                    <p id="social-description">
-                        Obserwuj mnie również w mediach społecznościowych.
-                    </p>
-
-                </div>
-
-                <div class="social-links">
-
-                    <a
-                        class="social-link"
-                        href="https://www.tiktok.com/@cytruszek84"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        TikTok
-                    </a>
-
-                    <a
-                        class="social-link"
-                        href="https://www.instagram.com/cytruszek84"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Instagram
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-</main>
-
-<!-- =========================
-     GALLERY VIEW
-========================= -->
-
-<section
-    id="gallery-view"
-    class="section"
->
-
-    <div class="gallery-header">
-
-        <button
-            class="back-btn"
-            onclick="showHome()"
-            id="back-btn"
-        >
-            ← Wróć do kolekcji
-        </button>
-
-        <h2
-            class="gallery-title"
-            id="folder-title-display"
-        ></h2>
-
-    </div>
-
-    <div
-        id="photo-grid"
-        class="photo-grid"
-    ></div>
-
-</section>
-
-<!-- =========================
-     ABOUT
-========================= -->
-
-<section
-    id="about-view"
-    class="section"
->
-
-    <div class="about-layout">
-
-        <div class="about-photo">
-
-            <img
-                src="./omnie.jpg"
-                alt="Piotr – Cytruszek84"
-                draggable="false"
-                onerror="showProfileImageError(this)"
-            >
-
-            <div
-                class="about-photo-label"
-                id="about-photo-label"
-            >
-                Piotr · Cytruszek84
-            </div>
-
-        </div>
-
-        <div class="about-content">
-
-            <div
-                class="section-label"
-                id="about-label"
-            >
-                O mnie
-            </div>
-
-            <h2 id="about-title">
-                Nie tylko robię zdjęcia. Zbieram chwile.
-            </h2>
-
-            <div id="about-text">
-                <!-- Treść jest wstawiana dynamicznie przez skrypt JS -->
-            </div>
-
-            <div class="about-signature">
-                Piotr
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================
-     LIGHTBOX
-========================= -->
-
-<div
-    id="lightbox"
-    onclick="closeLightbox()"
->
-
-    <button
-        class="lightbox-close"
-        onclick="event.stopPropagation(); closeLightbox();"
-        aria-label="Zamknij"
-    >
-        ×
-    </button>
-
-    <img
-        id="lightbox-img"
-        src=""
-        alt="Powiększona fotografia"
-        draggable="false"
-        onclick="event.stopPropagation()"
-    >
-
-</div>
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    <div class="footer-brand">
-        CYTRUSZEK84
-    </div>
-
-    <p
-        class="footer-copy"
-        id="footer-subtitle"
-    >
-        Photography · Hobby · Passion
-    </p>
-
-    <p
-        class="copyright"
-        id="footer-copyright"
-    >
-        © Wszystkie fotografie są chronione prawem autorskim.
-        Kopiowanie i rozpowszechnianie bez zgody autora jest zabronione.
-    </p>
-
-    <div class="visit-box">
-
-        <span id="footer-visits">
-            Odwiedziny
-        </span>
-
-        <span
-            class="visit-number"
-            id="visit-counter"
-        >
-            …
-        </span>
-
-    </div>
-
-</footer>
-
-<script>
-/* =========================================================
-   FIREBASE
-========================================================= */
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDv2QED1ZHbd3xDWIBhcLQJd7Zd7Rz-tWw",
-    authDomain: "cytruszek84-c2e33.firebaseapp.com",
-    projectId: "cytruszek84-c2e33",
-    storageBucket: "cytruszek84-c2e33.firebasestorage.app",
-    messagingSenderId: "89741680278",
-    appId: "1:89741680278:web:1f032fb3cf28ee73d02cb7",
-    measurementId: "G-83HTNWWCL"
-};
-
-let db = null;
-
-try {
-    firebase.initializeApp(firebaseConfig);
-
-    db = firebase.firestore();
-
-    try {
-        firebase.analytics();
-    } catch (error) {
-        console.warn("Firebase Analytics niedostępne.");
-    }
-
-} catch (error) {
-    console.error("Błąd inicjalizacji Firebase:", error);
-}
-
-
-/* =========================================================
-   LICZNIK ODWIEDZIN
-========================================================= */
-
-function updateVisitCounter() {
-
-    const counterElement =
-        document.getElementById("visit-counter");
-
-    if (!db) {
-        counterElement.textContent = "—";
-        return;
-    }
-
-    const counterRef =
-        db.collection("stats").doc("visits");
-
-    db.runTransaction(async transaction => {
-
-        const doc =
-            await transaction.get(counterRef);
-
-        let count = 1;
-
-        if (doc.exists) {
-
-            const oldCount =
-                Number(doc.data().count) || 0;
-
-            count = oldCount + 1;
-        }
-
-        transaction.set(
-            counterRef,
-            { count: count },
-            { merge: true }
-        );
-
-        return count;
-
-    })
-    .then(count => {
-
-        counterElement.textContent =
-            count.toLocaleString("pl-PL");
-
-    })
-    .catch(error => {
-
-        console.error(
-            "Błąd licznika odwiedzin:",
-            error
-        );
-
-        counterElement.textContent = "—";
-    });
-}
-
-
-/* =========================================================
-   USTAWIENIA
-========================================================= */
-
-const photosPerFolder = 10;
-
-let totalPhotos = 245;
-
-let currentLanguage = "pl";
-
-let currentOpenFolder = null;
-
-
-/* =========================================================
-   NAZWY FOLDERÓW
-========================================================= */
-
-const folderNames = {
-
-    pl: [
-        "Światło natury",
-        "Górskie historie",
-        "Mgły o poranku",
-        "Opuszczone miejsca",
-        "Miasto po zmroku",
-        "Zachody słońca",
-        "Drogi i podróże",
-        "Chwile bez scenariusza"
-    ],
-
-    en: [
-        "Nature & Light",
-        "Mountain Stories",
-        "Morning Mist",
-        "Abandoned Places",
-        "City After Dark",
-        "Sunset Stories",
-        "Roads & Journeys",
-        "Unscripted Moments"
-    ],
-
-    de: [
-        "Natur & Licht",
-        "Berggeschichten",
-        "Morgennebel",
-        "Verlassene Orte",
-        "Stadt bei Nacht",
-        "Sonnenuntergänge",
-        "Reisen & Wege",
-        "Ungeplante Momente"
-    ]
-};
-
-
-/* =========================================================
-   TŁUMACZENIA
-========================================================= */
-
-const translations = {
-
-    pl: {
-        navGallery: "Galeria",
-        navAbout: "O mnie",
-
-        heroLabel: "Fotografia",
-
-        heroTitle:
-            "Świat zapisany<br><span>w kadrze.</span>",
-
-        heroText:
-            "Fotografia to dla mnie sposób zatrzymywania chwil, do których można wrócić nawet po wielu latach. Światło, natura, przestrzeń i emocje — właśnie tego szukam za każdym razem, kiedy biorę aparat do ręki.",
-
-        heroGallery: "Odkryj galerię",
-
-        heroAbout: "Poznaj mnie",
-
-        heroBadgeTitle:
-            "Chwile. Światło. Emocje.",
-
-        heroBadgeText:
-            "Fotografia z pasją",
-
-        galleryLabel: "Portfolio",
-
-        galleryTitle:
-            "Historie zatrzymane w czasie",
-
-        galleryDescription:
-            "Wybierz kolekcję i zobacz fotografie. Każdy folder to inna historia, inne światło i inne miejsce.",
-
-        aboutLabel: "O mnie",
-
-        aboutTitle:
-            "Nie tylko robię zdjęcia. Zbieram chwile.",
-
-        aboutPhoto:
-            "Piotr · Cytruszek84",
-
-        aboutText: `
-            <p>Mam na imię Piotr, a w świecie fotografii możecie znaleźć mnie jako <strong>Cytruszek84</strong>.</p>
-            <p>Aparat towarzyszy mi od lat. Zabieram go ze sobą w podróże, na górskie szlaki, do miast, nad jeziora i wszędzie tam, gdzie pojawia się światło, którego nie można przegapić.</p>
-            <p>Najbardziej interesują mnie momenty, których nie da się powtórzyć — pierwszy promień słońca, poranna mgła, pusty szlak, światło zachodzącego słońca czy zwykła ulica, która przez kilka sekund wygląda zupełnie inaczej.</p>
-            <p>Nie zależy mi na tym, żeby zrobić po prostu kolejne zdjęcie. Chcę stworzyć kadr, który wywoła emocję i sprawi, że zatrzymasz się na chwilę.</p>
-            <p>Zapraszam Cię do mojego fotograficznego świata. Mam nadzieję, że znajdziesz tutaj coś, co zostanie z Tobą na dłużej.</p>
-        `,
-
-        socialTitle:
-            "Zobacz więcej moich kadrów",
-
-        socialDescription:
-            "Obserwuj mnie również w mediach społecznościowych.",
-
-        back:
-            "← Wróć do kolekcji",
-
-        visits:
-            "Odwiedziny",
-
-        copyright:
-            "© Wszystkie fotografie są chronione prawem autorskim. Kopiowanie i rozpowszechnianie bez zgody autora jest zabronione.",
-
-        photoCount:
-            "fotografii"
-    },
-
-    en: {
-        navGallery: "Gallery",
-        navAbout: "About me",
-
-        heroLabel: "Photography",
-
-        heroTitle:
-            "The world captured<br><span>in a frame.</span>",
-
-        heroText:
-            "Photography is my way of preserving moments that can be revisited years later. Light, nature, space and emotion — these are the things I look for every time I pick up my camera.",
-
-        heroGallery:
-            "Explore gallery",
-
-        heroAbout:
-            "About me",
-
-        heroBadgeTitle:
-            "Moments. Light. Emotion.",
-
-        heroBadgeText:
-            "Photography with passion",
-
-        galleryLabel:
-            "Portfolio",
-
-        galleryTitle:
-            "Stories captured in time",
-
-        galleryDescription:
-            "Choose a collection and explore the photographs. Every folder tells a different story.",
-
-        aboutLabel:
-            "About me",
-
-        aboutTitle:
-            "I don't just take photos. I collect moments.",
-
-        aboutPhoto:
-            "Piotr · Cytruszek84",
-
-        aboutText: `
-            <p>My name is Piotr, and in the world of photography you can find me as <strong>Cytruszek84</strong>.</p>
-            <p>I have been carrying a camera with me for years. I take it on trips, mountain trails, into cities, to lakes, and anywhere light creates a moment that shouldn't be missed.</p>
-            <p>I am most drawn to unrepeatable moments — the first ray of sunlight, morning mist, an empty trail, the glow of sunset, or a simple street that looks completely transformed for just a few seconds.</p>
-            <p>My goal isn't just to take another photo. I want to capture a frame that evokes emotion and makes you pause for a moment.</p>
-            <p>Welcome to my photographic world. I hope you find something here that stays with you.</p>
-        `,
-
-        socialTitle:
-            "Discover more of my photography",
-
-        socialDescription:
-            "Follow me on social media.",
-
-        back:
-            "← Back to collections",
-
-        visits:
-            "Visits",
-
-        copyright:
-            "© All photographs are protected by copyright. Copying or distributing them without permission is prohibited.",
-
-        photoCount:
-            "photographs"
-    },
-
-    de: {
-        navGallery: "Galerie",
-        navAbout: "Über mich",
-
-        heroLabel: "Fotografie",
-
-        heroTitle:
-            "Die Welt eingefangen<br><span>in einem Bild.</span>",
-
-        heroText:
-            "Fotografie bedeutet für mich, Momente festzuhalten, zu denen man auch Jahre später zurückkehren kann. Licht, Natur, Raum und Emotionen — danach suche ich jedes Mal, wenn ich meine Kamera in die Hand nehme.",
-
-        heroGallery:
-            "Galerie entdecken",
-
-        heroAbout:
-            "Über mich",
-
-        heroBadgeTitle:
-            "Momente. Licht. Emotionen.",
-
-        heroBadgeText:
-            "Fotografie mit Leidenschaft",
-
-        galleryLabel:
-            "Portfolio",
-
-        galleryTitle:
-            "Geschichten, festgehalten in der Zeit",
-
-        galleryDescription:
-            "Wähle eine Sammlung und entdecke die Fotografien.",
-
-        aboutLabel:
-            "Über mich",
-
-        aboutTitle:
-            "Ich mache nicht nur Fotos. Ich sammle Momente.",
-
-        aboutPhoto:
-            "Piotr · Cytruszek84",
-
-        aboutText: `
-            <p>Mein Name ist Piotr, und in der Welt der Fotografie bin ich als <strong>Cytruszek84</strong> bekannt.</p>
-            <p>Die Kamera begleitet mich seit Jahren. Ich nehme sie mit auf Reisen, auf Bergpfade, in Städte, an Seen und überall dorthin, wo Licht Momente schafft, die man nicht verpassen darf.</p>
-            <p>Am meisten faszinieren mich unwiederholbare Augenblicke — der erste Sonnenstrahl, Morgennebel, ein einsamer Pfad, das Licht des Sonnenuntergangs oder eine einfache Straße, die für wenige Sekunden völlig anders aussieht.</p>
-            <p>Es geht mir nicht darum, einfach nur ein weiteres Foto zu machen. Ich möchte ein Bild schaffen, das Emotionen weckt und zum Innehalten anregt.</p>
-            <p>Willkommen in meiner fotografischen Welt. Ich hoffe, Sie finden hier etwas, das Ihnen in Erinnerung bleibt.</p>
-        `,
-
-        socialTitle:
-            "Mehr von meiner Fotografie entdecken",
-
-        socialDescription:
-            "Folge mir auch in den sozialen Medien.",
-
-        back:
-            "← Zurück zu den Sammlungen",
-
-        visits:
-            "Besuche",
-
-        copyright:
-            "© Alle Fotografien sind urheberrechtlich geschützt. Kopieren und Verbreiten ohne Genehmigung ist untersagt.",
-
-        photoCount:
-            "Fotografien"
-    }
-};
-
-
-/* =========================================================
-   NAZWA FOLDERU
-========================================================= */
-
-function getFolderName(folderNumber) {
-
-    const names =
-        folderNames[currentLanguage];
-
-    const index =
-        (folderNumber - 1) % names.length;
-
-    return names[index];
-}
-
-
-/* =========================================================
-   RYSOWANIE FOLDERÓW
-========================================================= */
-
-function renderFolders() {
-
-    const grid =
-        document.getElementById("folders-grid");
-
-    grid.innerHTML = "";
-
-    const totalFolders =
-        Math.ceil(
-            totalPhotos / photosPerFolder
-        );
-
-    for (let i = totalFolders; i >= 1; i--) {
-
-        const card =
-            document.createElement("div");
-
-        card.className = "folder-card";
-
-        const artClass =
-            "art-" + (((i - 1) % 8) + 1);
-
-        const start =
-            ((i - 1) * photosPerFolder) + 1;
-
-        const end =
-            Math.min(
-                i * photosPerFolder,
-                totalPhotos
-            );
-
-        const count =
-            end - start + 1;
-
-        card.innerHTML = `
-            <div class="folder-art ${artClass}"></div>
-
-            <div class="folder-number">
-                ${String(i).padStart(2, "0")}
-            </div>
-
-            <div class="folder-info">
-
-                <div class="folder-title">
-                    ${getFolderName(i)}
-                </div>
-
-                <div class="folder-count">
-                    ${count}
-                    ${translations[currentLanguage].photoCount}
-                </div>
-
-            </div>
-        `;
-
-        card.addEventListener(
-            "click",
-            () => openFolder(i)
-        );
-
-        grid.appendChild(card);
-    }
-}
-
-
-/* =========================================================
-   OTWIERANIE FOLDERU
-========================================================= */
-
-function openFolder(folderNumber) {
-
-    currentOpenFolder = folderNumber;
-
-    document.getElementById(
-        "home-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "gallery-view"
-    ).style.display = "block";
-
-    document.getElementById(
-        "about-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "nav-gallery"
-    ).classList.add("active");
-
-    document.getElementById(
-        "nav-about"
-    ).classList.remove("active");
-
-    document.getElementById(
-        "folder-title-display"
-    ).textContent =
-        getFolderName(folderNumber);
-
-    const grid =
-        document.getElementById("photo-grid");
-
-    grid.innerHTML = "";
-
-    const start =
-        ((folderNumber - 1) * photosPerFolder) + 1;
-
-    const end =
-        Math.min(
-            folderNumber * photosPerFolder,
-            totalPhotos
-        );
-
-    for (let i = end; i >= start; i--) {
-
-        const card =
-            document.createElement("div");
-
-        card.className = "photo-card";
-
-        const img =
-            document.createElement("img");
-
-        img.src = `${i}.jpg`;
-
-        img.alt =
-            `Cytruszek84 Photography ${i}`;
-
-        img.draggable = false;
-
-        img.onerror = function () {
-
-            if (!this.dataset.uppercase) {
-
-                this.dataset.uppercase = "true";
-
-                this.src = `${i}.JPG`;
-
-            } else {
-
-                card.classList.add("photo-error");
-
-                card.innerHTML = `
-                    <span>
-                        Zdjęcie ${i}.jpg
-                        nie zostało znalezione.
-                    </span>
-                `;
-            }
-        };
-
-        card.appendChild(img);
-
-        card.addEventListener(
-            "click",
-            () => {
-
-                if (img.complete && img.naturalWidth > 0) {
-                    openLightbox(img.src);
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-brand">CYTRUSZEK84</div>
+        <p class="footer-copy" data-pl="Fotografia Krajobrazowa & Natura" data-en="Landscape & Nature Photography" data-de="Landschafts- & Naturfotografie">Fotografia Krajobrazowa & Natura</p>
+        <div class="copyright">© 2026 Cytruszek84. All rights reserved.</div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR MULTI-LANGUAGE & VIEW SWITCHING -->
+    <script>
+        // Language Switcher Function
+        function changeLanguage(lang) {
+            // Update active state on language buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById(`lang-${lang}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            // Find all elements with translation attributes
+            const translatableElements = document.querySelectorAll('[data-pl][data-en][data-de]');
+            
+            translatableElements.forEach(el => {
+                const translation = el.getAttribute(`data-${lang}`);
+                if (translation) {
+                    el.innerHTML = translation;
                 }
-
-            }
-        );
-
-        grid.appendChild(card);
-    }
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-/* =========================================================
-   STRONA GŁÓWNA
-========================================================= */
-
-function showHome() {
-
-    currentOpenFolder = null;
-
-    document.getElementById(
-        "home-view"
-    ).style.display = "block";
-
-    document.getElementById(
-        "gallery-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "about-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "nav-gallery"
-    ).classList.add("active");
-
-    document.getElementById(
-        "nav-about"
-    ).classList.remove("active");
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-/* =========================================================
-   O MNIE
-========================================================= */
-
-function showAbout() {
-
-    document.getElementById(
-        "home-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "gallery-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "about-view"
-    ).style.display = "block";
-
-    document.getElementById(
-        "nav-gallery"
-    ).classList.remove("active");
-
-    document.getElementById(
-        "nav-about"
-    ).classList.add("active");
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-
-/* =========================================================
-   PRZEJŚCIE DO GALERII
-========================================================= */
-
-function scrollToGallery() {
-
-    showHome();
-
-    setTimeout(() => {
-
-        document
-            .getElementById("gallery-section")
-            .scrollIntoView({
-                behavior: "smooth"
             });
 
-    }, 100);
-}
-
-
-/* =========================================================
-   LIGHTBOX
-========================================================= */
-
-function openLightbox(src) {
-
-    const lightbox =
-        document.getElementById("lightbox");
-
-    const image =
-        document.getElementById("lightbox-img");
-
-    image.src = src;
-
-    lightbox.classList.add("show");
-
-    document.body.style.overflow = "hidden";
-}
-
-
-function closeLightbox() {
-
-    const lightbox =
-        document.getElementById("lightbox");
-
-    lightbox.classList.remove("show");
-
-    document.body.style.overflow = "";
-
-    document.getElementById(
-        "lightbox-img"
-    ).src = "";
-}
-
-
-/* =========================================================
-   JĘZYK I AUTOMATYCZNA DETEKCJA
-========================================================= */
-
-function setLanguage(lang) {
-
-    if (!translations[lang]) {
-        return;
-    }
-
-    currentLanguage = lang;
-    localStorage.setItem("userLanguage", lang);
-
-    const t = translations[lang];
-
-    document.querySelectorAll(".lang-btn").forEach(button => {
-        button.classList.toggle("active", button.dataset.lang === lang);
-    });
-
-    document.getElementById("nav-gallery").textContent = t.navGallery;
-    document.getElementById("nav-about").textContent = t.navAbout;
-
-    document.getElementById("hero-label").textContent = t.heroLabel;
-    document.getElementById("hero-title").innerHTML = t.heroTitle;
-    document.getElementById("hero-text").textContent = t.heroText;
-    document.getElementById("hero-gallery-btn").textContent = t.heroGallery;
-    document.getElementById("hero-about-btn").textContent = t.heroAbout;
-    document.getElementById("hero-badge-title").textContent = t.heroBadgeTitle;
-    document.getElementById("hero-badge-text").textContent = t.heroBadgeText;
-
-    document.getElementById("gallery-label").textContent = t.galleryLabel;
-    document.getElementById("gallery-title").textContent = t.galleryTitle;
-    document.getElementById("gallery-description").textContent = t.galleryDescription;
-
-    document.getElementById("about-label").textContent = t.aboutLabel;
-    document.getElementById("about-title").textContent = t.aboutTitle;
-    document.getElementById("about-photo-label").textContent = t.aboutPhoto;
-    document.getElementById("about-text").innerHTML = t.aboutText;
-
-    document.getElementById("social-title").textContent = t.socialTitle;
-    document.getElementById("social-description").textContent = t.socialDescription;
-
-    document.getElementById("back-btn").textContent = t.back;
-    document.getElementById("footer-visits").textContent = t.visits;
-    document.getElementById("footer-copyright").textContent = t.copyright;
-
-    renderFolders();
-
-    if (currentOpenFolder !== null) {
-        document.getElementById("folder-title-display").textContent = getFolderName(currentOpenFolder);
-    }
-}
-
-function detectInitialLanguage() {
-    const savedLang = localStorage.getItem("userLanguage");
-    if (savedLang && translations[savedLang]) {
-        return savedLang;
-    }
-
-    const userLang = (navigator.language || navigator.userLanguage || "pl").toLowerCase();
-    
-    if (userLang.startsWith("de")) {
-        return "de";
-    } else if (userLang.startsWith("en")) {
-        return "en";
-    }
-
-    return "pl";
-}
-
-
-/* =========================================================
-   PHOTOS.JSON
-========================================================= */
-
-fetch("./photos.json", {
-    cache: "no-cache"
-})
-.then(response => {
-
-    if (!response.ok) {
-        throw new Error("Nie znaleziono photos.json");
-    }
-
-    return response.json();
-})
-.then(data => {
-
-    if (
-        data &&
-        Number(data.count) > 0
-    ) {
-
-        totalPhotos =
-            Number(data.count);
-
-    }
-
-    renderFolders();
-
-})
-.catch(error => {
-
-    console.warn(
-        "photos.json nie został znaleziony. Używam 245 zdjęć.",
-        error
-    );
-
-    renderFolders();
-});
-
-
-/* =========================================================
-   BŁĄD ZDJĘCIA PROFILOWEGO
-========================================================= */
-
-function showProfileImageError(image) {
-
-    image.style.display = "none";
-
-    const container =
-        image.parentElement;
-
-    const message =
-        document.createElement("div");
-
-    message.style.padding = "60px 25px";
-
-    message.style.textAlign = "center";
-
-    message.style.color = "#747b83";
-
-    message.innerHTML = `
-        Nie znaleziono zdjęcia <strong>omnie.jpg</strong>.
-        <br><br>
-        Umieść plik omnie.jpg
-        w tym samym folderze co index.html.
-    `;
-
-    container.appendChild(message);
-}
-
-
-/* =========================================================
-   KLAWIATURA
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (event.key === "Escape") {
-            closeLightbox();
+            // Save preferred language in LocalStorage
+            localStorage.setItem('preferred_lang', lang);
         }
 
-        const blocked =
-            event.ctrlKey || event.metaKey;
+        // Simple Single Page View Switching (Home vs About)
+        function showView(viewName) {
+            const homeView = document.getElementById('home-view');
+            const aboutView = document.getElementById('about-view');
+            const navHome = document.getElementById('nav-home');
+            const navAbout = document.getElementById('nav-about');
 
-        if (
-            blocked &&
-            ["s", "u", "c"].includes(
-                event.key.toLowerCase()
-            )
-        ) {
-            event.preventDefault();
+            if (viewName === 'about') {
+                homeView.style.display = 'none';
+                aboutView.style.display = 'block';
+                navHome.classList.remove('active');
+                navAbout.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                homeView.style.display = 'block';
+                aboutView.style.display = 'none';
+                navHome.classList.add('active');
+                navAbout.classList.remove('active');
+            }
         }
 
-        if (event.key === "F12") {
-            event.preventDefault();
-        }
-
-        if (
-            blocked &&
-            event.shiftKey &&
-            ["I", "J", "C"].includes(event.key)
-        ) {
-            event.preventDefault();
-        }
-    }
-);
-
-
-/* =========================================================
-   OCHRONA KLIKNIĘCIA
-========================================================= */
-
-document.addEventListener(
-    "contextmenu",
-    event => event.preventDefault()
-);
-
-document.addEventListener(
-    "dragstart",
-    event => {
-
-        if (
-            event.target.tagName === "IMG"
-        ) {
-            event.preventDefault();
-        }
-    }
-);
-
-
-/* =========================================================
-   START
-========================================================= */
-
-const initialLang = detectInitialLanguage();
-setLanguage(initialLang);
-
-updateVisitCounter();
-
-</script>
-
+        // Initialize preferred language on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferred_lang') || 'pl';
+            changeLanguage(savedLang);
+        });
+    </script>
 </body>
 </html>
