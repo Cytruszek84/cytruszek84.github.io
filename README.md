@@ -63,7 +63,9 @@
             --radius: 20px;
         }
 
-        /* HEADER */
+        /* =========================
+           HEADER
+        ========================= */
         header {
             position: sticky;
             top: 0;
@@ -159,7 +161,9 @@
             color: white;
         }
 
-        /* HERO */
+        /* =========================
+           HERO
+        ========================= */
         .hero {
             max-width: 1250px;
             margin: 0 auto;
@@ -217,7 +221,8 @@
             gap: 12px;
         }
 
-        .primary-btn, .secondary-btn {
+        .primary-btn,
+        .secondary-btn {
             border-radius: 50px;
             padding: 14px 24px;
             cursor: pointer;
@@ -300,7 +305,9 @@
             font-size: .75rem;
         }
 
-        /* SECTIONS & VIEWS */
+        /* =========================
+           SECTIONS & FOLDERS
+        ========================= */
         .section {
             max-width: 1250px;
             margin: 0 auto;
@@ -411,17 +418,109 @@
         .art-2 { background: linear-gradient(135deg, #d9d6ce, #b99f83); }
         .art-3 { background: linear-gradient(135deg, #dce7df, #9db5a4); }
         .art-4 { background: linear-gradient(135deg, #ded9d3, #aa9990); }
+        .art-5 { background: linear-gradient(135deg, #e8dfce, #c89d66); }
+        .art-6 { background: linear-gradient(135deg, #dedee8, #8e95a9); }
 
-        /* VIEW SWITCHING */
-        .view-section {
-            display: block;
-        }
-
-        #gallery-view, #about-view {
+        /* =========================
+           VIEWS & GALLERY GRID
+        ========================= */
+        #gallery-view,
+        #about-view {
             display: none;
         }
 
-        /* ABOUT SECTION STYLES */
+        .gallery-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            border: 1px solid #d7d2c9;
+            background: white;
+            color: var(--dark);
+            padding: 11px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: .25s;
+        }
+
+        .back-btn:hover {
+            background: var(--dark);
+            color: white;
+        }
+
+        .gallery-title {
+            font-family: Georgia, serif;
+            font-size: 2rem;
+            color: var(--dark);
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 18px;
+        }
+
+        .photo-card {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            border-radius: 15px;
+            background: #e5e1da;
+            cursor: pointer;
+            box-shadow: 0 7px 22px rgba(31,35,40,.07);
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .6s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.035);
+        }
+
+        .photo-card::after {
+            content: "© Cytruszek84";
+            position: absolute;
+            z-index: 4;
+            right: 12px;
+            bottom: 10px;
+            color: rgba(255,255,255,.8);
+            font-size: .65rem;
+            letter-spacing: .08em;
+            text-shadow: 0 1px 4px rgba(0,0,0,.7);
+            pointer-events: none;
+        }
+
+        .photo-error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            color: var(--muted);
+            background: #e9e5de;
+            aspect-ratio: 4 / 3;
+            border-radius: 15px;
+        }
+
+        /* =========================
+           ABOUT STYLES
+        ========================= */
         .about-layout {
             display: grid;
             grid-template-columns: minmax(300px, .8fr) minmax(0, 1.2fr);
@@ -481,7 +580,48 @@
             margin-top: 25px;
         }
 
-        /* SOCIAL */
+        /* =========================
+           MULTI-LANGUAGE CSS RULESETS
+        ========================= */
+        /* Default Language (PL) hides EN and DE blocks */
+        [data-lang="en"],
+        [data-lang="de"] {
+            display: none;
+        }
+
+        /* When body class is 'lang-en' -> Hide PL and DE, show EN */
+        body.lang-en [data-lang="pl"],
+        body.lang-en [data-lang="de"] {
+            display: none !important;
+        }
+        body.lang-en [data-lang="en"] {
+            display: block !important;
+        }
+        body.lang-en inline[data-lang="en"],
+        body.lang-en span[data-lang="en"],
+        body.lang-en div.about-photo-label[data-lang="en"],
+        body.lang-en h2[data-lang="en"] {
+            display: block !important;
+        }
+
+        /* When body class is 'lang-de' -> Hide PL and EN, show DE */
+        body.lang-de [data-lang="pl"],
+        body.lang-de [data-lang="en"] {
+            display: none !important;
+        }
+        body.lang-de [data-lang="de"] {
+            display: block !important;
+        }
+        body.lang-de inline[data-lang="de"],
+        body.lang-de span[data-lang="de"],
+        body.lang-de div.about-photo-label[data-lang="de"],
+        body.lang-de h2[data-lang="de"] {
+            display: block !important;
+        }
+
+        /* =========================
+           SOCIAL & FOOTER
+        ========================= */
         .social-section {
             background: #ebe7df;
             border-top: 1px solid var(--border);
@@ -532,7 +672,6 @@
             transform: translateY(-3px);
         }
 
-        /* FOOTER */
         footer {
             background: #20252b;
             color: #aeb4b8;
@@ -558,7 +697,49 @@
             margin-top: 12px;
         }
 
-        /* RESPONSIVE */
+        /* =========================
+           LIGHTBOX
+        ========================= */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(17,19,21,.96);
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        #lightbox.show {
+            display: flex;
+        }
+
+        #lightbox-img {
+            max-width: 94vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 30px 100px rgba(0,0,0,.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255,255,255,.12);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
         @media (max-width: 900px) {
             .hero {
                 grid-template-columns: 1fr;
@@ -626,6 +807,16 @@
                 padding: 45px 20px;
             }
 
+            .gallery-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
             .social-links {
                 width: 100%;
                 flex-direction: column;
@@ -637,6 +828,10 @@
         }
 
         @media (max-width: 430px) {
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+
             .folders-grid {
                 grid-template-columns: 1fr;
             }
@@ -651,139 +846,270 @@
         }
     </style>
 </head>
-<body>
+<body class="lang-pl">
 
-    <!-- HEADER / NAVIGATION -->
+    <!-- HEADER -->
     <header>
         <div class="nav">
             <button class="brand" onclick="showView('home')">
                 <span class="brand-name">CYTRUSZEK84</span>
-                <span class="brand-sub" data-pl="FOTOGRAFIA KRAJOBRAZOWA" data-en="LANDSCAPE PHOTOGRAPHY" data-de="LANDSCHAFTSFOTOGRAFIE">FOTOGRAFIA KRAJOBRAZOWA</span>
+                <span class="brand-sub" data-lang="pl">FOTOGRAFIA KRAJOBRAZOWA</span>
+                <span class="brand-sub" data-lang="en">LANDSCAPE PHOTOGRAPHY</span>
+                <span class="brand-sub" data-lang="de">LANDSCHAFTSFOTOGRAFIE</span>
             </button>
 
             <nav class="main-menu">
-                <button class="nav-btn active" id="nav-home" onclick="showView('home')" data-pl="Główna" data-en="Home" data-de="Startseite">Główna</button>
-                <button class="nav-btn" id="nav-portfolio" onclick="showView('home')" data-pl="Portfolio" data-en="Portfolio" data-de="Portfolio">Portfolio</button>
-                <button class="nav-btn" id="nav-about" onclick="showView('about')" data-pl="O mnie" data-en="About Me" data-de="Über mich">O mnie</button>
+                <button class="nav-btn active" id="nav-home" onclick="showView('home')">
+                    <span data-lang="pl">Główna</span>
+                    <span data-lang="en">Home</span>
+                    <span data-lang="de">Startseite</span>
+                </button>
+                <button class="nav-btn" id="nav-portfolio" onclick="showView('home'); document.getElementById('portfolio-sec').scrollIntoView({behavior:'smooth'});">
+                    <span data-lang="pl">Portfolio</span>
+                    <span data-lang="en">Portfolio</span>
+                    <span data-lang="de">Portfolio</span>
+                </button>
+                <button class="nav-btn" id="nav-about" onclick="showView('about')">
+                    <span data-lang="pl">O mnie</span>
+                    <span data-lang="en">About Me</span>
+                    <span data-lang="de">Über mich</span>
+                </button>
             </nav>
 
             <div class="languages">
-                <button class="lang-btn active" id="lang-pl" onclick="changeLanguage('pl')">PL</button>
-                <button class="lang-btn" id="lang-en" onclick="changeLanguage('en')">EN</button>
-                <button class="lang-btn" id="lang-de" onclick="changeLanguage('de')">DE</button>
+                <button class="lang-btn active" id="btn-pl" onclick="setLanguage('pl')">PL</button>
+                <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" id="btn-de" onclick="setLanguage('de')">DE</button>
             </div>
         </div>
     </header>
 
-    <!-- HOME VIEW -->
+    <!-- MAIN HOME VIEW -->
     <main id="home-view" class="view-section">
         <!-- HERO -->
         <section class="hero">
             <div class="hero-content">
-                <div class="hero-label" data-pl="Fotografia Krajobrazowa" data-en="Landscape Photography" data-de="Landschaftsfotografie">Fotografia Krajobrazowa</div>
-                <h1 data-pl="Chwytając <span>światło</span> i ulotne chwile." data-en="Capturing <span>light</span> and fleeting moments." data-de="Licht und <span>flüchtige</span> Momente einfangen.">Chwytając <span>światło</span> i ulotne chwile.</h1>
-                <p class="hero-text" data-pl="Odkrywaj naturę, poranne mgły, górskie szczyty i miejskie pejzaże uchwycone w wyjątkowych kadrach." data-en="Discover nature, morning mists, mountain peaks, and urban landscapes captured in unique frames." data-de="Entdecken Sie die Natur, Morgennebel, Berggipfel und Stadtlandschaften in einzigartigen Bildern.">Odkrywaj naturę, poranne mgły, górskie szczyty i miejskie pejzaże uchwycone w wyjątkowych kadrach.</p>
+                <div class="hero-label">
+                    <span data-lang="pl">Fotografia Krajobrazowa</span>
+                    <span data-lang="en">Landscape Photography</span>
+                    <span data-lang="de">Landschaftsfotografie</span>
+                </div>
+                
+                <h1 data-lang="pl">Chwytając <span>światło</span> i ulotne chwile.</h1>
+                <h1 data-lang="en">Capturing <span>light</span> and fleeting moments.</h1>
+                <h1 data-lang="de">Licht und <span>flüchtige</span> Momente einfangen.</h1>
+
+                <p class="hero-text" data-lang="pl">Odkrywaj naturę, poranne mgły, górskie szczyty i miejskie pejzaże uchwycone w wyjątkowych kadrach.</p>
+                <p class="hero-text" data-lang="en">Discover nature, morning mists, mountain peaks, and urban landscapes captured in unique frames.</p>
+                <p class="hero-text" data-lang="de">Entdecken Sie die Natur, Morgennebel, Berggipfel und Stadtlandschaften in einzigartigen Bildern.</p>
+
                 <div class="hero-actions">
-                    <button class="primary-btn" onclick="document.getElementById('portfolio-sec').scrollIntoView({behavior: 'smooth'})" data-pl="Zobacz Galerię" data-en="View Gallery" data-de="Galerie Ansehen">Zobacz Galerię</button>
-                    <button class="secondary-btn" onclick="showView('about')" data-pl="Poznaj Mnie" data-en="Meet Me" data-de="Über Mich">Poznaj Mnie</button>
+                    <button class="primary-btn" onclick="document.getElementById('portfolio-sec').scrollIntoView({behavior: 'smooth'})">
+                        <span data-lang="pl">Zobacz Galerię</span>
+                        <span data-lang="en">View Gallery</span>
+                        <span data-lang="de">Galerie Ansehen</span>
+                    </button>
+                    <button class="secondary-btn" onclick="showView('about')">
+                        <span data-lang="pl">Poznaj Mnie</span>
+                        <span data-lang="en">Meet Me</span>
+                        <span data-lang="de">Über Mich</span>
+                    </button>
                 </div>
             </div>
+
             <div class="hero-visual">
                 <div class="hero-frame">
                     <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Landscape Photo">
                 </div>
                 <div class="hero-badge">
-                    <strong data-pl="Natura & Pasja" data-en="Nature & Passion" data-de="Natur & Leidenschaft">Natura & Pasja</strong>
-                    <span data-pl="Cytruszek84 Photography" data-en="Cytruszek84 Photography" data-de="Cytruszek84 Fotografie">Cytruszek84 Photography</span>
+                    <strong data-lang="pl">Natura & Pasja</strong>
+                    <strong data-lang="en">Nature & Passion</strong>
+                    <strong data-lang="de">Natur & Leidenschaft</strong>
+                    <span>Cytruszek84 Photography</span>
                 </div>
             </div>
         </section>
 
-        <!-- PORTFOLIO CATEGORIES -->
+        <!-- FOLDERS / CATEGORIES SECTION -->
         <section id="portfolio-sec" class="section">
             <div class="section-heading">
-                <div class="section-label" data-pl="Kategorie" data-en="Categories" data-de="Kategorien">Kategorie</div>
-                <h2 data-pl="Galeria Zdjęć" data-en="Photo Gallery" data-de="Fotogalerie">Galeria Zdjęć</h2>
-                <p data-pl="Wybierz kategorię, aby zobaczyć zebrane fotografie." data-en="Select a category to explore the collected photographs." data-de="Wählen Sie eine Kategorie, um die Fotosammlung zu erkunden.">Wybierz kategorię, aby zobaczyć zebrane fotografie.</p>
+                <div class="section-label" data-lang="pl">Kategorie</div>
+                <div class="section-label" data-lang="en">Categories</div>
+                <div class="section-label" data-lang="de">Kategorien</div>
+
+                <h2 data-lang="pl">Galeria Zdjęć</h2>
+                <h2 data-lang="en">Photo Gallery</h2>
+                <h2 data-lang="de">Fotogalerie</h2>
+
+                <p data-lang="pl">Wybierz kategorię, aby zobaczyć zebrane fotografie.</p>
+                <p data-lang="en">Select a category to explore the collected photographs.</p>
+                <p data-lang="de">Wählen Sie eine Kategorie, um die Fotosammlung zu erkunden.</p>
             </div>
 
             <div class="folders-grid">
-                <div class="folder-card" onclick="alert('Kategoria Krajobrazy')">
+                <!-- FOLDER 1 -->
+                <div class="folder-card" onclick="openFolder('Krajobrazy')">
                     <div class="folder-art art-1"></div>
                     <div class="folder-number">01</div>
                     <div class="folder-info">
-                        <div class="folder-title" data-pl="Krajobrazy" data-en="Landscapes" data-de="Landschaften">Krajobrazy</div>
-                        <div class="folder-count" data-pl="Natura, mgły i poranki" data-en="Nature, mists and mornings" data-de="Natur, Nebel und Morgenstunden">Natura, mgły i poranki</div>
+                        <div class="folder-title" data-lang="pl">Krajobrazy</div>
+                        <div class="folder-title" data-lang="en">Landscapes</div>
+                        <div class="folder-title" data-lang="de">Landschaften</div>
+
+                        <div class="folder-count" data-lang="pl">Natura, mgły i poranki</div>
+                        <div class="folder-count" data-lang="en">Nature, mists and mornings</div>
+                        <div class="folder-count" data-lang="de">Natur, Nebel und Morgenstunden</div>
                     </div>
                 </div>
 
-                <div class="folder-card" onclick="alert('Kategoria Góry')">
+                <!-- FOLDER 2 -->
+                <div class="folder-card" onclick="openFolder('Góry')">
                     <div class="folder-art art-2"></div>
                     <div class="folder-number">02</div>
                     <div class="folder-info">
-                        <div class="folder-title" data-pl="Góry" data-en="Mountains" data-de="Berge">Góry</div>
-                        <div class="folder-count" data-pl="Szczyty i szlaki" data-en="Peaks and trails" data-de="Gipfel und Pfade">Szczyty i szlaki</div>
+                        <div class="folder-title" data-lang="pl">Góry</div>
+                        <div class="folder-title" data-lang="en">Mountains</div>
+                        <div class="folder-title" data-lang="de">Berge</div>
+
+                        <div class="folder-count" data-lang="pl">Szczyty i szlaki</div>
+                        <div class="folder-count" data-lang="en">Peaks and trails</div>
+                        <div class="folder-count" data-lang="de">Gipfel und Pfade</div>
                     </div>
                 </div>
 
-                <div class="folder-card" onclick="alert('Kategoria Miasta')">
+                <!-- FOLDER 3 -->
+                <div class="folder-card" onclick="openFolder('Miasta')">
                     <div class="folder-art art-3"></div>
                     <div class="folder-number">03</div>
                     <div class="folder-info">
-                        <div class="folder-title" data-pl="Miasta" data-en="Urban" data-de="Städte">Miasta</div>
-                        <div class="folder-count" data-pl="Architektura i światła nocą" data-en="Architecture & night lights" data-de="Architektur & Nachtlichter">Architektura i światła nocą</div>
+                        <div class="folder-title" data-lang="pl">Miasta</div>
+                        <div class="folder-title" data-lang="en">Urban</div>
+                        <div class="folder-title" data-lang="de">Städte</div>
+
+                        <div class="folder-count" data-lang="pl">Architektura i światła nocą</div>
+                        <div class="folder-count" data-lang="en">Architecture & night lights</div>
+                        <div class="folder-count" data-lang="de">Architektur & Nachtlichter</div>
                     </div>
                 </div>
 
-                <div class="folder-card" onclick="alert('Kategoria Zmierzch & Noc')">
+                <!-- FOLDER 4 -->
+                <div class="folder-card" onclick="openFolder('Zmierzch & Noc')">
                     <div class="folder-art art-4"></div>
                     <div class="folder-number">04</div>
                     <div class="folder-info">
-                        <div class="folder-title" data-pl="Zmierzch & Noc" data-en="Dusk & Night" data-de="Dämmerung & Nacht">Zmierzch & Noc</div>
-                        <div class="folder-count" data-pl="Gwiazdy i smugi światła" data-en="Stars and light trails" data-de="Sterne und Lichtspuren">Gwiazdy i smugi światła</div>
+                        <div class="folder-title" data-lang="pl">Zmierzch & Noc</div>
+                        <div class="folder-title" data-lang="en">Dusk & Night</div>
+                        <div class="folder-title" data-lang="de">Dämmerung & Nacht</div>
+
+                        <div class="folder-count" data-lang="pl">Gwiazdy i smugi światła</div>
+                        <div class="folder-count" data-lang="en">Stars and light trails</div>
+                        <div class="folder-count" data-lang="de">Sterne und Lichtspuren</div>
+                    </div>
+                </div>
+
+                <!-- FOLDER 5 -->
+                <div class="folder-card" onclick="openFolder('Natura')">
+                    <div class="folder-art art-5"></div>
+                    <div class="folder-number">05</div>
+                    <div class="folder-info">
+                        <div class="folder-title" data-lang="pl">Natura</div>
+                        <div class="folder-title" data-lang="en">Nature</div>
+                        <div class="folder-title" data-lang="de">Natur</div>
+
+                        <div class="folder-count" data-lang="pl">Flora i ujęcia makro</div>
+                        <div class="folder-count" data-lang="en">Flora and macro shots</div>
+                        <div class="folder-count" data-lang="de">Flora und Makroaufnahmen</div>
+                    </div>
+                </div>
+
+                <!-- FOLDER 6 -->
+                <div class="folder-card" onclick="openFolder('Woda')">
+                    <div class="folder-art art-6"></div>
+                    <div class="folder-number">06</div>
+                    <div class="folder-info">
+                        <div class="folder-title" data-lang="pl">Rzeki & Jeziora</div>
+                        <div class="folder-title" data-lang="en">Rivers & Lakes</div>
+                        <div class="folder-title" data-lang="de">Flüsse & Seen</div>
+
+                        <div class="folder-count" data-lang="pl">Odbicia i żywioł wody</div>
+                        <div class="folder-count" data-lang="en">Reflections and water elements</div>
+                        <div class="folder-count" data-lang="de">Spiegelungen und Wasserelemente</div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- ABOUT VIEW -->
-    <section id="about-view" class="section view-section">
+    <!-- GALLERY VIEW (FULL GRID) -->
+    <section id="gallery-view" class="section">
+        <div class="gallery-header">
+            <button class="back-btn" onclick="showView('home')">
+                <span data-lang="pl">← Powrót do kategorii</span>
+                <span data-lang="en">← Back to categories</span>
+                <span data-lang="de">← Zurück zu den Kategorien</span>
+            </button>
+            <h2 id="gallery-category-title" class="gallery-title">Krajobrazy</h2>
+        </div>
+
+        <div class="photo-grid" id="photo-grid-container">
+            <!-- Dynamic / Firebase Grid Items -->
+            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80')">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Landscape 1">
+            </div>
+            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1511884642898-4c92249e20b6?auto=format&fit=crop&w=1600&q=80')">
+                <img src="https://images.unsplash.com/photo-1511884642898-4c92249e20b6?auto=format&fit=crop&w=600&q=80" alt="Landscape 2">
+            </div>
+            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=1600&q=80')">
+                <img src="https://images.unsplash.com/photo-1434725039720-aaad6dd32dfe?auto=format&fit=crop&w=600&q=80" alt="Landscape 3">
+            </div>
+            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=80')">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Landscape 4">
+            </div>
+            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80')">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80" alt="Landscape 5">
+            </div>
+            <div class="photo-card" onclick="openLightbox('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80')">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" alt="Landscape 6">
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT VIEW SECTION (COMPLETE MULTI-LANGUAGE HTML BINDING) -->
+    <section id="about-view" class="section">
         <div class="about-layout">
             <div class="about-photo">
                 <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80" alt="Piotr - Cytruszek84">
-                <div class="about-photo-label" 
-                     data-pl="Fotograf Krajobrazu" 
-                     data-en="Landscape Photographer" 
-                     data-de="Landschaftsfotograf">
-                     Fotograf Krajobrazu
-                </div>
+                <div class="about-photo-label" data-lang="pl">Fotograf Krajobrazu</div>
+                <div class="about-photo-label" data-lang="en">Landscape Photographer</div>
+                <div class="about-photo-label" data-lang="de">Landschaftsfotograf</div>
             </div>
             
             <div class="about-content">
-                <h2 data-pl="O mnie" 
-                    data-en="About Me" 
-                    data-de="Über mich">
-                    O mnie
-                </h2>
+                <!-- HEADINGS -->
+                <h2 data-lang="pl">O mnie</h2>
+                <h2 data-lang="en">About Me</h2>
+                <h2 data-lang="de">Über mich</h2>
                 
-                <p data-pl="Witaj! Nazywam się Piotr. Fotografia to moja pasja, w której skupiam się na chwytaniu piękna natury, górskich krajobrazów, porannych mgieł, nocnego nieba oraz wyjątkowej gry światła."
-                   data-en="Welcome! My name is Piotr. Photography is my passion, where I focus on capturing the beauty of nature, mountain landscapes, morning mists, night skies, and the unique play of light."
-                   data-de="Willkommen! Mein Name ist Piotr. Fotografie ist meine Leidenschaft, bei der ich mich darauf konzentriere, die Schönheit der Natur, Berglandschaften, Morgennebel, den Nachthimmel und das besondere Spiel des Lichts einzufangen.">
-                   Witaj! Nazywam się Piotr. Fotografia to moja pasja, w której skupiam się na chwytaniu piękna natury, górskich krajobrazów, porannych mgieł, nocnego nieba oraz wyjątkowej gry światła.
-                </p>
+                <!-- POLISH TEXT -->
+                <div data-lang="pl">
+                    <p>Witaj! Nazywam się Piotr. Fotografia to moja pasja, w której skupiam się na chwytaniu piękna natury, górskich krajobrazów, porannych mgieł, nocnego nieba oraz wyjątkowej gry światła.</p>
+                    <p>Pracuję z aparatem Sony DSC-HX400V, wyciągając z niego wszystko, co najlepsze – od malowniczych wschodów i zachodów słońca po eksperymenty z malowaniem światłem oraz długim czasem naświetlania.</p>
+                    <p>Kamera towarzyszy mi w podróżach i codziennych kadrach, pozwalając zatrzymać ulotne chwile i ukazać świat z perspektywy pełnej spokoju, magii oraz dopracowanych detali.</p>
+                </div>
 
-                <p data-pl="Pracuję z aparatem Sony DSC-HX400V, wyciągając z niego wszystko, co najlepsze – od malowniczych wschodów i zachodów słońca po eksperymenty z malowaniem światłem oraz długim czssem naświetlania."
-                   data-en="I shoot with a Sony DSC-HX400V camera, squeezing the best out of it – from picturesque sunrises and sunsets to light painting experiments and long exposure shots."
-                   data-de="Ich fotografiere mit einer Sony DSC-HX400V Kamera und hole das Beste aus ihr heraus – von malerischen Sonnenauf- und -untergängen bis hin zu Lichtmalerei-Experimenten und Langzeitbelichtungen.">
-                   Pracuję z aparatem Sony DSC-HX400V, wyciągając z niego wszystko, co najlepsze – od malowniczych wschodów i zachodów słońca po eksperymenty z malowaniem światłem oraz długim czasem naświetlania.
-                </p>
-                
-                <p data-pl="Kamera towarzyszy mi w podróżach i codziennych kadrach, pozwalając zatrzymać ulotne chwile i ukazać świat z perspektywy pełnej spokoju, magii oraz dopracowanych detali."
-                   data-en="My camera accompanies me on travels and everyday moments, allowing me to freeze fleeting memories and show the world through a perspective full of peace, magic, and refined details."
-                   data-de="Meine Kamera begleitet mich auf Reisen und im Alltag. Sie ermöglicht es mir, flüchtige Momente festzuhalten und die Welt aus einer Perspektive voller Ruhe, Magie und durchdachter Details zu zeigen.">
-                   Kamera towarzyszy mi w podróżach i codziennych kadrach, pozwalając zatrzymać ulotne chwile i ukazać świat z perspektywy pełnej spokoju, magii oraz dopracowanych detali.
-                </p>
+                <!-- ENGLISH TEXT -->
+                <div data-lang="en">
+                    <p>Welcome! My name is Piotr. Photography is my passion, where I focus on capturing the beauty of nature, mountain landscapes, morning mists, night skies, and the unique play of light.</p>
+                    <p>I shoot with a Sony DSC-HX400V camera, squeezing the best out of it – from picturesque sunrises and sunsets to light painting experiments and long exposure shots.</p>
+                    <p>My camera accompanies me on travels and everyday moments, allowing me to freeze fleeting memories and show the world through a perspective full of peace, magic, and refined details.</p>
+                </div>
+
+                <!-- GERMAN TEXT -->
+                <div data-lang="de">
+                    <p>Willkommen! Mein Name ist Piotr. Fotografie ist meine Leidenschaft, bei der ich mich darauf konzentriere, die Schönheit der Natur, Berglandschaften, Morgennebel, den Nachthimmel und das besondere Spiel des Lichts einzufangen.</p>
+                    <p>Ich fotografiere mit einer Sony DSC-HX400V Kamera und hole das Beste aus ihr heraus – von malerischen Sonnenauf- und -untergängen bis hin zu Lichtmalerei-Experimenten und Langzeitbelichtungen.</p>
+                    <p>Meine Kamera begleitet mich auf Reisen und im Alltag. Sie ermöglicht es mir, flüchtige Momente festzuhalten und die Welt aus einer Perspektive voller Ruhe, Magie und durchdachter Details zu zeigen.</p>
+                </div>
                 
                 <div class="about-signature">Cytruszek84</div>
             </div>
@@ -794,12 +1120,17 @@
     <section class="social-section section">
         <div class="social-box">
             <div>
-                <h2 data-pl="Dołącz do społeczności" data-en="Join the Community" data-de="Treten Sie der Community bei">Dołącz do społeczności</h2>
-                <p data-pl="Śledź moje najnowsze kadry i projekty fotograficzne." data-en="Follow my latest shots and photography projects." data-de="Folgen Sie meinen neuesten Fotos und Fotoprojekten.">Śledź moje najnowsze kadry i projekty fotograficzne.</p>
+                <h2 data-lang="pl">Dołącz do społeczności</h2>
+                <h2 data-lang="en">Join the Community</h2>
+                <h2 data-lang="de">Treten Sie der Community bei</h2>
+
+                <p data-lang="pl">Śledź moje najnowsze kadry i projekty fotograficzne.</p>
+                <p data-lang="en">Follow my latest shots and photography projects.</p>
+                <p data-lang="de">Folgen Sie meinen neuesten Fotos und Fotoprojekten.</p>
             </div>
             <div class="social-links">
                 <a href="#" class="social-link">Instagram</a>
-                <a href="#" class="social-link">GitHub</a>
+                <a href="https://github.com/cytruszek84" target="_blank" class="social-link">GitHub</a>
             </div>
         </div>
     </section>
@@ -807,58 +1138,109 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-brand">CYTRUSZEK84</div>
-        <p class="footer-copy" data-pl="Fotografia Krajobrazowa & Natura" data-en="Landscape & Nature Photography" data-de="Landschafts- & Naturfotografie">Fotografia Krajobrazowa & Natura</p>
+        <p class="footer-copy" data-lang="pl">Fotografia Krajobrazowa & Natura</p>
+        <p class="footer-copy" data-lang="en">Landscape & Nature Photography</p>
+        <p class="footer-copy" data-lang="de">Landschafts- & Naturfotografie</p>
         <div class="copyright">© 2026 Cytruszek84. All rights reserved.</div>
     </footer>
 
-    <!-- JAVASCRIPT FOR MULTI-LANGUAGE & VIEW SWITCHING -->
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" alt="Enlarged view">
+    </div>
+
+    <!-- JAVASCRIPT: FIREBASE, VIEWS, LIGHTBOX, MULTI-LANGUAGE -->
     <script>
-        // Language Switcher Function
-        function changeLanguage(lang) {
-            // Update active state on language buttons
+        // 1. FIREBASE INITIALIZATION PLACEHOLDER
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "cytruszek84.firebaseapp.com",
+            projectId: "cytruszek84",
+            storageBucket: "cytruszek84.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abc123def456"
+        };
+        
+        // Initialize Firebase if compat libraries loaded
+        if (typeof firebase !== 'undefined') {
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            console.log("Firebase initialized successfully.");
+        }
+
+        // 2. MULTI-LANGUAGE LOGIC (CSS CLASS SWITCHER + LOCALSTORAGE)
+        function setLanguage(lang) {
+            // Apply body class
+            document.body.className = `lang-${lang}`;
+
+            // Update active state on navigation language buttons
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById(`lang-${lang}`);
+            const activeBtn = document.getElementById(`btn-${lang}`);
             if (activeBtn) activeBtn.classList.add('active');
 
-            // Find all elements with translation attributes
-            const translatableElements = document.querySelectorAll('[data-pl][data-en][data-de]');
-            
-            translatableElements.forEach(el => {
-                const translation = el.getAttribute(`data-${lang}`);
-                if (translation) {
-                    el.innerHTML = translation;
-                }
-            });
-
-            // Save preferred language in LocalStorage
-            localStorage.setItem('preferred_lang', lang);
+            // Save preference to LocalStorage
+            localStorage.setItem('cytruszek_lang', lang);
         }
 
-        // Simple Single Page View Switching (Home vs About)
+        // 3. SINGLE PAGE VIEW SWITCHER
         function showView(viewName) {
             const homeView = document.getElementById('home-view');
+            const galleryView = document.getElementById('gallery-view');
             const aboutView = document.getElementById('about-view');
+            
             const navHome = document.getElementById('nav-home');
+            const navPortfolio = document.getElementById('nav-portfolio');
             const navAbout = document.getElementById('nav-about');
 
+            // Reset active states on menu
+            navHome.classList.remove('active');
+            navPortfolio.classList.remove('active');
+            navAbout.classList.remove('active');
+
+            // Hide all views
+            homeView.style.display = 'none';
+            galleryView.style.display = 'none';
+            aboutView.style.display = 'none';
+
             if (viewName === 'about') {
-                homeView.style.display = 'none';
                 aboutView.style.display = 'block';
-                navHome.classList.remove('active');
                 navAbout.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (viewName === 'gallery') {
+                galleryView.style.display = 'block';
+                navPortfolio.classList.add('active');
             } else {
                 homeView.style.display = 'block';
-                aboutView.style.display = 'none';
                 navHome.classList.add('active');
-                navAbout.classList.remove('active');
             }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Initialize preferred language on DOM load
+        function openFolder(categoryName) {
+            document.getElementById('gallery-category-title').innerText = categoryName;
+            showView('gallery');
+        }
+
+        // 4. LIGHTBOX MECHANISM
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imgSrc;
+            lightbox.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 5. ON LOAD INITIALIZATION
         document.addEventListener('DOMContentLoaded', () => {
-            const savedLang = localStorage.getItem('preferred_lang') || 'pl';
-            changeLanguage(savedLang);
+            const savedLang = localStorage.getItem('cytruszek_lang') || 'pl';
+            setLanguage(savedLang);
         });
     </script>
 </body>
