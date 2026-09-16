@@ -13,25 +13,6 @@
 
     <meta name="theme-color" content="#f7f5f0">
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-83HTNWWCL"></script>
-
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag("js", new Date());
-        gtag("config", "G-83HTNWWCL");
-    </script>
-
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
-
     <style>
         * {
             box-sizing: border-box;
@@ -454,7 +435,9 @@
         ========================= */
 
         #gallery-view,
-        #about-view {
+        #about-view,
+        #contact-view,
+        #privacy-view {
             display: none;
         }
 
@@ -613,6 +596,78 @@
         }
 
         /* =========================
+           CONTACT & LEGAL
+        ========================= */
+
+        .content-card {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: clamp(28px, 5vw, 55px);
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .content-card h1 {
+            margin-bottom: 22px;
+            color: var(--dark);
+            font-family: Georgia, serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 500;
+        }
+
+        .content-card h2 {
+            margin: 32px 0 12px;
+            color: var(--dark);
+            font-family: Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 600;
+        }
+
+        .content-card h2:first-child {
+            margin-top: 0;
+        }
+
+        .content-card p,
+        .content-card li {
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .content-card p + p {
+            margin-top: 12px;
+        }
+
+        .content-card ul {
+            margin: 12px 0 0 22px;
+        }
+
+        .content-card a {
+            color: #8b642b;
+            font-weight: 700;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+        }
+
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 25px;
+            padding: 15px 24px;
+            border-radius: 50px;
+            background: var(--dark);
+            color: var(--white) !important;
+            text-decoration: none;
+            transition: .25s ease;
+        }
+
+        .contact-email:hover {
+            background: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* =========================
            SOCIAL
         ========================= */
 
@@ -695,19 +750,26 @@
             margin-top: 12px;
         }
 
-        .visit-box {
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 9px 18px;
             margin-top: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            border: 1px solid rgba(255,255,255,.12);
-            border-radius: 50px;
         }
 
-        .visit-number {
-            color: white;
-            font-weight: 800;
+        .footer-link {
+            border: 0;
+            background: transparent;
+            color: #d8dde0;
+            cursor: pointer;
+            font-size: .78rem;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .footer-link:hover {
+            color: #d8a866;
         }
 
         /* =========================
@@ -840,6 +902,7 @@
             .social-link {
                 width: 100%;
             }
+
         }
 
         @media (max-width: 430px) {
@@ -892,6 +955,14 @@
                 onclick="showAbout()"
             >
                 O mnie
+            </button>
+
+            <button
+                class="nav-btn"
+                id="nav-contact"
+                onclick="showContact()"
+            >
+                Kontakt
             </button>
 
         </nav>
@@ -1181,6 +1252,46 @@
 </section>
 
 <!-- =========================
+     CONTACT
+========================= -->
+
+<section
+    id="contact-view"
+    class="section"
+>
+    <div class="content-card">
+        <div class="section-label" id="contact-label">Kontakt</div>
+        <h1 id="contact-title">Napisz do mnie</h1>
+        <p id="contact-text">
+            Masz pytanie dotyczące moich fotografii?
+            Napisz do mnie wiadomość.
+        </p>
+        <a
+            class="contact-email"
+            href="mailto:cytruszek84@gmail.com"
+            id="contact-email"
+        >
+            cytruszek84@gmail.com
+        </a>
+    </div>
+</section>
+
+<!-- =========================
+     PRIVACY POLICY
+========================= -->
+
+<section
+    id="privacy-view"
+    class="section"
+>
+    <div class="content-card">
+        <div class="section-label" id="privacy-label">Informacje prawne</div>
+        <h1 id="privacy-title">Polityka prywatności</h1>
+        <div id="privacy-text"></div>
+    </div>
+</section>
+
+<!-- =========================
      LIGHTBOX
 ========================= -->
 
@@ -1232,115 +1343,18 @@
         Kopiowanie i rozpowszechnianie bez zgody autora jest zabronione.
     </p>
 
-    <div class="visit-box">
-
-        <span id="footer-visits">
-            Odwiedziny
-        </span>
-
-        <span
-            class="visit-number"
-            id="visit-counter"
-        >
-            …
-        </span>
-
+    <div class="footer-links">
+        <button class="footer-link" id="footer-contact" onclick="showContact()">
+            Kontakt
+        </button>
+        <button class="footer-link" id="footer-privacy" onclick="showPrivacy()">
+            Polityka prywatności
+        </button>
     </div>
 
 </footer>
 
 <script>
-/* =========================================================
-   FIREBASE
-========================================================= */
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDv2QED1ZHbd3xDWIBhcLQJd7Zd7Rz-tWw",
-    authDomain: "cytruszek84-c2e33.firebaseapp.com",
-    projectId: "cytruszek84-c2e33",
-    storageBucket: "cytruszek84-c2e33.firebasestorage.app",
-    messagingSenderId: "89741680278",
-    appId: "1:89741680278:web:1f032fb3cf28ee73d02cb7",
-    measurementId: "G-83HTNWWCL"
-};
-
-let db = null;
-
-try {
-    firebase.initializeApp(firebaseConfig);
-
-    db = firebase.firestore();
-
-    try {
-        firebase.analytics();
-    } catch (error) {
-        console.warn("Firebase Analytics niedostępne.");
-    }
-
-} catch (error) {
-    console.error("Błąd inicjalizacji Firebase:", error);
-}
-
-
-/* =========================================================
-   LICZNIK ODWIEDZIN
-========================================================= */
-
-function updateVisitCounter() {
-
-    const counterElement =
-        document.getElementById("visit-counter");
-
-    if (!db) {
-        counterElement.textContent = "—";
-        return;
-    }
-
-    const counterRef =
-        db.collection("stats").doc("visits");
-
-    db.runTransaction(async transaction => {
-
-        const doc =
-            await transaction.get(counterRef);
-
-        let count = 1;
-
-        if (doc.exists) {
-
-            const oldCount =
-                Number(doc.data().count) || 0;
-
-            count = oldCount + 1;
-        }
-
-        transaction.set(
-            counterRef,
-            { count: count },
-            { merge: true }
-        );
-
-        return count;
-
-    })
-    .then(count => {
-
-        counterElement.textContent =
-            count.toLocaleString("pl-PL");
-
-    })
-    .catch(error => {
-
-        console.error(
-            "Błąd licznika odwiedzin:",
-            error
-        );
-
-        counterElement.textContent = "—";
-    });
-}
-
-
 /* =========================================================
    USTAWIENIA
 ========================================================= */
@@ -1404,6 +1418,7 @@ const translations = {
     pl: {
         navGallery: "Galeria",
         navAbout: "O mnie",
+        navContact: "Kontakt",
 
         heroLabel: "Fotografia",
 
@@ -1456,11 +1471,42 @@ const translations = {
         back:
             "← Wróć do kolekcji",
 
-        visits:
-            "Odwiedziny",
-
         copyright:
             "© Wszystkie fotografie są chronione prawem autorskim. Kopiowanie i rozpowszechnianie bez zgody autora jest zabronione.",
+
+        contactLabel: "Kontakt",
+        contactTitle: "Napisz do mnie",
+        contactText:
+            "Masz pytanie dotyczące moich fotografii? Napisz do mnie wiadomość.",
+
+        legalLabel: "Informacje prawne",
+        privacyTitle: "Polityka prywatności",
+
+        privacyText: `
+            <h2>1. Charakter strony</h2>
+            <p>Ta strona jest prywatną, niekomercyjną galerią fotograficzną prowadzoną hobbystycznie przez autora występującego jako <strong>Cytruszek84</strong>. Kontakt: <a href="mailto:cytruszek84@gmail.com">cytruszek84@gmail.com</a>.</p>
+
+            <h2>2. Hosting przez GitHub Pages</h2>
+            <p>Strona jest hostowana przez GitHub Pages, usługę GitHub, Inc., 88 Colin P Kelly Jr Street, San Francisco, CA 94107, USA. Podczas wyświetlania strony GitHub może przetwarzać dane techniczne, w szczególności adres IP, datę i godzinę dostępu, żądany plik, typ przeglądarki i system operacyjny. Przetwarzanie służy bezpiecznemu i stabilnemu udostępnieniu strony.</p>
+
+            <h2>3. Brak statystyk i reklam</h2>
+            <p>Strona nie korzysta z Google Analytics, Firebase, reklam, formularzy kontaktowych, newslettera ani osadzonych materiałów społecznościowych. Nie są tworzone profile użytkowników. W przeglądarce zapisywany jest jedynie wybrany język strony, aby zachować to ustawienie podczas kolejnej wizyty.</p>
+
+            <h2>4. Kontakt przez e-mail</h2>
+            <p>Jeżeli dobrowolnie wyślesz wiadomość e-mail, podane w niej dane będą wykorzystane wyłącznie do przeczytania wiadomości i udzielenia odpowiedzi. Wiadomość zostanie usunięta, gdy nie będzie już potrzebna, chyba że przepisy wymagają jej dłuższego przechowywania.</p>
+
+            <h2>5. Linki zewnętrzne</h2>
+            <p>Linki do Instagrama i TikToka są zwykłymi odnośnikami. Po kliknięciu opuszczasz tę stronę i obowiązują zasady prywatności wybranego serwisu. Na stronie nie są osadzone wtyczki społecznościowe ani filmy.</p>
+
+            <h2>6. Twoje prawa</h2>
+            <p>Jeżeli przetwarzane są Twoje dane osobowe, możesz — w granicach obowiązujących przepisów — poprosić o dostęp, sprostowanie, usunięcie lub ograniczenie ich przetwarzania. W tym celu napisz na adres <a href="mailto:cytruszek84@gmail.com">cytruszek84@gmail.com</a>. Masz również prawo złożyć skargę do właściwego organu nadzorczego.</p>
+
+            <h2>7. Aktualność dokumentu</h2>
+            <p>Stan: 16 września 2026 r. Tekst należy zaktualizować, jeśli zmienią się używane usługi albo sposób działania strony.</p>
+        `,
+
+        footerContact: "Kontakt",
+        footerPrivacy: "Polityka prywatności",
 
         photoCount:
             "fotografii"
@@ -1469,6 +1515,7 @@ const translations = {
     en: {
         navGallery: "Gallery",
         navAbout: "About me",
+        navContact: "Contact",
 
         heroLabel: "Photography",
 
@@ -1525,11 +1572,42 @@ const translations = {
         back:
             "← Back to collections",
 
-        visits:
-            "Visits",
-
         copyright:
             "© All photographs are protected by copyright. Copying or distributing them without permission is prohibited.",
+
+        contactLabel: "Contact",
+        contactTitle: "Get in touch",
+        contactText:
+            "Do you have a question about my photography? Send me an email.",
+
+        legalLabel: "Legal information",
+        privacyTitle: "Privacy policy",
+
+        privacyText: `
+            <h2>1. Nature of this website</h2>
+            <p>This is a private, non-commercial photography gallery maintained as a hobby by the author known as <strong>Cytruszek84</strong>. Contact: <a href="mailto:cytruszek84@gmail.com">cytruszek84@gmail.com</a>.</p>
+
+            <h2>2. GitHub Pages hosting</h2>
+            <p>This website is hosted with GitHub Pages, a service of GitHub, Inc., 88 Colin P Kelly Jr Street, San Francisco, CA 94107, USA. When the website is accessed, GitHub may process technical data, especially the IP address, access date and time, requested file, browser type and operating system. This processing is used to provide the website securely and reliably.</p>
+
+            <h2>3. No analytics or advertising</h2>
+            <p>This website does not use Google Analytics, Firebase, advertising, contact forms, newsletters or embedded social media content. No user profiles are created. Only the selected website language is stored in the browser so that this preference can be remembered on a future visit.</p>
+
+            <h2>4. Contact by email</h2>
+            <p>If you voluntarily send an email, the information it contains will be used solely to read the message and respond. The message will be deleted when it is no longer required, unless a longer retention period is required by law.</p>
+
+            <h2>5. External links</h2>
+            <p>Instagram and TikTok are linked through ordinary links. After selecting one, you leave this website and the privacy rules of the chosen service apply. No social media plug-ins or videos are embedded on this website.</p>
+
+            <h2>6. Your rights</h2>
+            <p>If your personal data is processed, you may — within the limits of applicable law — request access, rectification, erasure or restriction of processing. Contact <a href="mailto:cytruszek84@gmail.com">cytruszek84@gmail.com</a>. You also have the right to lodge a complaint with a competent supervisory authority.</p>
+
+            <h2>7. Status</h2>
+            <p>Last updated: 16 September 2026. This document must be updated if the services used by the website or their operation change.</p>
+        `,
+
+        footerContact: "Contact",
+        footerPrivacy: "Privacy policy",
 
         photoCount:
             "photographs"
@@ -1538,6 +1616,7 @@ const translations = {
     de: {
         navGallery: "Galerie",
         navAbout: "Über mich",
+        navContact: "Kontakt",
 
         heroLabel: "Fotografie",
 
@@ -1594,11 +1673,42 @@ const translations = {
         back:
             "← Zurück zu den Sammlungen",
 
-        visits:
-            "Besuche",
-
         copyright:
             "© Alle Fotografien sind urheberrechtlich geschützt. Kopieren und Verbreiten ohne Genehmigung ist untersagt.",
+
+        contactLabel: "Kontakt",
+        contactTitle: "Schreib mir",
+        contactText:
+            "Hast du eine Frage zu meinen Fotografien? Schreib mir eine E-Mail.",
+
+        legalLabel: "Rechtliche Informationen",
+        privacyTitle: "Datenschutzerklärung",
+
+        privacyText: `
+            <h2>1. Charakter dieser Website</h2>
+            <p>Diese Website ist eine private, nicht kommerzielle Fotogalerie, die vom unter dem Namen <strong>Cytruszek84</strong> auftretenden Autor als Hobby betrieben wird. Kontakt: <a href="mailto:cytruszek84@gmail.com">cytruszek84@gmail.com</a>.</p>
+
+            <h2>2. Hosting durch GitHub Pages</h2>
+            <p>Diese Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub, Inc., 88 Colin P Kelly Jr Street, San Francisco, CA 94107, USA. Beim Aufruf kann GitHub technische Daten verarbeiten, insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs, angeforderte Datei, Browsertyp und Betriebssystem. Die Verarbeitung dient der sicheren und stabilen Bereitstellung der Website.</p>
+
+            <h2>3. Keine Statistiken oder Werbung</h2>
+            <p>Diese Website verwendet weder Google Analytics noch Firebase, Werbung, Kontaktformulare, Newsletter oder eingebettete Social-Media-Inhalte. Es werden keine Nutzerprofile erstellt. Im Browser wird ausschließlich die gewählte Sprache gespeichert, damit diese Einstellung bei einem späteren Besuch erhalten bleibt.</p>
+
+            <h2>4. Kontakt per E-Mail</h2>
+            <p>Wenn du freiwillig eine E-Mail sendest, werden die darin enthaltenen Angaben ausschließlich verwendet, um die Nachricht zu lesen und zu beantworten. Die Nachricht wird gelöscht, sobald sie nicht mehr benötigt wird, sofern keine gesetzliche Pflicht zu einer längeren Aufbewahrung besteht.</p>
+
+            <h2>5. Externe Links</h2>
+            <p>Instagram und TikTok sind nur als normale Links eingebunden. Nach dem Anklicken verlässt du diese Website; dann gelten die Datenschutzbestimmungen des jeweiligen Dienstes. Social-Media-Plugins oder Videos sind nicht eingebettet.</p>
+
+            <h2>6. Deine Rechte</h2>
+            <p>Wenn personenbezogene Daten von dir verarbeitet werden, kannst du im Rahmen der gesetzlichen Voraussetzungen Auskunft, Berichtigung, Löschung oder Einschränkung der Verarbeitung verlangen. Schreibe dazu an <a href="mailto:cytruszek84@gmail.com">cytruszek84@gmail.com</a>. Außerdem besteht ein Beschwerderecht bei einer zuständigen Datenschutzaufsichtsbehörde.</p>
+
+            <h2>7. Stand</h2>
+            <p>Stand: 16. September 2026. Diese Erklärung muss aktualisiert werden, wenn sich die eingesetzten Dienste oder die Funktionsweise der Website ändern.</p>
+        `,
+
+        footerContact: "Kontakt",
+        footerPrivacy: "Datenschutzerklärung",
 
         photoCount:
             "Fotografien"
@@ -1619,6 +1729,29 @@ function getFolderName(folderNumber) {
         (folderNumber - 1) % names.length;
 
     return names[index];
+}
+
+function activateView(viewId, activeNavId = null) {
+    const viewIds = [
+        "home-view",
+        "gallery-view",
+        "about-view",
+        "contact-view",
+        "privacy-view"
+    ];
+
+    viewIds.forEach(id => {
+        document.getElementById(id).style.display = id === viewId ? "block" : "none";
+    });
+
+    ["nav-gallery", "nav-about", "nav-contact"].forEach(id => {
+        const button = document.getElementById(id);
+        const isActive = id === activeNavId;
+        button.classList.toggle("active", isActive);
+        button.setAttribute("aria-current", isActive ? "page" : "false");
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 
@@ -1698,26 +1831,7 @@ function renderFolders() {
 function openFolder(folderNumber) {
 
     currentOpenFolder = folderNumber;
-
-    document.getElementById(
-        "home-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "gallery-view"
-    ).style.display = "block";
-
-    document.getElementById(
-        "about-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "nav-gallery"
-    ).classList.add("active");
-
-    document.getElementById(
-        "nav-about"
-    ).classList.remove("active");
+    activateView("gallery-view", "nav-gallery");
 
     document.getElementById(
         "folder-title-display"
@@ -1792,10 +1906,6 @@ function openFolder(folderNumber) {
         grid.appendChild(card);
     }
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
 }
 
 
@@ -1806,31 +1916,7 @@ function openFolder(folderNumber) {
 function showHome() {
 
     currentOpenFolder = null;
-
-    document.getElementById(
-        "home-view"
-    ).style.display = "block";
-
-    document.getElementById(
-        "gallery-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "about-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "nav-gallery"
-    ).classList.add("active");
-
-    document.getElementById(
-        "nav-about"
-    ).classList.remove("active");
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    activateView("home-view", "nav-gallery");
 }
 
 
@@ -1839,33 +1925,19 @@ function showHome() {
 ========================================================= */
 
 function showAbout() {
-
-    document.getElementById(
-        "home-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "gallery-view"
-    ).style.display = "none";
-
-    document.getElementById(
-        "about-view"
-    ).style.display = "block";
-
-    document.getElementById(
-        "nav-gallery"
-    ).classList.remove("active");
-
-    document.getElementById(
-        "nav-about"
-    ).classList.add("active");
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    currentOpenFolder = null;
+    activateView("about-view", "nav-about");
 }
 
+function showContact() {
+    currentOpenFolder = null;
+    activateView("contact-view", "nav-contact");
+}
+
+function showPrivacy() {
+    currentOpenFolder = null;
+    activateView("privacy-view");
+}
 
 /* =========================================================
    PRZEJŚCIE DO GALERII
@@ -1943,6 +2015,7 @@ function setLanguage(lang) {
 
     document.getElementById("nav-gallery").textContent = t.navGallery;
     document.getElementById("nav-about").textContent = t.navAbout;
+    document.getElementById("nav-contact").textContent = t.navContact;
 
     document.getElementById("hero-label").textContent = t.heroLabel;
     document.getElementById("hero-title").innerHTML = t.heroTitle;
@@ -1961,12 +2034,23 @@ function setLanguage(lang) {
     document.getElementById("about-photo-label").textContent = t.aboutPhoto;
     document.getElementById("about-text").innerHTML = t.aboutText;
 
+    document.getElementById("contact-label").textContent = t.contactLabel;
+    document.getElementById("contact-title").textContent = t.contactTitle;
+    document.getElementById("contact-text").textContent = t.contactText;
+
+    document.getElementById("privacy-label").textContent = t.legalLabel;
+    document.getElementById("privacy-title").textContent = t.privacyTitle;
+    document.getElementById("privacy-text").innerHTML = t.privacyText;
+
     document.getElementById("social-title").textContent = t.socialTitle;
     document.getElementById("social-description").textContent = t.socialDescription;
 
     document.getElementById("back-btn").textContent = t.back;
-    document.getElementById("footer-visits").textContent = t.visits;
     document.getElementById("footer-copyright").textContent = t.copyright;
+    document.getElementById("footer-contact").textContent = t.footerContact;
+    document.getElementById("footer-privacy").textContent = t.footerPrivacy;
+
+    document.documentElement.lang = lang;
 
     renderFolders();
 
@@ -2132,8 +2216,6 @@ document.addEventListener(
 
 const initialLang = detectInitialLanguage();
 setLanguage(initialLang);
-
-updateVisitCounter();
 
 </script>
 
